@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不现实商店 · 成本台账</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1612;
+    --paper: #f5f0e8;
+    --cream: #ede8dc;
+    --red: #c23b2a;
+    --gold: #b8933f;
+    --sage: #7a8c6e;
+    --muted: #8c8070;
+    --blue: #4a5490;
+    --orange: #b85a1a;
+    --border: #ddd6c8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    padding: 36px 24px 80px;
+  }
+
+  header {
+    max-width: 1400px;
+    margin: 0 auto 28px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 16px;
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(20px, 3.5vw, 30px);
+    letter-spacing: -0.5px;
+  }
+  header .sub {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  /* SUMMARY CARDS */
+  .summary-row {
+    max-width: 1400px;
+    margin: 0 auto 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .summary-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    padding: 12px 14px;
+  }
+  .summary-card .s-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .summary-card .s-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--ink);
+  }
+  .summary-card .s-sub {
+    font-size: 9px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* CONTROLS */
+  .controls {
+    max-width: 1400px;
+    margin: 0 auto 16px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .controls select, .controls input {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    padding: 5px 10px;
+    color: var(--ink);
+    outline: none;
+  }
+  .controls select:focus, .controls input:focus {
+    border-color: var(--gold);
+  }
+  .btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+    border: 1.5px solid;
+    cursor: pointer;
+    transition: all 0.12s;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .btn-primary:hover { background: #2d2620; }
+  .btn-outline {
+    background: white;
+    color: var(--ink);
+    border-color: var(--border);
+  }
+  .btn-outline:hover { border-color: var(--ink); }
+  .btn-danger {
+    background: white;
+    color: var(--red);
+    border-color: #e8d0cc;
+    font-size: 9px;
+    padding: 4px 8px;
+  }
+  .btn-danger:hover { background: #fde8e5; }
+
+  /* TABLE */
+  .table-wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+    min-width: 960px;
+  }
+
+  thead {
+    background: var(--cream);
+    border-bottom: 2px solid var(--ink);
+  }
+  thead th {
+    text-align: left;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 12px;
+    white-space: nowrap;
+    border-right: 1px solid var(--border);
+  }
+  thead th:last-child { border-right: none; }
+
+  tbody tr {
+    border-bottom: 1px dashed var(--border);
+    transition: background 0.1s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #faf8f4; }
+  tbody tr.highlight { background: #fdf6e3; }
+
+  tbody td {
+    padding: 9px 12px;
+    border-right: 1px solid #f0ece4;
+    vertical-align: middle;
+  }
+  tbody td:last-child { border-right: none; }
+
+  /* editable cells */
+  td[contenteditable="true"] {
+    outline: none;
+    cursor: text;
+  }
+  td[contenteditable="true"]:focus {
+    background: #fffef8;
+    box-shadow: inset 0 0 0 1.5px var(--gold);
+    border-radius: 1px;
+  }
+
+  .product-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    min-width: 130px;
+  }
+  .series-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .tag-dawenhao { background: #edf2ea; color: var(--sage); border: 1px solid var(--sage); }
+  .tag-mofa     { background: #fdf6e3; color: var(--gold); border: 1px solid var(--gold); }
+  .tag-jiukou   { background: #eef0f8; color: var(--blue); border: 1px solid var(--blue); }
+  .tag-other    { background: #fde8e5; color: var(--red);  border: 1px solid var(--red); }
+  .tag-keyboard { background: #f0ece4; color: var(--orange); border: 1px solid var(--orange); }
+  .tag-cup      { background: #eef4f8; color: #3a7a8c; border: 1px solid #3a7a8c; }
+  .tag-deskpad  { background: #f4eef8; color: #7a3a8c; border: 1px solid #7a3a8c; }
+
+  /* keycap type tags */
+  .kt-pbt       { background: #edf2ea; color: var(--sage);   border: 1px solid var(--sage);   font-size:9px; padding:2px 6px; border-radius:2px; white-space:nowrap; }
+  .kt-metal     { background: #fdf6e3; color: var(--gold);   border: 1px solid var(--gold);   font-size:9px; padding:2px 6px; border-radius:2px; white-space:nowrap; }
+  .kt-pbt-liu   { background: #eef0f8; color: var(--blue);   border: 1px solid var(--blue);   font-size:9px; padding:2px 6px; border-radius:2px; white-space:nowrap; }
+  .kt-pc-liu    { background: #fde8e5; color: var(--red);    border: 1px solid var(--red);    font-size:9px; padding:2px 6px; border-radius:2px; white-space:nowrap; }
+  .kt-pbt-full  { background: #f0e8f4; color: #8a3aac;       border: 1px solid #8a3aac;       font-size:9px; padding:2px 6px; border-radius:2px; white-space:nowrap; }
+  .kt-pbt-metal { background: #fff3e0; color: #b85a1a;       border: 1px solid #b85a1a;       font-size:9px; padding:2px 6px; border-radius:2px; white-space:nowrap; }
+  .kt-na        { color: var(--muted); font-size:9px; }
+
+  .cost-cell {
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .cost-total {
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .cost-muted { color: var(--muted); }
+
+  .margin-cell {
+    font-weight: 700;
+    text-align: right;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .margin-good { color: var(--sage); }
+  .margin-ok   { color: var(--gold); }
+  .margin-thin { color: var(--red); }
+  .margin-na   { color: var(--muted); font-weight: 400; font-style: italic; }
+
+  .maker-tag {
+    font-size: 9px;
+    font-family: 'Space Mono', monospace;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .note-cell {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 10px;
+    color: var(--muted);
+    max-width: 180px;
+    line-height: 1.5;
+  }
+
+  /* section header row */
+  tr.section-row td {
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-right-color: #2d2620;
+    font-family: 'DM Serif Display', serif;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ADD ROW FORM */
+  .add-panel {
+    max-width: 1400px;
+    margin: 20px auto 0;
+    background: white;
+    border: 1.5px dashed var(--border);
+    border-radius: 4px;
+    padding: 18px 20px;
+    display: none;
+  }
+  .add-panel.open { display: block; }
+  .add-panel h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    background: var(--paper);
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    padding: 6px 8px;
+    color: var(--ink);
+    outline: none;
+  }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--gold);
+    background: white;
+  }
+  .form-actions { display: flex; gap: 8px; }
+
+  .footer-note {
+    max-width: 1400px;
+    margin: 12px auto 0;
+    font-size: 9px;
+    color: var(--muted);
+  }
+
+  /* print */
+  @media print {
+    .controls, .add-panel, .btn { display: none !important; }
+    body { padding: 20px; }
+  }
+</style>
+<style>
+  :root {
+    --page-bg-top: #f8f1e6;
+    --page-bg-bottom: #efe4d4;
+    --glass: rgba(255, 252, 247, 0.8);
+    --glass-strong: rgba(255, 255, 255, 0.86);
+    --edge: rgba(59, 41, 26, 0.14);
+    --edge-strong: rgba(59, 41, 26, 0.24);
+    --hero-shadow: 0 24px 60px rgba(62, 43, 27, 0.12);
+  }
+
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(184, 147, 63, 0.22), transparent 28%),
+      radial-gradient(circle at top right, rgba(74, 84, 144, 0.14), transparent 22%),
+      linear-gradient(180deg, var(--page-bg-top) 0%, var(--page-bg-bottom) 100%) !important;
+    padding: 18px 0 48px !important;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(26, 22, 18, 0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26, 22, 18, 0.028) 1px, transparent 1px);
+    background-size: 26px 26px;
+    mask-image: linear-gradient(180deg, rgba(0,0,0,0.6), transparent 96%);
+  }
+
+  .page-shell {
+    width: min(1480px, calc(100vw - 32px));
+    margin: 0 auto;
+  }
+
+  .hero-shell {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 18px;
+    padding: 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.82);
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.84), rgba(255,255,255,0.36)),
+      linear-gradient(120deg, rgba(184,147,63,0.16), rgba(74,84,144,0.12));
+    backdrop-filter: blur(16px);
+    box-shadow: var(--hero-shadow);
+  }
+
+  .hero-shell::after {
+    content: "";
+    position: absolute;
+    inset: auto -90px -120px auto;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,147,63,0.22), transparent 66%);
+  }
+
+  .hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0 14px;
+    border-radius: 999px;
+    background: rgba(184,147,63,0.12);
+    color: #8a6320;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .hero-shell h2 {
+    margin: 18px 0 12px;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(34px, 6vw, 58px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-shell p {
+    max-width: 860px;
+    color: var(--muted);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+  }
+
+  .hero-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 14px;
+    border: 1px solid var(--edge);
+    background: rgba(255,255,255,0.72);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    transition: transform 0.18s ease, border-color 0.18s ease;
+  }
+
+  .hero-link:hover {
+    transform: translateY(-1px);
+    border-color: var(--edge-strong);
+  }
+
+  .hero-link-primary {
+    color: white;
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--blue), #2e425e);
+    box-shadow: 0 14px 28px rgba(74, 84, 144, 0.22);
+  }
+
+  header {
+    padding: 0 4px 18px !important;
+    margin: 0 auto 24px !important;
+    border-bottom: 1px solid rgba(59, 41, 26, 0.18) !important;
+  }
+
+  header h1 {
+    font-size: clamp(24px, 4vw, 34px) !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .summary-row {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+    gap: 14px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .summary-card {
+    padding: 18px !important;
+    border-radius: 22px !important;
+    border: 1px solid rgba(255,255,255,0.82) !important;
+    background: var(--glass) !important;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 16px 32px rgba(62, 43, 27, 0.08);
+  }
+
+  .summary-card .s-label {
+    margin-bottom: 10px !important;
+    font-size: 10px !important;
+  }
+
+  .summary-card .s-val {
+    font-size: clamp(28px, 3vw, 34px) !important;
+    line-height: 1 !important;
+  }
+
+  .summary-card .s-sub {
+    margin-top: 8px !important;
+    font-size: 10px !important;
+    line-height: 1.5 !important;
+  }
+
+  .controls {
+    position: sticky;
+    top: 14px;
+    z-index: 40;
+    padding: 14px !important;
+    margin-bottom: 16px !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(255,255,255,0.84) !important;
+    background: rgba(255, 252, 247, 0.82) !important;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 16px 36px rgba(62, 43, 27, 0.08);
+  }
+
+  .controls select,
+  .controls input {
+    min-height: 42px;
+    border-radius: 12px !important;
+    border: 1px solid var(--edge) !important;
+    background: rgba(255,255,255,0.92) !important;
+    padding: 0 14px !important;
+  }
+
+  .controls select:focus,
+  .controls input:focus {
+    border-color: rgba(184,147,63,0.8) !important;
+    box-shadow: 0 0 0 4px rgba(184,147,63,0.12);
+  }
+
+  .btn {
+    min-height: 42px;
+    border-radius: 12px !important;
+    padding: 0 16px !important;
+    transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease !important;
+  }
+
+  .btn:hover { transform: translateY(-1px); }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--ink), #3a2a1d) !important;
+    border-color: transparent !important;
+    box-shadow: 0 12px 24px rgba(32, 24, 19, 0.18);
+  }
+
+  .btn-outline {
+    background: rgba(255,255,255,0.84) !important;
+    border-color: var(--edge) !important;
+  }
+
+  .btn-danger {
+    min-height: 32px;
+    padding: 0 10px !important;
+    border-radius: 10px !important;
+    background: rgba(255,255,255,0.86) !important;
+    border-color: rgba(194,59,42,0.18) !important;
+  }
+
+  .table-wrap {
+    border-radius: 26px !important;
+    border: 1px solid rgba(255,255,255,0.84) !important;
+    background: var(--glass-strong) !important;
+    backdrop-filter: blur(16px);
+    box-shadow: var(--hero-shadow);
+  }
+
+  thead {
+    background: linear-gradient(180deg, rgba(239,228,209,0.98), rgba(244,236,223,0.98)) !important;
+    border-bottom: 1px solid rgba(59,41,26,0.18) !important;
+  }
+
+  thead th {
+    top: 0;
+    z-index: 2;
+    position: sticky;
+    padding: 14px !important;
+    background: inherit;
+    border-right: 1px solid rgba(59,41,26,0.08) !important;
+  }
+
+  tbody tr {
+    border-bottom: 1px dashed rgba(59,41,26,0.12) !important;
+  }
+
+  tbody tr:nth-child(even) {
+    background: rgba(248, 243, 236, 0.44);
+  }
+
+  tbody tr:hover {
+    background: rgba(253, 246, 227, 0.78) !important;
+  }
+
+  tbody td {
+    padding: 11px 14px !important;
+    border-right: 1px solid rgba(59,41,26,0.05) !important;
+  }
+
+  td[contenteditable="true"] {
+    border-radius: 10px;
+    transition: background 0.14s ease, box-shadow 0.14s ease;
+  }
+
+  td[contenteditable="true"]:focus {
+    background: rgba(255, 250, 240, 0.96) !important;
+    box-shadow: inset 0 0 0 1px rgba(184,147,63,0.78) !important;
+  }
+
+  .product-name {
+    min-width: 140px !important;
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+  }
+
+  .series-tag,
+  .kt-pbt,
+  .kt-metal,
+  .kt-pbt-liu,
+  .kt-pc-liu,
+  .kt-pbt-full,
+  .kt-pbt-metal {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0 10px !important;
+    border-radius: 999px !important;
+  }
+
+  .series-tag { font-size: 9px !important; }
+  .tag-dawenhao { background: rgba(122,140,110,0.12) !important; border-color: rgba(122,140,110,0.42) !important; }
+  .tag-mofa     { background: rgba(184,147,63,0.14) !important; border-color: rgba(184,147,63,0.48) !important; }
+  .tag-jiukou   { background: rgba(74,84,144,0.12) !important; border-color: rgba(74,84,144,0.38) !important; }
+  .tag-other    { background: rgba(194,59,42,0.12) !important; border-color: rgba(194,59,42,0.3) !important; }
+  .tag-keyboard { background: rgba(184,90,26,0.12) !important; border-color: rgba(184,90,26,0.34) !important; }
+  .tag-cup      { background: rgba(58,122,140,0.1) !important; border-color: rgba(58,122,140,0.34) !important; }
+  .tag-deskpad  { background: rgba(122,58,140,0.1) !important; border-color: rgba(122,58,140,0.28) !important; }
+
+  .maker-tag,
+  .note-cell,
+  .cost-cell,
+  .margin-cell {
+    line-height: 1.55;
+  }
+
+  .note-cell {
+    max-width: 220px !important;
+    font-size: 10px !important;
+  }
+
+  tr.section-row td {
+    padding: 10px 14px !important;
+    border-right-color: rgba(255,255,255,0.08) !important;
+    background: linear-gradient(135deg, #2d2119, #473225) !important;
+  }
+
+  .add-panel {
+    border-radius: 24px !important;
+    border: 1px dashed rgba(59,41,26,0.22) !important;
+    background: rgba(255, 252, 247, 0.84) !important;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 18px 34px rgba(62, 43, 27, 0.08);
+    padding: 22px !important;
+  }
+
+  .add-panel h3 {
+    font-size: 18px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    min-height: 42px;
+    border-radius: 12px !important;
+    border: 1px solid var(--edge) !important;
+    background: rgba(255,255,255,0.92) !important;
+    padding: 0 12px !important;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: rgba(184,147,63,0.8) !important;
+    box-shadow: 0 0 0 4px rgba(184,147,63,0.12);
+  }
+
+  .footer-note {
+    padding: 0 6px;
+    margin-top: 14px !important;
+    font-size: 10px !important;
+  }
+
+  @media (max-width: 860px) {
+    .page-shell {
+      width: min(100vw - 18px, 100%);
+    }
+
+    .hero-shell {
+      padding: 22px 18px;
+    }
+
+    .controls {
+      top: 8px;
+    }
+  }
+</style>
+<style>
+  body {
+    background: linear-gradient(180deg, #ece8e1 0%, #e2ddd4 100%) !important;
+  }
+
+  .page-shell {
+    position: relative;
+    padding: 18px 18px 28px;
+    border-radius: 34px;
+    background: linear-gradient(180deg, #dce8f2 0%, #d6e2ec 100%);
+    box-shadow: 0 26px 46px rgba(48, 36, 22, 0.1);
+  }
+
+  .page-shell::before {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    border: 1px solid rgba(70, 93, 115, 0.16);
+    border-radius: 24px;
+    pointer-events: none;
+  }
+
+  .hero-shell,
+  .summary-card,
+  .controls,
+  .table-wrap,
+  .add-panel {
+    border-radius: 10px !important;
+    border: 1px solid #d1c6b4 !important;
+    background: #fbf6ec !important;
+    box-shadow:
+      10px 10px 0 rgba(216, 228, 236, 0.95),
+      0 16px 34px rgba(58, 42, 26, 0.08) !important;
+    backdrop-filter: none !important;
+  }
+
+  .hero-shell {
+    padding-top: 34px !important;
+  }
+
+  .hero-shell::before {
+    content: "PRICE FILE";
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0 10px;
+    border: 1px solid rgba(172, 85, 56, 0.46);
+    color: #a45137;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    border-radius: 4px;
+    transform: rotate(-4deg);
+    background: rgba(255, 248, 240, 0.86);
+  }
+
+  .hero-shell::after {
+    inset: 20px auto auto 22px !important;
+    width: 92px !important;
+    height: 18px !important;
+    border-radius: 2px !important;
+    background: rgba(157, 184, 204, 0.42) !important;
+    transform: rotate(-2.5deg) !important;
+  }
+
+  .hero-kicker,
+  .btn,
+  .series-tag,
+  .kt-pbt,
+  .kt-metal,
+  .kt-pbt-liu,
+  .kt-pc-liu,
+  .kt-pbt-full,
+  .kt-pbt-metal {
+    border-radius: 4px !important;
+  }
+
+  .hero-kicker {
+    background: #e1eaf0 !important;
+    border: 1px solid #9db4c5;
+    color: #48637d !important;
+    box-shadow: 4px 4px 0 rgba(216, 228, 236, 0.88);
+  }
+
+  .hero-shell h2,
+  header h1 {
+    display: inline;
+    padding: 0 0.06em;
+    box-shadow: inset 0 -0.34em 0 rgba(244, 234, 97, 0.82);
+  }
+
+  .hero-shell p {
+    max-width: 760px !important;
+    font-size: 14px !important;
+  }
+
+  .hero-link,
+  .btn,
+  .controls select,
+  .controls input,
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: #fffaf1 !important;
+    box-shadow: 4px 4px 0 rgba(216, 228, 236, 0.88);
+  }
+
+  .hero-link,
+  .btn {
+    border-radius: 4px !important;
+  }
+
+  .hero-link-primary,
+  .btn-primary {
+    background: #1d1d1d !important;
+    box-shadow: 4px 4px 0 rgba(216, 228, 236, 0.95) !important;
+  }
+
+  .summary-card {
+    position: relative;
+  }
+
+  .summary-card::before {
+    content: "STAMP";
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: rgba(172, 85, 56, 0.42);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    transform: rotate(-6deg);
+  }
+
+  .summary-card .s-label {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: rgba(244, 234, 97, 0.72);
+    color: #5f5122 !important;
+  }
+
+  .controls {
+    background: #f7f2e9 !important;
+  }
+
+  .table-wrap {
+    background: #fffaf1 !important;
+  }
+
+  thead {
+    background: #dfe8ef !important;
+  }
+
+  thead th {
+    background: #dfe8ef !important;
+  }
+
+  tbody tr:nth-child(even) {
+    background: rgba(245, 239, 229, 0.72) !important;
+  }
+
+  tbody tr:hover {
+    background: rgba(245, 241, 188, 0.34) !important;
+  }
+
+  tr.section-row td {
+    background: #22201d !important;
+  }
+
+  .series-tag,
+  .kt-pbt,
+  .kt-metal,
+  .kt-pbt-liu,
+  .kt-pc-liu,
+  .kt-pbt-full,
+  .kt-pbt-metal {
+    background: #fffaf1 !important;
+  }
+
+  .add-panel {
+    background: #fbf6ec !important;
+  }
+</style>
+<style>
+  :root {
+    --file-blue: #d7e3ed;
+    --paper-flat: #fbf6ec;
+    --paper-deep: #f2eadf;
+    --hard-edge: #c7bca9;
+    --stamp-red: #a24d34;
+    --marker: rgba(244, 234, 97, 0.84);
+  }
+
+  .page-shell,
+  .hero-shell,
+  .summary-card,
+  .controls,
+  .table-wrap,
+  .add-panel,
+  .hero-link,
+  .btn,
+  .series-tag,
+  .kt-pbt,
+  .kt-metal,
+  .kt-pbt-liu,
+  .kt-pc-liu,
+  .kt-pbt-full,
+  .kt-pbt-metal {
+    border-radius: 0 !important;
+  }
+
+  .page-shell [style*="border-radius"] {
+    border-radius: 0 !important;
+  }
+
+  .page-shell {
+    background: linear-gradient(180deg, #dce7f0 0%, #d5e0ea 100%) !important;
+    box-shadow:
+      14px 14px 0 rgba(214, 226, 236, 0.96),
+      0 0 0 1px rgba(57, 43, 28, 0.05) !important;
+  }
+
+  .page-shell::before {
+    inset: 16px !important;
+    border-radius: 0 !important;
+    border: 1px solid rgba(74, 98, 117, 0.18) !important;
+  }
+
+  .page-shell::after {
+    content: "Cost Dossier";
+    position: absolute;
+    top: 18px;
+    left: 24px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0 10px;
+    border: 1px solid rgba(162, 77, 52, 0.48);
+    color: var(--stamp-red);
+    background: rgba(255, 250, 242, 0.92);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transform: rotate(-4deg);
+  }
+
+  .hero-shell,
+  .summary-card,
+  .controls,
+  .table-wrap,
+  .add-panel {
+    background: var(--paper-flat) !important;
+    border: 1px solid var(--hard-edge) !important;
+    box-shadow:
+      10px 10px 0 rgba(216, 228, 236, 0.95),
+      0 0 0 1px rgba(53, 40, 28, 0.03) !important;
+  }
+
+  .hero-shell::before {
+    border-radius: 0 !important;
+    background: rgba(255, 250, 242, 0.94) !important;
+  }
+
+  .hero-shell::after {
+    border-radius: 0 !important;
+    width: 110px !important;
+    height: 18px !important;
+    left: auto !important;
+    right: 22px !important;
+    top: 18px !important;
+    bottom: auto !important;
+    background: rgba(161, 184, 202, 0.52) !important;
+    transform: rotate(2.4deg) !important;
+  }
+
+  .hero-kicker {
+    border-radius: 0 !important;
+    background: #e1eaf0 !important;
+    border: 1px solid #9db4c5 !important;
+    box-shadow: 4px 4px 0 rgba(216, 228, 236, 0.9);
+  }
+
+  .hero-shell h2,
+  header h1 {
+    box-shadow: inset 0 -0.34em 0 var(--marker) !important;
+  }
+
+  .hero-link,
+  .btn,
+  .controls select,
+  .controls input,
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: #fffaf1 !important;
+    box-shadow: 4px 4px 0 rgba(216, 228, 236, 0.9) !important;
+  }
+
+  .hero-link,
+  .btn {
+    border: 1px solid #cfc4b3 !important;
+  }
+
+  .hero-link-primary,
+  .btn-primary {
+    background: #1b1b1b !important;
+    border-color: #1b1b1b !important;
+    box-shadow: 4px 4px 0 rgba(216, 228, 236, 0.95) !important;
+  }
+
+  .summary-card .s-label {
+    display: inline-block;
+    padding: 1px 5px;
+    background: var(--marker) !important;
+    color: #5f5122 !important;
+  }
+
+  thead,
+  thead th {
+    background: #dfe8ef !important;
+  }
+
+  tr.section-row td {
+    background: #1f1c18 !important;
+  }
+
+  .series-tag,
+  .kt-pbt,
+  .kt-metal,
+  .kt-pbt-liu,
+  .kt-pc-liu,
+  .kt-pbt-full,
+  .kt-pbt-metal {
+    background: #fffaf1 !important;
+  }
+</style>
+</head>
+<body>
+<div class="page-shell">
+<section class="hero-shell">
+  <span class="hero-kicker">Cost Control System</span>
+  <h2>成本管控系统</h2>
+  <p>围绕 SKU 成本、定价结构、毛利空间和新增产品维护，做一个适合长期更新的成本治理页面。保留你现在的编辑方式，但整体体验升级成一套更完整的工作系统。</p>
+  <div class="hero-actions">
+    <a class="hero-link hero-link-primary" href="./index.html" target="_top">返回统一工作台</a>
+    <a class="hero-link" href="./oddity-tracker-更新.html" target="_top">切到工作推进</a>
+  </div>
+</section>
+
+<header>
+  <h1>不现实商店 <span style="font-style:italic;color:var(--muted)">/</span> 成本台账</h1>
+  <div class="sub">Cost Master · 2026</div>
+</header>
+
+<!-- SUMMARY -->
+<div class="summary-row" id="summaryRow"></div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <input type="text" id="searchInput" placeholder="搜索产品…" style="width:180px;" oninput="filterTable()">
+  <select id="filterSeries" onchange="filterTable()">
+    <option value="">全部系列</option>
+    <option value="大文豪">大文豪系列</option>
+    <option value="魔法">魔法系列</option>
+    <option value="入口">入口系列</option>
+    <option value="键盘">键盘</option>
+    <option value="杯子">杯子</option>
+    <option value="桌垫">桌垫</option>
+    <option value="其他">其他</option>
+  </select>
+  <select id="filterMaker" onchange="filterTable()">
+    <option value="">全部代工</option>
+    <option value="元元外设">元元外设</option>
+    <option value="上泰">上泰</option>
+    <option value="樱桃爸爸">樱桃爸爸</option>
+    <option value="自研">自研</option>
+    <option value="—">未知</option>
+  </select>
+  <button class="btn btn-primary" onclick="toggleAddPanel()">＋ 新增产品</button>
+  <button class="btn btn-outline" onclick="exportCSV()">导出 CSV</button>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+  <table id="costTable">
+    <thead>
+      <tr>
+        <th style="width:140px">产品名称</th>
+        <th style="width:90px">系列</th>
+        <th style="width:80px">代工方</th>
+        <th style="width:105px">工艺类型</th>
+        <th style="width:65px">素材</th>
+        <th style="width:65px">工艺/配件</th>
+        <th style="width:60px">包装</th>
+        <th style="width:50px">运费</th>
+        <th style="width:80px">单套总成本<br><span style="font-weight:400;color:var(--muted);font-size:8px">键帽含1%成本票</span></th>
+        <th style="width:75px">定价</th>
+        <th style="width:75px">毛利</th>
+        <th style="width:60px">毛利率</th>
+        <th>备注</th>
+        <th style="width:40px"></th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+</div>
+
+<!-- ADD PANEL -->
+<div class="add-panel" id="addPanel">
+  <h3>新增产品成本</h3>
+  <div class="form-grid">
+    <div class="form-group">
+      <label>产品名称</label>
+      <input id="f_name" placeholder="e.g. 雨果">
+    </div>
+    <div class="form-group">
+      <label>系列</label>
+      <select id="f_series">
+        <option value="大文豪">大文豪系列</option>
+        <option value="魔法">魔法系列</option>
+        <option value="入口">入口系列</option>
+        <option value="键盘">键盘</option>
+        <option value="杯子">杯子</option>
+        <option value="桌垫">桌垫</option>
+        <option value="其他">其他</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>代工方</label>
+      <input id="f_maker" placeholder="e.g. 上泰">
+    </div>
+    <div class="form-group">
+      <label>素材成本 (¥)</label>
+      <input id="f_base" type="number" placeholder="0">
+    </div>
+    <div class="form-group">
+      <label>工艺/配件 (¥)</label>
+      <input id="f_copper" type="number" placeholder="0">
+    </div>
+    <div class="form-group">
+      <label>包装 (¥)</label>
+      <input id="f_pack" type="number" placeholder="0">
+    </div>
+    <div class="form-group">
+      <label>运费 (¥)</label>
+      <input id="f_ship" type="number" placeholder="0">
+    </div>
+    <div class="form-group">
+      <label>定价 (¥)</label>
+      <input id="f_price" type="number" placeholder="0">
+    </div>
+    <div class="form-group" style="grid-column: 1/-1">
+      <label>备注</label>
+      <input id="f_note" placeholder="e.g. 工艺说明、状态等">
+    </div>
+  </div>
+  <div class="form-actions">
+    <button class="btn btn-primary" onclick="addRow()">确认添加</button>
+    <button class="btn btn-outline" onclick="toggleAddPanel()">取消</button>
+  </div>
+</div>
+
+<div class="footer-note">⚠ 含成本信息 · 请勿对外分享</div>
+
+</div>
+<script>
+document.title = 'Oddity Store | 成本管控系统';
+document.querySelector('header h1').innerHTML = '成本管控系统<span style="font-style:italic;color:var(--muted)"> / Cost Control</span>';
+document.querySelector('header .sub').textContent = 'Oddity Store · 定价、利润与 SKU 台账';
+// ── DATA ──────────────────────────────────────────────────────────────
+let products = [
+
+  // ── 大文豪系列 ── 在售/进行中
+  { id:1,  name:'雨果｜钟声下的誓言',       series:'大文豪', maker:'上泰',     ktype:'PBT全鎏金', material:140, process:0,   pack:10.5, ship:5, price:359, note:'3/16发售，博主送测中' },
+  { id:2,  name:'李清照·金石录',             series:'大文豪', maker:'上泰',     ktype:'PBT全鎏金', material:150, process:0,   pack:10.5, ship:5, price:359, note:'打样中，PBT颜色修改，4月发售' },
+  { id:3,  name:'加缪与萨特·存在的呼吸',     series:'大文豪', maker:'上泰',     ktype:'PBT全鎏金', material:60,  process:60,  pack:10.5, ship:5, price:359, note:'PBT基础60+PC鎏金·热升华鎏金60，键帽120+运费5，4月发售' },
+
+  // ── 大文豪系列 ── 已完成（元元外设）
+  { id:4,  name:'碎片将进酒',                 series:'大文豪', maker:'元元外设', ktype:'PBT',      material:118, process:0,  pack:11.5, ship:5, price:329, note:'元元代工，无桌垫' },
+  { id:5,  name:'福尔摩斯',                   series:'大文豪', maker:'元元外设', ktype:'PBT',      material:118, process:0,  pack:11.5, ship:5, price:329, note:'元元代工' },
+
+  // ── 大文豪系列 ── 已完成（上泰）
+  { id:6,  name:'莎士比亚的王牌',             series:'大文豪', maker:'上泰',     ktype:'PBT',       material:60,  process:15, pack:10.5, ship:5, price:359, note:'PBT热升华60+键位多15颗=75含运费' },
+  { id:7,  name:'中土地图',                   series:'大文豪', maker:'上泰',     ktype:'PBT',       material:60,  process:0,  pack:10.5, ship:5, price:329, note:'上泰标准PBT热升华' },
+  { id:8,  name:'推理女王的诡计',             series:'大文豪', maker:'上泰',     ktype:'PBT',       material:60,  process:0,  pack:10.5, ship:5, price:329, note:'上泰标准PBT热升华（阿加莎）' },
+  { id:9,  name:'盖茨比的金色幻梦',           series:'大文豪', maker:'上泰',     ktype:'金属漆',    material:120, process:0,  pack:10.5, ship:5, price:329, note:'全金属漆套价120' },
+  { id:10, name:'流浪地球地下城',             series:'大文豪', maker:'上泰',     ktype:'PBT',       material:77,  process:0,  pack:10.5, ship:5, price:389, note:'IP授权，成本82含运费，上泰热升华' },
+  { id:11, name:'狄金森·密闭花园',           series:'大文豪', maker:'上泰',     ktype:'PBT+鎏金',  material:60,  process:28, pack:10.5, ship:5, price:329, note:'PBT热升华60+金属漆·PC鎏金28' },
+  { id:12, name:'王尔德｜华丽与忧伤',         series:'大文豪', maker:'上泰',     ktype:'金属漆',    material:120, process:0,  pack:10.5, ship:5, price:359, note:'全金属漆套价120' },
+
+  // ── 大文豪系列 ── 未排期
+  { id:14, name:'简奥斯汀茶香',               series:'大文豪', maker:'—',        ktype:null,        material:0,   process:0,  pack:0,    ship:0, price:0,   note:'未排期' },
+  { id:15, name:'简奥斯汀图书馆',             series:'大文豪', maker:'—',        ktype:null,        material:0,   process:0,  pack:0,    ship:0, price:0,   note:'未排期' },
+
+  // ── 魔法系列 ── 已完成
+  { id:16, name:'魔法日报',                   series:'魔法',   maker:'上泰',     ktype:'PBT',       material:60,  process:0,  pack:10.5, ship:5, price:329, note:'上泰标准PBT热升华' },
+  { id:17, name:'奥利凡德魔杖店',             series:'魔法',   maker:'元元外设', ktype:'PBT',       material:118, process:0,  pack:11.5, ship:5, price:329, note:'元元代工' },
+  { id:18, name:'韦斯莱魔法把戏坊',           series:'魔法',   maker:'元元外设', ktype:'PBT',       material:118, process:0,  pack:11.5, ship:5, price:329, note:'元元代工' },
+  { id:19, name:'对角巷｜巫师巷',             series:'魔法',   maker:'元元外设', ktype:'PBT',       material:118, process:0,  pack:11.5, ship:5, price:329, note:'同一款，元元代工' },
+  { id:20, name:'草药学与魔法温室',           series:'魔法',   maker:'上泰',     ktype:'PBT+金属漆', material:60,  process:13, pack:10.5, ship:5, price:329, note:'PBT热升华60+14颗金属漆工艺13，78含运费' },
+  { id:21, name:'混血传奇·魔药课笔记',       series:'魔法',   maker:'上泰',     ktype:'PBT',       material:60,  process:15, pack:10.5, ship:5, price:359, note:'PBT热升华60+工艺15=75含运费，包装待更新' },
+
+  // ── 入口系列 ──
+  { id:23, name:'出逃布达佩斯',               series:'入口',   maker:'上泰',     ktype:'PBT',       material:60,  process:15, pack:10.5, ship:5, price:359, note:'PBT热升华60+工艺15=75含运费' },
+  { id:24, name:'二天一流武藏传',             series:'入口',   maker:'元元外设', ktype:'PBT',       material:118, process:0,  pack:11.5, ship:5, price:329, note:'元元代工123含运费，不含包材' },
+  { id:25, name:'铁皮小宇宙',                 series:'入口',   maker:'—',        ktype:null,        material:0,   process:0,  pack:0,    ship:0, price:0,   note:'材质重新评估中' },
+  { id:26, name:'Byers House',                series:'入口',   maker:'—',        ktype:null,        material:0,   process:0,  pack:0,    ship:0, price:0,   note:'未排期' },
+
+  // ── 失真电台 / 万物理论 / 美食 / 美学大师 / 耳机壳 ──
+  { id:27, name:'枪炮玫瑰',                   series:'其他',   maker:'—',        ktype:null, material:0, process:0, pack:0, ship:0, price:0, note:'失真电台，未排期' },
+  { id:28, name:"Knockin' On Heaven's Door",  series:'其他',   maker:'—',        ktype:null, material:0, process:0, pack:0, ship:0, price:0, note:'失真电台，未排期' },
+  { id:29, name:'沉睡纪元',                   series:'其他',   maker:'—',        ktype:null, material:0, process:0, pack:0, ship:0, price:0, note:'万物理论，未排期' },
+  { id:30, name:'万物理论数学',               series:'其他',   maker:'—',        ktype:null, material:0, process:0, pack:0, ship:0, price:0, note:'万物理论，未排期' },
+  { id:31, name:'蛋糕王国',                   series:'其他',   maker:'—',        ktype:null, material:0, process:0, pack:0, ship:0, price:0, note:'美食系列，未排期' },
+  { id:32, name:'抹茶',                       series:'其他',   maker:'—',        ktype:null, material:0, process:0, pack:0, ship:0, price:0, note:'美食系列，未排期' },
+  { id:33, name:'神曲多雷',                   series:'其他',   maker:'—',        ktype:null, material:0, process:0, pack:0, ship:0, price:0, note:'美学大师，未排期' },
+  { id:34, name:'空灵编年史·天野喜孝',       series:'其他',   maker:'—',        ktype:null, material:0, process:0, pack:0, ship:0, price:0, note:'美学大师，未排期' },
+  { id:37, name:'简奥斯汀·玫瑰耳机壳',       series:'其他',   maker:'—',        ktype:null, material:0, process:0, pack:0, ship:0, price:0, note:'耳机壳，3D模型验证中' },
+
+  // ── 键盘 ──
+  { id:35, name:'大文豪75｜木壳首发限定',     series:'键盘',   maker:'自研',     ktype:null, material:720, process:70,  pack:50, ship:0,  price:1299, note:'木外壳450+PCB200+铜件70+包装30+运费20+摊销约155，限量100套' },
+  { id:36, name:'大文豪100｜船壳版',          series:'键盘',   maker:'樱桃爸爸', ktype:null, material:451, process:30,  pack:0,  ship:25, price:0,    note:'船壳451+铜件30+代发快递约25，定价待定（建议899）' },
+
+  // ── 桌垫（成本：产品26+包装1+运费5=32 / 标准99 / 流浪地球IP款119）──
+  { id:60, name:'桌垫·雨果',                 series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配雨果键帽' },
+  { id:61, name:'桌垫·福尔摩斯',             series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配福尔摩斯键帽' },
+  { id:62, name:'桌垫·莎士比亚·王牌',       series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'莎士比亚桌垫款A' },
+  { id:63, name:'桌垫·莎士比亚·十四行诗',   series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'莎士比亚桌垫款B' },
+  { id:64, name:'桌垫·中土地图',             series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配中土地图键帽' },
+  { id:65, name:'桌垫·阿加莎·著作版',       series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'推理女王的诡计桌垫款A' },
+  { id:66, name:'桌垫·阿加莎·线索版',       series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'推理女王的诡计桌垫款B' },
+  { id:67, name:'桌垫·盖茨比',               series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配盖茨比键帽' },
+  { id:68, name:'桌垫·流浪地球·地下城',     series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:119, note:'IP授权，定价119' },
+  { id:69, name:'桌垫·流浪地球·地球发动机', series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:119, note:'IP授权，定价119' },
+  { id:70, name:'桌垫·狄金森',               series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配狄金森键帽' },
+  { id:71, name:'桌垫·王尔德',               series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配王尔德键帽' },
+  { id:72, name:'桌垫·魔法日报',             series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配魔法日报键帽' },
+  { id:73, name:'桌垫·奥利凡德魔杖店',       series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配奥利凡德键帽' },
+  { id:74, name:'桌垫·韦斯莱魔法把戏坊',     series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配韦斯莱键帽' },
+  { id:75, name:'桌垫·对角巷｜巫师巷',       series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配对角巷键帽' },
+  { id:76, name:'桌垫·草药学与魔法温室',     series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配草药学键帽' },
+  { id:77, name:'桌垫·混血传奇·魔药课笔记', series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配混血传奇键帽' },
+  { id:78, name:'桌垫·出逃布达佩斯',         series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配出逃布达佩斯键帽' },
+  { id:79, name:'桌垫·二天一流武藏传',       series:'桌垫', maker:'—', ktype:null, material:26, process:0, pack:1, ship:5, price:99,  note:'配武藏传键帽' },
+
+  // ── 杯子（代工：小芮 / 运费5）──
+  { id:38, name:'对角巷杯子',             series:'杯子', maker:'小芮', ktype:null, material:140, process:0, pack:11, ship:5, price:0,   note:'杯欢世界，图样绘制中，定价待上架' },
+  { id:39, name:'梵高卧室杯子',           series:'杯子', maker:'小芮', ktype:null, material:140, process:0, pack:11, ship:5, price:359, note:'杯欢世界，已完成' },
+  { id:40, name:'魔法塔楼杯',             series:'杯子', maker:'小芮', ktype:null, material:140, process:0, pack:11, ship:5, price:359, note:'杯欢世界，已完成' },
+  { id:41, name:'飞鸟集杯',               series:'杯子', maker:'小芮', ktype:null, material:140, process:0, pack:11, ship:5, price:359, note:'杯欢世界，已完成' },
+  { id:42, name:'猫头鹰商店杯',           series:'杯子', maker:'小芮', ktype:null, material:140, process:0, pack:11, ship:5, price:359, note:'杯欢世界，已完成' },
+  { id:43, name:'大悲杯（悲惨世界）',     series:'杯子', maker:'小芮', ktype:null, material:140, process:0, pack:11, ship:5, price:359, note:'杯欢世界，已完成' },
+  { id:44, name:'糖果商店杯',             series:'杯子', maker:'小芮', ktype:null, material:140, process:0, pack:11, ship:5, price:359, note:'杯欢世界，已完成' },
+  { id:45, name:'简奥斯汀×三重玫瑰',     series:'杯子', maker:'小芮', ktype:null, material:0,   process:0, pack:0,  ship:0, price:0,   note:'花言杯，未开始，成本/定价待定' },
+  { id:46, name:'中土第三纪元杯·金款',   series:'杯子', maker:'小芮', ktype:null, material:80,  process:0, pack:0,  ship:5, price:0,   note:'真空镀钛含杯+盘，85含运费，定价待录' },
+  { id:47, name:'中土第三纪元杯·银款',   series:'杯子', maker:'小芮', ktype:null, material:80,  process:0, pack:0,  ship:5, price:0,   note:'真空镀钛含杯+盘，85含运费，定价待录' },
+];
+
+let nextId = 80;
+
+// ── SERIES TAG ────────────────────────────────────────────────────────
+function seriesTag(s) {
+  const map = {
+    '大文豪': ['tag-dawenhao','大文豪'],
+    '魔法':   ['tag-mofa','魔法'],
+    '入口':   ['tag-jiukou','入口'],
+    '键盘':   ['tag-keyboard','键盘'],
+    '杯子':   ['tag-cup','杯子'],
+    '桌垫':   ['tag-deskpad','桌垫'],
+    '其他':   ['tag-other','其他'],
+  };
+  const [cls, label] = map[s] || ['tag-other', s];
+  return `<span class="series-tag ${cls}">${label}</span>`;
+}
+
+// ── KTYPE TAG ─────────────────────────────────────────────────────────
+function ktypeTag(kt) {
+  if (!kt) return '<span class="kt-na">—</span>';
+  const map = {
+    'PBT':         ['kt-pbt',      'PBT 热升华'],
+    '金属漆':      ['kt-metal',    '金属漆'],
+    'PBT+鎏金':    ['kt-pbt-liu',  'PBT＋鎏金＋喷油'],
+    'PC+鎏金':     ['kt-pc-liu',   'PC＋鎏金/UV'],
+    'PBT全鎏金':   ['kt-pbt-full', 'PBT＋热升华＋鎏金＋喷油'],
+    'PBT+金属漆':   ['kt-pbt-metal','PBT＋金属漆（混）'],
+  };
+  const [cls, label] = map[kt] || ['kt-na', kt];
+  return `<span class="${cls}">${label}</span>`;
+}
+const KEYCAP_SERIES = ['大文豪','魔法','入口'];
+function totalCost(p) {
+  const base = (p.material||0) + (p.process||0) + (p.pack||0) + (p.ship||0);
+  if (KEYCAP_SERIES.includes(p.series)) {
+    const keycapCost = (p.material||0) + (p.process||0) + (p.ship||0);
+    return base + keycapCost * 0.01;
+  }
+  return base;
+}
+function margin(p) {
+  if (!p.price) return null;
+  return p.price - totalCost(p);
+}
+function marginPct(p) {
+  if (!p.price) return null;
+  return ((margin(p) / p.price) * 100).toFixed(1);
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────
+function marginClass(pct) {
+  if (pct === null) return 'margin-na';
+  if (pct >= 55) return 'margin-good';
+  if (pct >= 40) return 'margin-ok';
+  return 'margin-thin';
+}
+
+function renderTable() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const filterS = document.getElementById('filterSeries').value;
+  const filterM = document.getElementById('filterMaker').value;
+
+  const filtered = products.filter(p => {
+    const matchSearch = p.name.toLowerCase().includes(search) || p.note.toLowerCase().includes(search);
+    const matchSeries = !filterS || p.series === filterS;
+    const matchMaker  = !filterM || p.maker === filterM;
+    return matchSearch && matchSeries && matchMaker;
+  });
+
+  // group by series
+  const groups = {};
+  filtered.forEach(p => {
+    if (!groups[p.series]) groups[p.series] = [];
+    groups[p.series].push(p);
+  });
+
+  let html = '';
+  Object.entries(groups).forEach(([series, rows]) => {
+    html += `<tr class="section-row"><td colspan="14">${series === '键盘' ? '键盘' : series + '系列'} &nbsp;·&nbsp; ${rows.length} 款</td></tr>`;
+    rows.forEach(p => {
+      const tc = totalCost(p);
+      const m  = margin(p);
+      const mp = marginPct(p);
+      const mClass = marginClass(mp !== null ? parseFloat(mp) : null);
+
+      html += `<tr data-id="${p.id}">
+        <td class="product-name" contenteditable="true" onblur="editCell(${p.id},'name',this)">${p.name}</td>
+        <td>${seriesTag(p.series)}</td>
+        <td class="maker-tag">${p.maker}</td>
+        <td>${ktypeTag(p.ktype)}</td>
+        <td class="cost-cell cost-muted" contenteditable="true" onblur="editCellNum(${p.id},'material',this)">¥${p.material||0}</td>
+        <td class="cost-cell cost-muted" contenteditable="true" onblur="editCellNum(${p.id},'process',this)">${(p.process||0) > 0 ? '¥'+(p.process||0) : '—'}</td>
+        <td class="cost-cell cost-muted" contenteditable="true" onblur="editCellNum(${p.id},'pack',this)">¥${p.pack||0}</td>
+        <td class="cost-cell cost-muted" contenteditable="true" onblur="editCellNum(${p.id},'ship',this)">¥${p.ship||0}</td>
+        <td class="cost-cell cost-total">¥${tc.toFixed(1)}</td>
+        <td class="cost-cell" contenteditable="true" onblur="editCellNum(${p.id},'price',this)" style="color:var(--blue)">${p.price ? '¥'+p.price : '—'}</td>
+        <td class="cost-cell ${mClass}">${m !== null ? '¥'+m.toFixed(1) : '—'}</td>
+        <td class="margin-cell ${mClass}">${mp !== null ? mp+'%' : '—'}</td>
+        <td class="note-cell" contenteditable="true" onblur="editCell(${p.id},'note',this)">${p.note}</td>
+        <td><button class="btn btn-danger" onclick="deleteRow(${p.id})">删除</button></td>
+      </tr>`;
+    });
+  });
+
+  document.getElementById('tableBody').innerHTML = html;
+  renderSummary(filtered);
+}
+
+function renderSummary(list) {
+  const withPrice = list.filter(p => p.price > 0);
+  const avgMargin = withPrice.length
+    ? (withPrice.reduce((a,p) => a + parseFloat(marginPct(p)||0), 0) / withPrice.length).toFixed(1)
+    : '—';
+  const avgCost = list.length
+    ? (list.reduce((a,p) => a + totalCost(p), 0) / list.length).toFixed(0)
+    : '—';
+  const skus = list.length;
+
+  document.getElementById('summaryRow').innerHTML = `
+    <div class="summary-card">
+      <div class="s-label">显示 SKU 数</div>
+      <div class="s-val">${skus}</div>
+      <div class="s-sub">共 ${products.length} 款</div>
+    </div>
+    <div class="summary-card">
+      <div class="s-label">平均总成本</div>
+      <div class="s-val">¥${avgCost}</div>
+      <div class="s-sub">键帽 / 键盘混合</div>
+    </div>
+    <div class="summary-card">
+      <div class="s-label">平均毛利率</div>
+      <div class="s-val">${avgMargin}%</div>
+      <div class="s-sub">已定价产品均值</div>
+    </div>
+    <div class="summary-card">
+      <div class="s-label">最高成本单品</div>
+      <div class="s-val" style="font-size:16px">${list.reduce((a,p) => totalCost(p)>totalCost(a)?p:a, list[0]||{name:'—'}).name}</div>
+      <div class="s-sub">¥${list.reduce((a,p) => Math.max(a, totalCost(p)), 0).toFixed(0)}</div>
+    </div>
+    <div class="summary-card">
+      <div class="s-label">最薄利润款</div>
+      <div class="s-val" style="font-size:16px;color:var(--red)">${withPrice.reduce((a,p) => parseFloat(marginPct(p))<parseFloat(marginPct(a)||99)?p:a, withPrice[0]||{name:'—'}).name}</div>
+      <div class="s-sub">需关注</div>
+    </div>
+  `;
+}
+
+// ── EDIT ──────────────────────────────────────────────────────────────
+function editCell(id, field, el) {
+  const p = products.find(x => x.id === id);
+  if (p) { p[field] = el.innerText.trim(); renderTable(); }
+}
+function editCellNum(id, field, el) {
+  const p = products.find(x => x.id === id);
+  if (p) {
+    const raw = el.innerText.replace(/[¥,]/g,'').trim();
+    p[field] = parseFloat(raw) || 0;
+    renderTable();
+  }
+}
+
+// ── ADD / DELETE ──────────────────────────────────────────────────────
+function toggleAddPanel() {
+  const panel = document.getElementById('addPanel');
+  panel.classList.toggle('open');
+}
+function addRow() {
+  const name = document.getElementById('f_name').value.trim();
+  if (!name) { alert('请输入产品名称'); return; }
+  products.push({
+    id: nextId++,
+    name,
+    series:  document.getElementById('f_series').value,
+    maker:   document.getElementById('f_maker').value || '—',
+    material: parseFloat(document.getElementById('f_base').value)||0,
+    process:  parseFloat(document.getElementById('f_copper').value)||0,
+    pack:    parseFloat(document.getElementById('f_pack').value)||0,
+    ship:    parseFloat(document.getElementById('f_ship').value)||0,
+    price:   parseFloat(document.getElementById('f_price').value)||0,
+    note:    document.getElementById('f_note').value,
+  });
+  ['f_name','f_maker','f_base','f_copper','f_pack','f_ship','f_price','f_note'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  toggleAddPanel();
+  renderTable();
+}
+function deleteRow(id) {
+  if (!confirm('确认删除这条记录？')) return;
+  products = products.filter(p => p.id !== id);
+  renderTable();
+}
+
+// ── FILTER ────────────────────────────────────────────────────────────
+function filterTable() { renderTable(); }
+
+// ── EXPORT ────────────────────────────────────────────────────────────
+function exportCSV() {
+  const headers = ['产品名称','系列','代工方','本体成本','铜件/配件','包装','运费','单套总成本','定价','毛利','毛利率','备注'];
+  const rows = products.map(p => {
+    const tc = totalCost(p);
+    const m  = margin(p);
+    const mp = marginPct(p);
+    return [p.name, p.series, p.maker, p.base, p.copper, p.pack, p.ship, tc.toFixed(1), p.price||'—', m!==null?m.toFixed(1):'—', mp!==null?mp+'%':'—', p.note].join(',');
+  });
+  const csv = '\uFEFF' + [headers.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '不现实商店_成本台账.csv';
+  a.click();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────
+renderTable();
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,2938 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不现实商店 · 项目进度</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1612;
+    --paper: #f5f0e8;
+    --cream: #ede8dc;
+    --red: #c23b2a;
+    --gold: #b8933f;
+    --sage: #7a8c6e;
+    --muted: #8c8070;
+    --blue: #4a5490;
+    --orange: #b85a1a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    padding: 40px 24px 80px;
+  }
+
+  header {
+    max-width: 1300px;
+    margin: 0 auto 36px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(22px, 4vw, 34px);
+    letter-spacing: -0.5px;
+  }
+
+  header .sub {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  .legend {
+    max-width: 1300px;
+    margin: 0 auto 40px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: white;
+    border: 1px solid #ddd6c8;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot-done   { background: var(--sage); }
+  .dot-wip    { background: var(--gold); }
+  .dot-todo   { background: var(--red); }
+  .dot-redo   { background: var(--orange); }
+  .dot-wait   { background: #c0b8a8; }
+  .dot-pause  { background: #b8b0a8; border: 1px dashed #8c8070; }
+
+  /* PIPELINE */
+  .pipeline {
+    max-width: 1300px;
+    margin: 0 auto 48px;
+    background: white;
+    border: 1.5px solid #ddd6c8;
+    border-radius: 4px;
+    padding: 18px 24px 20px;
+    overflow-x: auto;
+  }
+
+  .pipeline-title {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .pipeline-row {
+    display: flex;
+    align-items: flex-start;
+    min-width: max-content;
+  }
+
+  .phase { display: flex; flex-direction: column; align-items: center; }
+
+  .phase-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    padding: 2px 10px;
+    border-radius: 2px;
+  }
+
+  .phase-label.early { background: #fde8e5; color: var(--red); }
+  .phase-label.mid   { background: #fdf6e3; color: var(--gold); }
+  .phase-label.late  { background: #edf2ea; color: var(--sage); }
+  .phase-label.post  { background: #eef0f8; color: var(--blue); }
+
+  .phase-steps { display: flex; align-items: center; }
+
+  .step {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 11px;
+    background: var(--cream);
+    border: 1px solid #d8d0c4;
+    padding: 5px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .arrow { color: var(--muted); font-size: 14px; padding: 0 5px; }
+  .phase-divider { width: 2px; height: 28px; background: #ddd6c8; margin: 0 14px; align-self: center; }
+
+  /* SECTION LABEL */
+  .section-label {
+    max-width: 1300px;
+    margin: 48px auto 8px;
+    padding-top: 14px;
+    border-top: 2px solid var(--ink);
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .section-label h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    letter-spacing: -0.3px;
+  }
+
+  .section-label .section-sub {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .section-label .section-count {
+    margin-left: auto;
+    font-size: 10px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* GRID */
+  .grid {
+    max-width: 1300px;
+    margin: 12px auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  /* CARD */
+  .project-card {
+    background: white;
+    border: 1.5px solid #ddd6c8;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: box-shadow 0.15s;
+  }
+
+  .project-card:hover { box-shadow: 3px 3px 0 var(--ink); }
+
+  .project-card.paused {
+    opacity: 0.6;
+    border-style: dashed;
+  }
+
+  .progress-bar { height: 3px; background: #e8e0d4; }
+  .progress-fill { height: 100%; }
+  .fill-done { background: var(--sage); }
+  .fill-high { background: #a0b890; }
+  .fill-mid  { background: var(--gold); }
+  .fill-low  { background: var(--red); }
+  .fill-zero { background: #ddd6c8; }
+
+  .card-header {
+    padding: 12px 14px 10px;
+    border-bottom: 1px solid #e8e0d4;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .card-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .card-title small {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .card-header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .status-badge {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .badge-done   { background: #edf2ea; color: var(--sage);  border: 1px solid var(--sage); }
+  .badge-launch { background: #fde8e5; color: var(--red);   border: 1px solid var(--red); }
+  .badge-wip    { background: #fdf6e3; color: var(--gold);  border: 1px solid var(--gold); }
+  .badge-design { background: #eef0f8; color: var(--blue);  border: 1px solid var(--blue); }
+  .badge-pause  { background: #f0ece4; color: var(--muted); border: 1px dashed var(--muted); }
+
+  /* COMPACT TASK LIST */
+  .tasks {
+    padding: 8px 14px 10px;
+  }
+
+  .phase-tag {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 2px;
+    margin: 5px 0 3px;
+  }
+
+  .tag-early { background: #fde8e5; color: var(--red); }
+  .tag-mid   { background: #fdf6e3; color: var(--gold); }
+  .tag-late  { background: #edf2ea; color: var(--sage); }
+  .tag-post  { background: #eef0f8; color: var(--blue); }
+
+  .task-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    padding: 4px 0;
+    border-bottom: 1px dashed #ece6da;
+    line-height: 1.4;
+  }
+
+  .task-row:last-child { border-bottom: none; }
+
+  .task-icon {
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    font-weight: 700;
+  }
+
+  .icon-done { background: var(--sage);   color: white; }
+  .icon-wip  { background: var(--gold);   color: white; }
+  .icon-todo { background: var(--red);    color: white; }
+  .icon-redo { background: var(--orange); color: white; }
+  .icon-wait { background: #c0b8a8;       color: white; }
+
+  .task-text {
+    flex: 1;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 11.5px;
+    color: var(--ink);
+  }
+
+  .done-text { color: var(--muted); text-decoration: line-through; }
+  .todo-text { color: var(--red); font-weight: 600; }
+  .redo-text { color: var(--orange); font-weight: 600; }
+  .wip-text  { color: #7a5a1a; }
+  .wait-text { color: #9a9080; }
+
+  .note {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    padding: 6px 10px;
+    margin: 0 14px 10px;
+    font-size: 10px;
+    color: #7a5a1a;
+    font-family: 'Noto Serif SC', serif;
+    line-height: 1.6;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* PLATFORM */
+  .platform-list {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding: 10px 14px 14px;
+  }
+
+  .platform-tag {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .pt-live { background: #edf2ea; color: var(--sage); border-color: var(--sage); }
+  .pt-plan { background: #eef0f8; color: var(--blue); border-color: var(--blue); }
+</style>
+<style>
+  :root {
+    --page-bg-top: #f8f1e6;
+    --page-bg-bottom: #efe4d4;
+    --glass: rgba(255, 252, 247, 0.8);
+    --edge: rgba(59, 41, 26, 0.14);
+    --edge-strong: rgba(59, 41, 26, 0.24);
+    --hero-shadow: 0 24px 60px rgba(62, 43, 27, 0.12);
+  }
+
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(184, 147, 63, 0.24), transparent 28%),
+      radial-gradient(circle at top right, rgba(74, 84, 144, 0.14), transparent 24%),
+      linear-gradient(180deg, var(--page-bg-top) 0%, var(--page-bg-bottom) 100%) !important;
+    padding: 18px 0 48px !important;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(26, 22, 18, 0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26, 22, 18, 0.028) 1px, transparent 1px);
+    background-size: 26px 26px;
+    mask-image: linear-gradient(180deg, rgba(0,0,0,0.58), transparent 96%);
+  }
+
+  .page-shell {
+    width: min(1380px, calc(100vw - 32px));
+    margin: 0 auto;
+  }
+
+  .hero-shell {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 18px;
+    padding: 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.82);
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.84), rgba(255,255,255,0.36)),
+      linear-gradient(120deg, rgba(184,147,63,0.16), rgba(74,84,144,0.1));
+    backdrop-filter: blur(16px);
+    box-shadow: var(--hero-shadow);
+  }
+
+  .hero-shell::after {
+    content: "";
+    position: absolute;
+    inset: auto -90px -120px auto;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(74,84,144,0.18), transparent 68%);
+  }
+
+  .hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0 14px;
+    border-radius: 999px;
+    background: rgba(74,84,144,0.12);
+    color: #3b5370;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .hero-shell h2 {
+    margin: 18px 0 12px;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(34px, 6vw, 58px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-shell p {
+    max-width: 860px;
+    color: var(--muted);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+  }
+
+  .hero-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 14px;
+    border: 1px solid var(--edge);
+    background: rgba(255,255,255,0.72);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    transition: transform 0.18s ease, border-color 0.18s ease;
+  }
+
+  .hero-link:hover {
+    transform: translateY(-1px);
+    border-color: var(--edge-strong);
+  }
+
+  .hero-link-primary {
+    color: white;
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--blue), #2e425e);
+    box-shadow: 0 14px 28px rgba(74, 84, 144, 0.22);
+  }
+
+  header {
+    padding: 0 4px 18px !important;
+    margin: 0 auto 26px !important;
+    border-bottom: 1px solid rgba(59,41,26,0.18) !important;
+  }
+
+  header h1 {
+    font-size: clamp(24px, 4vw, 36px) !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .legend {
+    gap: 8px !important;
+    margin: 0 auto 24px !important;
+  }
+
+  .legend-item {
+    min-height: 34px;
+    padding: 0 14px !important;
+    border-radius: 999px !important;
+    background: rgba(255,255,255,0.76) !important;
+    border: 1px solid rgba(255,255,255,0.8) !important;
+    box-shadow: 0 10px 20px rgba(62, 43, 27, 0.06);
+  }
+
+  .legend-dot {
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  .pipeline {
+    padding: 22px 24px !important;
+    border-radius: 24px !important;
+    border: 1px solid rgba(255,255,255,0.84) !important;
+    background: rgba(255,255,255,0.8) !important;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 20px 40px rgba(62, 43, 27, 0.1);
+  }
+
+  .pipeline-title {
+    font-size: 10px !important;
+  }
+
+  .phase-label {
+    padding: 4px 12px !important;
+    border-radius: 999px !important;
+  }
+
+  .step {
+    padding: 7px 12px !important;
+    border-radius: 12px !important;
+    background: rgba(244,236,223,0.76) !important;
+    border: 1px solid rgba(59,41,26,0.1) !important;
+  }
+
+  .phase-divider {
+    height: 32px !important;
+    background: rgba(59,41,26,0.12) !important;
+  }
+
+  .section-label {
+    margin: 52px auto 10px !important;
+    padding-top: 18px !important;
+    border-top: 1px solid rgba(59,41,26,0.18) !important;
+  }
+
+  .section-label h2 {
+    font-size: 24px !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 18px !important;
+    margin-top: 14px !important;
+  }
+
+  .project-card {
+    border-radius: 22px !important;
+    border: 1px solid rgba(255,255,255,0.84) !important;
+    background: rgba(255,255,255,0.8) !important;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 18px 32px rgba(62, 43, 27, 0.08);
+    transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+  }
+
+  .project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 38px rgba(62, 43, 27, 0.12) !important;
+  }
+
+  .project-card.paused {
+    opacity: 0.72 !important;
+  }
+
+  .progress-bar {
+    height: 6px !important;
+    background: rgba(59,41,26,0.08) !important;
+  }
+
+  .progress-fill {
+    border-radius: 999px;
+  }
+
+  .fill-done { background: linear-gradient(90deg, #7a9471, var(--sage)) !important; }
+  .fill-high { background: linear-gradient(90deg, #acc39c, #8ba37f) !important; }
+  .fill-mid  { background: linear-gradient(90deg, #d0a14b, var(--gold)) !important; }
+  .fill-low  { background: linear-gradient(90deg, #cf7359, var(--red)) !important; }
+
+  .card-header {
+    padding: 16px 16px 12px !important;
+    border-bottom: 1px solid rgba(59,41,26,0.08) !important;
+    gap: 10px !important;
+  }
+
+  .card-title {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+
+  .card-title small {
+    margin-top: 4px !important;
+  }
+
+  .status-badge,
+  .phase-tag,
+  .platform-tag {
+    border-radius: 999px !important;
+  }
+
+  .status-badge {
+    min-height: 22px;
+    padding: 0 10px !important;
+  }
+
+  .badge-done   { background: rgba(122,140,110,0.12) !important; border-color: rgba(122,140,110,0.42) !important; }
+  .badge-launch { background: rgba(194,59,42,0.12) !important; border-color: rgba(194,59,42,0.32) !important; }
+  .badge-wip    { background: rgba(184,147,63,0.14) !important; border-color: rgba(184,147,63,0.48) !important; }
+  .badge-design { background: rgba(74,84,144,0.12) !important; border-color: rgba(74,84,144,0.34) !important; }
+  .badge-pause  { background: rgba(118,105,92,0.08) !important; border-color: rgba(118,105,92,0.42) !important; }
+
+  .tasks {
+    padding: 10px 16px 14px !important;
+  }
+
+  .phase-tag {
+    min-height: 20px;
+    padding: 0 8px !important;
+    margin: 6px 0 4px !important;
+  }
+
+  .task-row {
+    gap: 8px !important;
+    padding: 6px 0 !important;
+    border-bottom: 1px dashed rgba(59,41,26,0.1) !important;
+  }
+
+  .task-icon {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .note {
+    padding: 10px 12px !important;
+    margin: 0 16px 14px !important;
+    border-left: 4px solid rgba(184,147,63,0.74) !important;
+    border-radius: 14px !important;
+    background: rgba(239,228,209,0.74) !important;
+    line-height: 1.7 !important;
+  }
+
+  .platform-list {
+    gap: 8px !important;
+    padding: 12px 16px 16px !important;
+  }
+
+  .platform-tag {
+    min-height: 28px;
+    padding: 0 12px !important;
+  }
+
+  #top {
+    position: sticky !important;
+    top: 14px !important;
+    z-index: 90 !important;
+    margin-bottom: 26px !important;
+    padding: 12px 14px !important;
+    border-radius: 24px !important;
+    border: 1px solid rgba(255,255,255,0.84) !important;
+    background: rgba(255, 252, 247, 0.78) !important;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 18px 34px rgba(62, 43, 27, 0.08);
+  }
+
+  #top > div {
+    max-width: none !important;
+    margin: 0 !important;
+    gap: 8px !important;
+  }
+
+  #top a {
+    display: inline-flex !important;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 14px !important;
+    border-radius: 999px !important;
+    background: rgba(255,255,255,0.76) !important;
+    border: 1px solid rgba(59,41,26,0.12) !important;
+    color: var(--ink) !important;
+    text-decoration: none;
+    box-shadow: none !important;
+    transition: transform 0.16s ease, border-color 0.16s ease;
+  }
+
+  #top a:hover {
+    transform: translateY(-1px);
+    border-color: var(--edge-strong) !important;
+  }
+
+  #top a[href="#done"] {
+    background: linear-gradient(135deg, #7a9471, var(--sage)) !important;
+    color: white !important;
+    border-color: transparent !important;
+  }
+
+  #top a[href="#now"] {
+    background: linear-gradient(135deg, #d0a14b, var(--gold)) !important;
+    color: white !important;
+    border-color: transparent !important;
+  }
+
+  #top a[href="#bloggers"] {
+    background: linear-gradient(135deg, rgba(184,147,63,0.18), rgba(255,255,255,0.88)) !important;
+    color: #775a22 !important;
+    border-color: rgba(184,147,63,0.22) !important;
+  }
+
+  #top span {
+    color: rgba(59,41,26,0.12) !important;
+  }
+
+  #done,
+  #now,
+  #matrix {
+    padding: 24px;
+    border-radius: 28px;
+    border: 1px solid rgba(255,255,255,0.84);
+    background: rgba(255, 252, 247, 0.74);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 18px 36px rgba(62, 43, 27, 0.08);
+  }
+
+  #done > div:last-child,
+  #now > div:last-child,
+  #matrix > div:last-child {
+    border-radius: 22px !important;
+    border: 1px solid rgba(59,41,26,0.1) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+
+  #done > div:last-child > div,
+  #now > div:last-child > div {
+    border-radius: 14px !important;
+    background: rgba(255,250,245,0.9) !important;
+  }
+
+  #bloggers + div > div {
+    border-radius: 24px !important;
+    border: 1px solid rgba(255,255,255,0.84) !important;
+    background: rgba(255,255,255,0.82) !important;
+    box-shadow: 0 20px 36px rgba(62, 43, 27, 0.08);
+  }
+
+  @media (max-width: 860px) {
+    .page-shell {
+      width: min(100vw - 18px, 100%);
+    }
+
+    .hero-shell {
+      padding: 22px 18px;
+    }
+
+    #top {
+      top: 8px !important;
+    }
+
+    #done,
+    #now,
+    #matrix {
+      padding: 18px;
+    }
+  }
+</style>
+<style>
+  body {
+    background: linear-gradient(180deg, #ece8e1 0%, #e2ddd4 100%) !important;
+  }
+
+  .page-shell {
+    position: relative;
+    padding: 18px 18px 28px;
+    border-radius: 34px;
+    background: linear-gradient(180deg, #dce8f2 0%, #d6e2ec 100%);
+    box-shadow: 0 26px 46px rgba(48, 36, 22, 0.1);
+  }
+
+  .page-shell::before {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    border: 1px solid rgba(70, 93, 115, 0.16);
+    border-radius: 24px;
+    pointer-events: none;
+  }
+
+  .hero-shell,
+  .pipeline,
+  .project-card,
+  #top,
+  #done,
+  #now,
+  #matrix,
+  #bloggers + div > div,
+  .legend-item {
+    border-radius: 10px !important;
+    border: 1px solid #d1c6b4 !important;
+    background: #fbf6ec !important;
+    box-shadow:
+      10px 10px 0 rgba(216, 228, 236, 0.95),
+      0 16px 34px rgba(58, 42, 26, 0.08) !important;
+    backdrop-filter: none !important;
+  }
+
+  .hero-shell {
+    padding-top: 34px !important;
+  }
+
+  .hero-shell::before {
+    content: "CASE FILE";
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0 10px;
+    border: 1px solid rgba(172, 85, 56, 0.46);
+    color: #a45137;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    border-radius: 4px;
+    transform: rotate(-4deg);
+    background: rgba(255, 248, 240, 0.86);
+  }
+
+  .hero-shell::after {
+    inset: 20px auto auto 22px !important;
+    width: 92px !important;
+    height: 18px !important;
+    border-radius: 2px !important;
+    background: rgba(157, 184, 204, 0.42) !important;
+    transform: rotate(-2.5deg) !important;
+  }
+
+  .hero-kicker,
+  .status-badge,
+  .phase-tag,
+  .platform-tag,
+  #top a {
+    border-radius: 4px !important;
+  }
+
+  .hero-kicker {
+    background: #e1eaf0 !important;
+    border: 1px solid #9db4c5;
+    color: #48637d !important;
+    box-shadow: 4px 4px 0 rgba(216, 228, 236, 0.88);
+  }
+
+  .hero-shell h2,
+  .section-label h2 {
+    display: inline;
+    padding: 0 0.06em;
+    box-shadow: inset 0 -0.34em 0 rgba(244, 234, 97, 0.82);
+  }
+
+  .hero-shell p {
+    max-width: 760px !important;
+    font-size: 14px !important;
+  }
+
+  .hero-link,
+  #top a,
+  .legend-item {
+    box-shadow: 4px 4px 0 rgba(216, 228, 236, 0.88);
+  }
+
+  .hero-link,
+  #top a {
+    background: #fffaf1 !important;
+  }
+
+  .hero-link-primary {
+    background: #1d1d1d !important;
+    box-shadow: 4px 4px 0 rgba(216, 228, 236, 0.95) !important;
+  }
+
+  .legend-item {
+    min-height: 32px !important;
+  }
+
+  #top {
+    background: #f7f2e9 !important;
+  }
+
+  #top a[href="#done"],
+  #top a[href="#now"],
+  #top a[href="#bloggers"] {
+    background: #fffaf1 !important;
+    color: var(--ink) !important;
+    border-color: #d1c6b4 !important;
+  }
+
+  #top a[href="#done"] {
+    box-shadow: inset 0 -3px 0 rgba(123, 148, 113, 0.72), 4px 4px 0 rgba(216, 228, 236, 0.9) !important;
+  }
+
+  #top a[href="#now"] {
+    box-shadow: inset 0 -3px 0 rgba(212, 163, 77, 0.78), 4px 4px 0 rgba(216, 228, 236, 0.9) !important;
+  }
+
+  #top a[href="#bloggers"] {
+    box-shadow: inset 0 -3px 0 rgba(172, 85, 56, 0.68), 4px 4px 0 rgba(216, 228, 236, 0.9) !important;
+  }
+
+  .pipeline,
+  #done,
+  #now,
+  #matrix,
+  #bloggers + div > div {
+    background: #fbf6ec !important;
+  }
+
+  .project-card {
+    background: #fffaf1 !important;
+  }
+
+  .card-header,
+  .frame-head {
+    background: #f3ecdf !important;
+  }
+
+  .progress-bar {
+    height: 5px !important;
+    background: rgba(40, 34, 28, 0.09) !important;
+  }
+
+  .note {
+    border-left-width: 5px !important;
+    background: #f7f0e2 !important;
+  }
+
+  .task-row {
+    border-bottom: 1px dashed rgba(70, 55, 37, 0.14) !important;
+  }
+
+  .status-badge,
+  .phase-tag,
+  .platform-tag {
+    box-shadow: none !important;
+  }
+
+  .badge-done,
+  .badge-wip,
+  .badge-design,
+  .badge-launch,
+  .badge-pause,
+  .platform-tag {
+    background: #fffaf1 !important;
+  }
+</style>
+<style>
+  :root {
+    --file-blue: #d7e3ed;
+    --paper-flat: #fbf6ec;
+    --paper-deep: #f2eadf;
+    --hard-edge: #c7bca9;
+    --stamp-red: #a24d34;
+    --marker: rgba(244, 234, 97, 0.84);
+  }
+
+  .page-shell,
+  .hero-shell,
+  .pipeline,
+  .legend-item,
+  .project-card,
+  #top,
+  #top a,
+  #done,
+  #now,
+  #matrix,
+  #bloggers + div > div,
+  .status-badge,
+  .phase-tag,
+  .platform-tag,
+  .hero-link {
+    border-radius: 0 !important;
+  }
+
+  .page-shell [style*="border-radius"] {
+    border-radius: 0 !important;
+  }
+
+  .page-shell {
+    background: linear-gradient(180deg, #dce7f0 0%, #d5e0ea 100%) !important;
+    box-shadow:
+      14px 14px 0 rgba(214, 226, 236, 0.96),
+      0 0 0 1px rgba(57, 43, 28, 0.05) !important;
+  }
+
+  .page-shell::before {
+    inset: 16px !important;
+    border-radius: 0 !important;
+    border: 1px solid rgba(74, 98, 117, 0.18) !important;
+  }
+
+  .page-shell::after {
+    content: "Project Dossier";
+    position: absolute;
+    top: 18px;
+    left: 24px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0 10px;
+    border: 1px solid rgba(162, 77, 52, 0.48);
+    color: var(--stamp-red);
+    background: rgba(255, 250, 242, 0.92);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transform: rotate(-4deg);
+  }
+
+  .hero-shell,
+  .pipeline,
+  #top,
+  #done,
+  #now,
+  #matrix,
+  #bloggers + div > div,
+  .project-card,
+  .legend-item {
+    background: var(--paper-flat) !important;
+    border: 1px solid var(--hard-edge) !important;
+    box-shadow:
+      10px 10px 0 rgba(216, 228, 236, 0.95),
+      0 0 0 1px rgba(53, 40, 28, 0.03) !important;
+  }
+
+  .hero-shell::before {
+    border-radius: 0 !important;
+    background: rgba(255, 250, 242, 0.94) !important;
+  }
+
+  .hero-shell::after {
+    border-radius: 0 !important;
+    width: 110px !important;
+    height: 18px !important;
+    left: auto !important;
+    right: 22px !important;
+    top: 18px !important;
+    bottom: auto !important;
+    background: rgba(161, 184, 202, 0.52) !important;
+    transform: rotate(2.4deg) !important;
+  }
+
+  .hero-kicker {
+    border-radius: 0 !important;
+    background: #e1eaf0 !important;
+    border: 1px solid #9db4c5 !important;
+    box-shadow: 4px 4px 0 rgba(216, 228, 236, 0.9);
+  }
+
+  .hero-shell h2,
+  .section-label h2,
+  header h1 {
+    box-shadow: inset 0 -0.34em 0 var(--marker) !important;
+  }
+
+  #top {
+    background: #f5efe4 !important;
+  }
+
+  #top a,
+  .hero-link {
+    background: #fffaf1 !important;
+    border: 1px solid #cfc4b3 !important;
+    box-shadow: 4px 4px 0 rgba(216, 228, 236, 0.9) !important;
+  }
+
+  .hero-link-primary {
+    background: #1b1b1b !important;
+    border-color: #1b1b1b !important;
+    box-shadow: 4px 4px 0 rgba(216, 228, 236, 0.95) !important;
+  }
+
+  #top a[href="#done"],
+  #top a[href="#now"],
+  #top a[href="#bloggers"] {
+    color: var(--ink) !important;
+  }
+
+  #top a[href="#done"] {
+    box-shadow: inset 0 -3px 0 rgba(122, 140, 110, 0.78), 4px 4px 0 rgba(216, 228, 236, 0.9) !important;
+  }
+
+  #top a[href="#now"] {
+    box-shadow: inset 0 -3px 0 rgba(180, 137, 62, 0.82), 4px 4px 0 rgba(216, 228, 236, 0.9) !important;
+  }
+
+  #top a[href="#bloggers"] {
+    box-shadow: inset 0 -3px 0 rgba(162, 77, 52, 0.7), 4px 4px 0 rgba(216, 228, 236, 0.9) !important;
+  }
+
+  .card-header {
+    background: var(--paper-deep);
+  }
+
+  .status-badge,
+  .phase-tag,
+  .platform-tag {
+    background: #fffaf1 !important;
+  }
+
+  .note {
+    background: #f6efdf !important;
+    border-left-width: 5px !important;
+  }
+</style>
+</head>
+<body>
+<div class="page-shell">
+<section class="hero-shell">
+  <span class="hero-kicker">Progress Command Center</span>
+  <h2>工作推进平台</h2>
+  <p>围绕产品线、设计、运营、上架节奏和博主协作，把长期推进事项放在一个更统一、更像系统的工作台里。你以后可以持续往这里补内容，而不用每次重新搭结构。</p>
+  <div class="hero-actions">
+    <a class="hero-link hero-link-primary" href="./index.html" target="_top">返回统一工作台</a>
+    <a class="hero-link" href="./oddity-cost-tracker.html" target="_top">切到成本管控</a>
+  </div>
+</section>
+
+<header>
+  <h1>不现实商店 <span style="font-style:italic;color:var(--muted)">/ Oddity Store</span></h1>
+  <div class="sub">全系列项目进度 · 2026</div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot dot-done"></div>已完成</div>
+  <div class="legend-item"><div class="legend-dot dot-wip"></div>进行中</div>
+  <div class="legend-item"><div class="legend-dot dot-todo"></div>待完成（优先）</div>
+  <div class="legend-item"><div class="legend-dot dot-redo"></div>需重做</div>
+  <div class="legend-item"><div class="legend-dot dot-wait"></div>待解锁</div>
+  <div class="legend-item"><div class="legend-dot dot-pause"></div>暂时不做</div>
+</div>
+
+<!-- STICKY NAV -->
+<div id="top" style="position:sticky;top:0;z-index:100;background:var(--paper);border-bottom:1.5px solid var(--ink);padding:8px 0;margin-bottom:24px;">
+  <div style="max-width:1300px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+    <a href="#done" style="font-size:10px;font-weight:700;font-family:'Space Mono',monospace;text-decoration:none;padding:4px 10px;border-radius:2px;background:var(--sage);color:white;white-space:nowrap;">✓ 近期完成</a>
+    <a href="#now" style="font-size:10px;font-weight:700;font-family:'Space Mono',monospace;text-decoration:none;padding:4px 10px;border-radius:2px;background:var(--gold);color:white;white-space:nowrap;">▶ 进行中</a>
+    <a href="#matrix" style="font-size:10px;font-family:'Space Mono',monospace;text-decoration:none;padding:4px 10px;border-radius:2px;background:white;border:1px solid #ddd6c8;color:var(--ink);white-space:nowrap;">四象限</a>
+    <span style="color:#ddd6c8;font-size:12px;">|</span>
+    <a href="#dawenhaо" style="font-size:10px;font-family:'Noto Serif SC',serif;text-decoration:none;padding:4px 10px;border-radius:2px;background:white;border:1px solid #ddd6c8;color:var(--ink);white-space:nowrap;">大文豪系列</a>
+    <a href="#mofа" style="font-size:10px;font-family:'Noto Serif SC',serif;text-decoration:none;padding:4px 10px;border-radius:2px;background:white;border:1px solid #ddd6c8;color:var(--ink);white-space:nowrap;">魔法系列</a>
+    <a href="#rukou" style="font-size:10px;font-family:'Noto Serif SC',serif;text-decoration:none;padding:4px 10px;border-radius:2px;background:white;border:1px solid #ddd6c8;color:var(--ink);white-space:nowrap;">入口系列</a>
+    <a href="#shizhen" style="font-size:10px;font-family:'Noto Serif SC',serif;text-decoration:none;padding:4px 10px;border-radius:2px;background:white;border:1px solid #ddd6c8;color:var(--ink);white-space:nowrap;">失真电台</a>
+    <a href="#wanwu" style="font-size:10px;font-family:'Noto Serif SC',serif;text-decoration:none;padding:4px 10px;border-radius:2px;background:white;border:1px solid #ddd6c8;color:var(--ink);white-space:nowrap;">万物理论</a>
+    <a href="#meishi" style="font-size:10px;font-family:'Noto Serif SC',serif;text-decoration:none;padding:4px 10px;border-radius:2px;background:white;border:1px solid #ddd6c8;color:var(--ink);white-space:nowrap;">美食系列</a>
+    <a href="#meixue" style="font-size:10px;font-family:'Noto Serif SC',serif;text-decoration:none;padding:4px 10px;border-radius:2px;background:white;border:1px solid #ddd6c8;color:var(--ink);white-space:nowrap;">美学大师</a>
+    <span style="color:#ddd6c8;font-size:12px;">|</span>
+    <a href="#keyboard" style="font-size:10px;font-family:'Noto Serif SC',serif;text-decoration:none;padding:4px 10px;border-radius:2px;background:white;border:1px solid #ddd6c8;color:var(--ink);white-space:nowrap;">键盘套件</a>
+    <a href="#earphone" style="font-size:10px;font-family:'Noto Serif SC',serif;text-decoration:none;padding:4px 10px;border-radius:2px;background:white;border:1px solid #ddd6c8;color:var(--ink);white-space:nowrap;">耳机壳</a>
+    <a href="#cup" style="font-size:10px;font-family:'Noto Serif SC',serif;text-decoration:none;padding:4px 10px;border-radius:2px;background:white;border:1px solid #ddd6c8;color:var(--ink);white-space:nowrap;">杯子</a>
+    <a href="#ops" style="font-size:10px;font-family:'Noto Serif SC',serif;text-decoration:none;padding:4px 10px;border-radius:2px;background:white;border:1px solid #ddd6c8;color:var(--ink);white-space:nowrap;">平台运营</a>
+    <a href="#bloggers" style="font-size:10px;font-family:'Noto Serif SC',serif;text-decoration:none;padding:4px 10px;border-radius:2px;background:#fdf6e3;border:1px solid var(--gold);color:var(--gold);font-weight:700;white-space:nowrap;">博主通讯录</a>
+  </div>
+</div>
+
+
+<!-- RECENT COMPLETIONS -->
+<div id="done" style="max-width:1300px;margin:0 auto 20px;">
+  <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;">
+    <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);">近期完成 Recently Done</div>
+    <div style="font-size:9px;color:var(--muted);font-family:'Space Mono',monospace;">最近 7 天</div>
+  </div>
+  <div style="background:white;border:2px solid var(--sage);border-radius:4px;padding:18px 20px;display:flex;flex-direction:column;gap:6px;">
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#edf2ea;border-left:4px solid var(--sage);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">3/20</span>
+      <span style="font-size:9px;font-weight:700;background:var(--red);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">🎉 上架</span>
+      大文豪100 — 小红书 / 淘宝正式上架完成
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#edf2ea;border-left:4px solid var(--sage);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">3/20</span>
+      <span style="font-size:9px;font-weight:700;background:var(--gold);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">杯子</span>
+      盖茨比的金色幻梦杯 — 设计完成，已发给代工厂，等待打样
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#edf2ea;border-left:4px solid var(--sage);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">3/20</span>
+      <span style="font-size:9px;font-weight:700;background:#4a5490;color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键盘</span>
+      大文豪100 — 电商详情长页面设计完成 · 3:4 + 1:1 上架图全部上传完毕
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#edf2ea;border-left:4px solid var(--sage);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">3/20</span>
+      <span style="font-size:9px;font-weight:700;background:#b85a1a;color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">运营</span>
+      大文豪系列品牌认证 — 小红书 + 淘宝资料提交完毕，等待审核
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#edf2ea;border-left:4px solid var(--sage);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">3/16</span>
+      <span style="font-size:9px;font-weight:700;background:var(--red);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">🎉 发售</span>
+      雨果｜钟声下的誓言 — 正式发售 · 小红书 / 淘宝同步开售
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#edf2ea;border-left:4px solid var(--sage);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">3/15</span>
+      <span style="font-size:9px;font-weight:700;background:#4a5490;color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键盘</span>
+      大文豪100 — 产品硬照拍摄完成
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#edf2ea;border-left:4px solid var(--sage);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">3/13</span>
+      <span style="font-size:9px;font-weight:700;background:var(--gold);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键帽</span>
+      雨果｜钟声下的誓言 — 博主送测分发完成（8人）· 小茉莉今日率先发布
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#edf2ea;border-left:4px solid var(--sage);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">3/13</span>
+      <span style="font-size:9px;font-weight:700;background:var(--gold);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键帽</span>
+      雨果｜钟声下的誓言 — 产品硬照全部拍摄完成
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#edf2ea;border-left:4px solid var(--sage);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">3/13</span>
+      <span style="font-size:9px;font-weight:700;background:#4a5490;color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键盘</span>
+      大文豪75 — 最终样品发出 · 110套主体制作完成
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#edf2ea;border-left:4px solid var(--sage);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">3/13</span>
+      <span style="font-size:9px;font-weight:700;background:#4a5490;color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键盘</span>
+      大文豪75 — 包装设计素材已发给丝丝代工厂
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#edf2ea;border-left:4px solid var(--sage);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">3/11</span>
+      <span style="font-size:9px;font-weight:700;background:var(--gold);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键帽</span>
+      加缪与萨特｜存在的呼吸 — 工艺整体确认满意
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#edf2ea;border-left:4px solid var(--sage);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">3/11</span>
+      <span style="font-size:9px;font-weight:700;background:#b85a1a;color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">包装</span>
+      收纳盒新刀版图已拿到 · 包装尺寸更新工作启动
+    </div>
+
+  </div>
+</div>
+
+<div id="now" style="max-width:1300px;margin:0 auto 24px;">
+  <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">当前进行中 Now In Progress</div>
+  <div style="background:white;border:2px solid var(--ink);border-radius:4px;padding:18px 20px;display:flex;flex-direction:column;gap:7px;">
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#fde8e5;border-left:4px solid var(--red);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--gold);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">→打样中</span>
+      <span style="font-size:9px;font-weight:700;background:#7a5a1a;color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">杯子</span>
+      盖茨比的金色幻梦杯 — 设计完成已发代工 · 等待打样
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#fde8e5;border-left:4px solid var(--red);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">✓完成</span>
+      <span style="font-size:9px;font-weight:700;background:#4a5490;color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键盘</span>
+      大文豪100 — 电商详情页✓ · 上架图全部完成上传 · 宣发视频待拍
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#fde8e5;border-left:4px solid var(--red);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--gold);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">→进行中</span>
+      <span style="font-size:9px;font-weight:700;background:#b85a1a;color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">运营</span>
+      大文豪系列品牌认证 — 两平台资料提交完毕 · 等待审核
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#edf2ea;border-left:4px solid var(--sage);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--sage);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键帽</span>
+      雨果｜钟声下的誓言 — 🎉 已发售 · 博主返图收集中（小茉莉已发布）· 宣传视频待拍
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#fdf6e3;border-left:4px solid var(--gold);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--gold);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键帽</span>
+      李清照·金石录 — 看到样品·颜色仍不对·继续修改中
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#fdf6e3;border-left:4px solid var(--gold);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--gold);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键帽</span>
+      加缪与萨特｜存在的呼吸 — 第三轮修改中·细微颜色调整
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#fde8e5;border-left:4px solid var(--red);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--red);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键帽</span>
+      铁皮小宇宙 — 3D渲染图确认完成 · 准备送厂打样
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#fde8e5;border-left:4px solid var(--red);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--red);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">包装</span>
+      混血传奇·魔药课笔记 — 收纳盒新尺寸·包装更新最紧急
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#fdf6e3;border-left:4px solid var(--gold);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:#4a5490;color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键盘</span>
+      大文豪75 — 皮壳样品已发厂商·沟通细节中 · 轴体计划向樱桃爸爸采购
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#fde8e5;border-left:4px solid var(--red);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:var(--red);color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">键盘</span>
+      大文豪100 — 长页面改方图 · 上架图修改（字小太挤）· 宣发视频待拍
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#fdf6e3;border-left:4px solid var(--gold);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:#7a8c6e;color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">耳机壳</span>
+      简奥斯汀·玫瑰耳机壳 — 3D模型修正 · 模型验证中
+    </div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#fdf6e3;border-left:4px solid var(--gold);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:#b85a1a;color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">运营</span>
+      小红书 — 每日概念设计更新 · 产品宣传视频 / 照片笔记
+    </div>
+
+  </div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:12.5px;padding:7px 12px;background:#fdf6e3;border-left:4px solid var(--gold);border-radius:0 2px 2px 0;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:9px;font-weight:700;background:#4a5490;color:white;padding:2px 7px;border-radius:2px;white-space:nowrap;">官网</span>
+      海外官网制作 · 项目已启动 · 正在梳理站点定位 / 页面结构 / 内容框架
+    </div>
+
+</div>
+
+<!-- FOUR QUADRANT MATRIX -->
+<div id="matrix" style="max-width:1300px;margin:0 auto 48px;">
+  <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">四象限优先级矩阵 Priority Matrix</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;border:1.5px solid var(--ink);border-radius:4px;overflow:hidden;">
+
+    <!-- 轴标签 行 -->
+    <div style="grid-column:1/-1;display:flex;justify-content:center;gap:0;pointer-events:none;">
+    </div>
+
+    <!-- Q1: 紧急+重要 -->
+    <div style="background:white;padding:18px 20px;border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--red);flex-shrink:0;"></div>
+        <span style="font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--red);">Q1 · 立即执行</span>
+        <span style="font-size:9px;color:var(--muted);margin-left:auto;">紧急 + 重要</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#fde8e5;border-left:3px solid var(--red);border-radius:0 2px 2px 0;">🎨 李清照 — 颜色仍不对 · 继续修改中（卡点）</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#fde8e5;border-left:3px solid var(--red);border-radius:0 2px 2px 0;">📦 混血传奇·魔药课笔记 — 收纳盒新尺寸包装更新（最紧急）</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#fde8e5;border-left:3px solid var(--red);border-radius:0 2px 2px 0;">🎬 大文豪100 — 宣发视频待拍</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#fde8e5;border-left:3px solid var(--red);border-radius:0 2px 2px 0;">🎬 雨果｜钟声下的誓言 — 宣传视频待拍 · 博主返图收集中</div>
+      </div>
+    </div>
+
+    <!-- Q2: 不紧急+重要 -->
+    <div style="background:white;padding:18px 20px;border-bottom:1.5px solid var(--ink);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
+        <span style="font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);">Q2 · 计划推进</span>
+        <span style="font-size:9px;color:var(--muted);margin-left:auto;">重要 + 不紧急</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#fdf6e3;border-left:3px solid var(--gold);border-radius:0 2px 2px 0;">加缪与萨特 — 封套卡片（新尺寸）/ 桌垫 / 收纳盒采购</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#fdf6e3;border-left:3px solid var(--gold);border-radius:0 2px 2px 0;">李清照 — 3D渲染图 + 宣发图重做（颜色确认后）</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#fdf6e3;border-left:3px solid var(--gold);border-radius:0 2px 2px 0;">大文豪75 — 螺丝+磁铁补寄完成最终装配 · 包装盒设计</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#fdf6e3;border-left:3px solid var(--gold);border-radius:0 2px 2px 0;">大文豪75 — 轴体采购（樱桃爸爸·5万个）/ 脚垫 / 线材</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#fdf6e3;border-left:3px solid var(--gold);border-radius:0 2px 2px 0;">铁皮小宇宙 — 送厂打样 + 版权申请</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#fdf6e3;border-left:3px solid var(--gold);border-radius:0 2px 2px 0;">简·奥斯汀玫瑰耳机壳 — 模型验证通过后送厂打样</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#fdf6e3;border-left:3px solid var(--gold);border-radius:0 2px 2px 0;">盖茨比的金色幻梦杯 — 等待打样结果</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#fdf6e3;border-left:3px solid var(--gold);border-radius:0 2px 2px 0;">大文豪系列品牌认证 — 等待小红书+淘宝平台审核</div>
+      </div>
+    </div>
+
+    <!-- Q3: 紧急+不重要 -->
+    <div style="background:white;padding:18px 20px;border-right:1.5px solid var(--ink);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--blue);flex-shrink:0;"></div>
+        <span style="font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);">Q3 · 委托或批量处理</span>
+        <span style="font-size:9px;color:var(--muted);margin-left:auto;">紧急 + 不重要</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#eef0f8;border-left:3px solid var(--blue);border-radius:0 2px 2px 0;">大文豪75 — 华善文具皮壳沟通细节（尺寸/磁铁/烫金/开孔）</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#eef0f8;border-left:3px solid var(--blue);border-radius:0 2px 2px 0;">雨果 — 博主返图催收 · 发布到自有平台</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#eef0f8;border-left:3px solid var(--blue);border-radius:0 2px 2px 0;">小红书 — 每日概念设计更新持续发布</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#eef0f8;border-left:3px solid var(--blue);border-radius:0 2px 2px 0;">已完成产品 — 照片笔记 / 宣传内容持续产出</div>
+      </div>
+    </div>
+
+    <!-- Q4: 不紧急+不重要 -->
+    <div style="background:white;padding:18px 20px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:#c0b8a8;flex-shrink:0;"></div>
+        <span style="font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);">Q4 · 暂缓 / 规划中</span>
+        <span style="font-size:9px;color:var(--muted);margin-left:auto;">不紧急 + 不重要</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#f5f0e8;border-left:3px solid #c0b8a8;border-radius:0 2px 2px 0;">抖音渠道开通与上架（全产品线）</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#f5f0e8;border-left:3px solid #c0b8a8;border-radius:0 2px 2px 0;">元元代工包装换代工后统一更新（福尔摩斯/碎片/魔杖店/对角巷/韦斯莱）</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#f5f0e8;border-left:3px solid #c0b8a8;border-radius:0 2px 2px 0;">未排期系列设计启动（简奥斯汀茶香/图书馆/神曲多雷等）</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#f5f0e8;border-left:3px solid #c0b8a8;border-radius:0 2px 2px 0;">莫奈 / 我的世界（暂时不做）</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:11.5px;padding:6px 10px;background:#f5f0e8;border-left:3px solid #c0b8a8;border-radius:0 2px 2px 0;">失真电台 / 万物理论 / 美食系列未排期产品全线</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 轴标注 -->
+  <div style="display:flex;justify-content:space-between;margin-top:6px;padding:0 2px;">
+    <span style="font-size:9px;color:var(--muted);letter-spacing:0.08em;">← 不重要</span>
+    <span style="font-size:9px;color:var(--muted);letter-spacing:0.08em;text-align:center;">重要度 →</span>
+    <span style="font-size:9px;color:var(--muted);letter-spacing:0.08em;">重要 →</span>
+  </div>
+</div>
+
+
+<div class="pipeline">
+  <div class="pipeline-title">标准产品流程 Standard Product Pipeline</div>
+  <div class="pipeline-row">
+    <div class="phase">
+      <div class="phase-label early">前期</div>
+      <div class="phase-steps">
+        <div class="step">版权申请</div><div class="arrow">›</div>
+        <div class="step">键帽设计</div><div class="arrow">›</div>
+        <div class="step">工厂打样（多轮）</div><div class="arrow">›</div>
+        <div class="step">3D 渲染图</div>
+      </div>
+    </div>
+    <div class="phase-divider"></div>
+    <div class="phase">
+      <div class="phase-label mid">中期</div>
+      <div class="phase-steps">
+        <div class="step">封套卡片设计</div><div class="arrow">›</div>
+        <div class="step">桌垫设计</div><div class="arrow">›</div>
+        <div class="step">收纳盒采购</div><div class="arrow">›</div>
+        <div class="step" style="background:#eef0f8;border-color:#4a5490;color:#4a5490;font-weight:700;">装备前线 IC帖</div><div class="arrow">›</div>
+        <div class="step" style="background:#eef0f8;border-color:#4a5490;color:#4a5490;font-weight:700;">装备前线 GB帖</div><div class="arrow">›</div>
+        <div class="step">电商上架图</div><div class="arrow">›</div>
+        <div class="step">基础宣发图</div>
+      </div>
+    </div>
+    <div class="phase-divider"></div>
+    <div class="phase">
+      <div class="phase-label late">后期</div>
+      <div class="phase-steps">
+        <div class="step">产品硬照拍摄</div><div class="arrow">›</div>
+        <div class="step">博主送测</div><div class="arrow">›</div>
+        <div class="step">电商上架</div>
+      </div>
+    </div>
+    <div class="phase-divider"></div>
+    <div class="phase">
+      <div class="phase-label post">持续运营</div>
+      <div class="phase-steps">
+        <div class="step">博主返图发布</div><div class="arrow">›</div>
+        <div class="step">宣传视频 / 照片笔记</div><div class="arrow">›</div>
+        <div class="step">多平台持续运营</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== 大文豪系列 ======== -->
+<div id="dawenhaо" class="section-label">
+  <h2>大文豪系列</h2>
+  <span class="section-sub">Literary Masters</span>
+  <span class="section-count">14 产品</span>
+</div>
+
+<div class="grid">
+
+  <!-- 雨果·巴黎圣母院 -->
+<div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(280px,1fr));margin-top:0;">
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-high" style="width:88%"></div></div>
+    <div class="card-header">
+      <div class="card-title">雨果｜钟声下的誓言
+        <small>Victor Hugo · Notre-Dame de Paris · ✅ 3/16 正式发售</small>
+      </div>
+      <div class="card-header-right"><span class="status-badge badge-done">已发售</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">键帽设计</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">工厂打样</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">3D 渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">封套卡片设计</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">桌垫设计</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">收纳盒采购（库存充足）</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">电商上架图</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">基础宣发图</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（库存充足·暂缓）</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">产品硬照拍摄完成</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">博主送测已分发（8人）</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">小红书 / 淘宝上架完成</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">宣传视频拍摄 ← 优先</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图陆续收集中（小茉莉今日发布）</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">照片笔记持续更新</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 李清照 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-mid" style="width:62%"></div></div>
+    <div class="card-header">
+      <div class="card-title">李清照 · 金石录
+        <small>Li Qingzhao · 🗓 预计 4 月发售</small>
+      </div>
+      <div class="card-header-right"><span class="status-badge badge-wip">打样阶段</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">键帽设计</div></div>
+      <div class="task-row"><div class="task-icon icon-redo">↺</div><div class="task-text redo-text">PBT热升华 — 看到样品·颜色仍不对·继续修改中</div></div>
+      <div class="task-row"><div class="task-icon icon-redo">↺</div><div class="task-text redo-text">3D 渲染图（需重做·颜色修改）</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-redo">↺</div><div class="task-text redo-text">基础宣发图（需重做·颜色修改）</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套卡片设计</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">桌垫设计</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">收纳盒采购</div></div>
+      <div class="task-row"><div class="task-icon icon-redo">↺</div><div class="task-text redo-text">电商上架图（需修改）</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">颜色确认 → 生产大货</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 加缪与萨特 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-low" style="width:28%"></div></div>
+    <div class="card-header">
+      <div class="card-title">加缪与萨特 · 存在的呼吸
+        <small>Camus &amp; Sartre · 🗓 预计 4 月发售</small>
+      </div>
+      <div class="card-header-right"><span class="status-badge badge-wip">工艺确认中</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">键帽设计</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">第三轮修改中 · 细微颜色调整</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">3D 渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">封套卡片设计（新尺寸）← 可做</div></div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">桌垫设计 ← 可做</div></div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">新收纳盒采购 ← 可做</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">电商上架图 / 基础宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 已完成系列 - 大文豪 -->
+  <!-- 碎片将进酒 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">碎片将进酒<small>大文豪系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（元元代工·换代工后统一处理）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 莎士比亚 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">莎士比亚的王牌<small>大文豪系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（上泰代工·库存充足·暂缓）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 中土地图 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">中土地图<small>大文豪系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（上泰代工·库存充足·暂缓）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 阿加莎 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">推理女王的诡计<small>大文豪系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（上泰代工·库存充足·暂缓）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 福尔摩斯 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">福尔摩斯<small>大文豪系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（元元代工·换代工后统一处理）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 了不起的盖茨比 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">盖茨比的金色幻梦<small>大文豪系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（上泰代工·库存充足·暂缓）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 流浪地球地下城 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">流浪地球地下城<small>大文豪系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（上泰代工·库存充足·暂缓）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 狄金森·密闭花园 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">狄金森·密闭花园·密闭花园<small>大文豪系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（上泰代工·库存充足·暂缓）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 王尔德 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">王尔德｜华丽与忧伤<small>大文豪系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（上泰代工·库存充足·暂缓）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 雨果（18） -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">雨果<small>大文豪系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 简奥斯汀茶香 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:5%"></div></div>
+    <div class="card-header">
+      <div class="card-title">简奥斯汀茶香<small>大文豪系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-design">未排期</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">键帽设计 → 打样 → 3D渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套 / 桌垫 / 收纳盒 / 上架图 / 宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+  <!-- 简奥斯汀图书馆 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:5%"></div></div>
+    <div class="card-header">
+      <div class="card-title">简奥斯汀图书馆<small>大文豪系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-design">未排期</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">键帽设计 → 打样 → 3D渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套 / 桌垫 / 收纳盒 / 上架图 / 宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======== 魔法系列 ======== -->
+<div id="mofа" class="section-label">
+  <h2>魔法系列</h2>
+  <span class="section-sub">Magic Series</span>
+  <span class="section-count">7 产品</span>
+</div>
+
+<div class="grid">
+
+  <!-- 魔法日报 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">魔法日报<small>魔法系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（上泰代工·库存充足·暂缓）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 奥利凡德魔杖店 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">奥利凡德魔杖店<small>魔法系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（元元代工·换代工后统一处理）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 韦斯莱魔法把戏坊 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">韦斯莱魔法把戏坊<small>魔法系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（元元代工·换代工后统一处理）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 对角巷 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">对角巷<small>魔法系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（元元代工·换代工后统一处理）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 草药学与魔法温室 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">草药学与魔法温室<small>魔法系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（上泰代工·库存充足·暂缓）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 巫师巷 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:5%"></div></div>
+    <div class="card-header">
+      <div class="card-title">巫师巷<small>魔法系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-design">未排期</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">键帽设计 → 打样 → 3D渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套 / 桌垫 / 收纳盒 / 上架图 / 宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+  <!-- 混血传奇的魔药课笔记 -->
+  <div class="project-card">
+      <div class="card-header-right"><span class="status-badge badge-launch">包装待更新</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">包装尺寸更新（上泰代工·优先处理）← 最紧急</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======== 入口系列 ======== -->
+<div id="rukou" class="section-label">
+  <h2>入口系列</h2>
+  <span class="section-sub">Entrances Series</span>
+  <span class="section-count">5 产品</span>
+</div>
+
+<div class="grid">
+
+  <!-- 铁皮宇宙 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-low" style="width:35%"></div></div>
+    <div class="card-header">
+      <div class="card-title">铁皮小宇宙<small>入口系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-wip">准备送厂打样</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">键帽设计</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">工厂打样</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">3D 渲染图确认完成</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套卡片 / 桌垫 / 收纳盒 / 上架图 / 宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+  <!-- 出逃布达佩斯 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">出逃布达佩斯<small>入口系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装尺寸更新（上泰代工·库存充足·暂缓）</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- 武道宫本武藏 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">二天一流武藏传<small>入口系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <!-- ByersHouse -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:5%"></div></div>
+    <div class="card-header">
+      <div class="card-title">Byers House<small>入口系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-design">未排期</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">键帽设计 → 打样 → 3D渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套 / 桌垫 / 收纳盒 / 上架图 / 宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+  <!-- 我的世界 暂时不做 -->
+  <div class="project-card paused">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div>
+    <div class="card-header">
+      <div class="card-title">我的世界<small>入口系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-pause">暂时不做</span></div>
+    </div>
+    <div class="tasks">
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">全流程待启动</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======== 失真电台系列 ======== -->
+<div id="shizhen" class="section-label">
+  <h2>失真电台系列</h2>
+  <span class="section-sub">Distortion Radio</span>
+  <span class="section-count">3 产品</span>
+</div>
+
+<div class="grid">
+
+  <!-- 枪炮玫瑰 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:5%"></div></div>
+    <div class="card-header">
+      <div class="card-title">枪炮玫瑰<small>失真电台系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-design">未排期</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">键帽设计 → 打样 → 3D渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套 / 桌垫 / 收纳盒 / 上架图 / 宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+  <!-- Knockin' On Heaven's Door -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:5%"></div></div>
+    <div class="card-header">
+      <div class="card-title">Knockin' On Heaven's Door<small>失真电台系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-design">未排期</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">键帽设计 → 打样 → 3D渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套 / 桌垫 / 收纳盒 / 上架图 / 宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======== 万物理论系列 ======== -->
+<div id="wanwu" class="section-label">
+  <h2>万物理论系列</h2>
+  <span class="section-sub">Theory of Everything</span>
+  <span class="section-count">2 产品</span>
+</div>
+
+<div class="grid">
+
+  <!-- 沉睡纪元 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:5%"></div></div>
+    <div class="card-header">
+      <div class="card-title">沉睡纪元<small>万物理论系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-design">未排期</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">键帽设计 → 打样 → 3D渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套 / 桌垫 / 收纳盒 / 上架图 / 宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+  <!-- 万物理论数学 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:5%"></div></div>
+    <div class="card-header">
+      <div class="card-title">万物理论数学<small>万物理论系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-design">未排期</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">键帽设计 → 打样 → 3D渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套 / 桌垫 / 收纳盒 / 上架图 / 宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======== 美食系列 ======== -->
+<div id="meishi" class="section-label">
+  <h2>美食系列</h2>
+  <span class="section-sub">Gourmet Series</span>
+  <span class="section-count">2 产品</span>
+</div>
+
+<div class="grid">
+
+  <!-- 蛋糕王国 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:5%"></div></div>
+    <div class="card-header">
+      <div class="card-title">蛋糕王国<small>美食系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-design">未排期</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">键帽设计 → 打样 → 3D渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套 / 桌垫 / 收纳盒 / 上架图 / 宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+  <!-- 抹茶 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:5%"></div></div>
+    <div class="card-header">
+      <div class="card-title">抹茶<small>美食系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-design">未排期</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">键帽设计 → 打样 → 3D渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套 / 桌垫 / 收纳盒 / 上架图 / 宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======== 美学大师系列 ======== -->
+<div id="meixue" class="section-label">
+  <h2>美学大师系列</h2>
+  <span class="section-sub">Aesthetic Masters</span>
+  <span class="section-count">4 产品</span>
+</div>
+
+<div class="grid">
+
+  <!-- 莫奈 暂时不做 -->
+  <div class="project-card paused">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div>
+    <div class="card-header">
+      <div class="card-title">莫奈<small>美学大师系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-pause">暂时不做</span></div>
+    </div>
+    <div class="tasks">
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">全流程待启动</div></div>
+    </div>
+  </div>
+
+  <!-- 神曲多雷 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:5%"></div></div>
+    <div class="card-header">
+      <div class="card-title">神曲多雷<small>美学大师系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-design">未排期</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">键帽设计 → 打样 → 3D渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套 / 桌垫 / 收纳盒 / 上架图 / 宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+  <!-- 空灵编年史天野喜孝 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-zero" style="width:5%"></div></div>
+    <div class="card-header">
+      <div class="card-title">空灵编年史 · 天野喜孝<small>美学大师系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-design">未排期</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">键帽设计 → 打样 → 3D渲染图</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">封套 / 桌垫 / 收纳盒 / 上架图 / 宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+  <!-- 沉睡纪元（美学大师） 注：29号暂归万物理论，此处补回确认后调整 -->
+
+</div>
+
+<!-- ======== 杯子系列 ======== -->
+<div id="cup" class="section-label">
+  <h2>杯子产品线</h2>
+  <span class="section-sub">Cup Series</span>
+  <span class="section-count">10 产品</span>
+</div>
+
+<!-- 杯子标准流程 -->
+<div style="max-width:1300px;margin:0 auto 20px;background:white;border:1.5px solid #ddd6c8;border-radius:4px;padding:14px 20px;overflow-x:auto;">
+  <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">杯子产品标准流程 Cup Standard Pipeline</div>
+  <div style="display:flex;align-items:center;min-width:max-content;gap:0;">
+    <div style="font-family:'Noto Serif SC',serif;font-size:10px;background:#fde8e5;border:1px solid var(--red);color:var(--red);padding:4px 9px;border-radius:2px;white-space:nowrap;">确定方向</div><div style="color:var(--muted);padding:0 4px;font-size:13px;">›</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:10px;background:#fde8e5;border:1px solid var(--red);color:var(--red);padding:4px 9px;border-radius:2px;white-space:nowrap;">绘制设计图</div><div style="color:var(--muted);padding:0 4px;font-size:13px;">›</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:10px;background:#fde8e5;border:1px solid var(--red);color:var(--red);padding:4px 9px;border-radius:2px;white-space:nowrap;">颜色 / 尺寸确定</div><div style="color:var(--muted);padding:0 6px;font-size:13px;">›</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:10px;background:#fdf6e3;border:1px solid var(--gold);color:var(--gold);padding:4px 9px;border-radius:2px;font-weight:700;white-space:nowrap;">花纸打样（多轮）</div><div style="color:var(--muted);padding:0 4px;font-size:13px;">›</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:10px;background:#fdf6e3;border:1px solid var(--gold);color:var(--gold);padding:4px 9px;border-radius:2px;font-weight:700;white-space:nowrap;">杯子颜色打样</div><div style="color:var(--muted);padding:0 4px;font-size:13px;">›</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:10px;background:#fdf6e3;border:1px solid var(--gold);color:var(--gold);padding:4px 9px;border-radius:2px;font-weight:700;white-space:nowrap;">包装设计与采购</div><div style="color:var(--muted);padding:0 6px;font-size:13px;">›</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:10px;background:#edf2ea;border:1px solid var(--sage);color:var(--sage);padding:4px 9px;border-radius:2px;white-space:nowrap;">电商上架</div><div style="color:var(--muted);padding:0 4px;font-size:13px;">›</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:10px;background:#edf2ea;border:1px solid var(--sage);color:var(--sage);padding:4px 9px;border-radius:2px;white-space:nowrap;">产品硬照 / 宣发</div><div style="color:var(--muted);padding:0 6px;font-size:13px;">›</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:10px;background:#eef0f8;border:1px solid var(--blue);color:var(--blue);padding:4px 9px;border-radius:2px;white-space:nowrap;">持续运营</div>
+  </div>
+</div>
+
+<!-- 杯欢世界系列 -->
+<div style="max-width:1300px;margin:12px auto 6px;font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);letter-spacing:0.08em;">▸ 杯欢世界系列 · 7款</div>
+<div class="grid">
+
+  <!-- 对角巷 - 进行中 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-low" style="width:25%"></div></div>
+    <div class="card-header">
+      <div class="card-title">对角巷杯子<small>杯欢世界系列 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-wip">图样绘制中</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">确定方向</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">绘制设计图（接近尾声）</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">颜色 / 尺寸确定</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">花纸打样（多轮）</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">杯子颜色打样</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装设计与采购</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">电商上架图 / 基础宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+    <div class="note">🖌 图样完成后即可进入花纸打样阶段</div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">梵高卧室杯子<small>杯欢世界系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">魔法塔楼杯<small>杯欢世界系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">飞鸟集杯<small>杯欢世界系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">猫头鹰商店杯<small>杯欢世界系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">大悲杯<small>杯欢世界系列 ·《悲惨世界》主题</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">糖果商店杯<small>杯欢世界系列 · 老产品</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 花言杯 -->
+<div style="max-width:1300px;margin:20px auto 6px;font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);letter-spacing:0.08em;">▸ 花言杯系列 · 1款</div>
+<div class="grid">
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-low" style="width:30%"></div></div>
+    <div class="card-header">
+      <div class="card-title">简·奥斯汀 × 三重玫瑰<small>花言杯 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-wip">验证完成待打样</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">确定方向</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">绘制设计图</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">产品验证</div></div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">产品打样 ← 当前优先</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">颜色 / 尺寸确定</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">花纸打样（多轮）</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">杯子颜色打样</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装设计与采购</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">电商上架图 / 基础宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 中土第三纪元杯组 -->
+<div style="max-width:1300px;margin:20px auto 6px;font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);letter-spacing:0.08em;">▸ 中土第三纪元杯组 · 2款 · 真空镀钛 · 含杯子+盘子 · 金银分开销售</div>
+<div class="grid">
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">中土第三纪元杯子｜金款<small>中土第三纪元杯组 · 真空镀钛 · 含杯+盘</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">中土第三纪元杯子｜银款<small>中土第三纪元杯组 · 真空镀钛 · 含杯+盘</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- 杯欢世界系列 -->
+<div style="max-width:1300px;margin:12px auto 6px;font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);letter-spacing:0.08em;">▸ 杯欢世界系列 · 7款（全部已完成）</div>
+<div class="grid">
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">对角巷杯子<small>杯欢世界系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">梵高卧室杯子<small>杯欢世界系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">魔法塔楼杯<small>杯欢世界系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">飞鸟集杯<small>杯欢世界系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">猫头鹰商店杯<small>杯欢世界系列</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">大悲杯<small>杯欢世界系列 ·《悲惨世界》主题</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">糖果商店杯<small>杯欢世界系列 · 老产品</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 花言杯 -->
+<div style="max-width:1300px;margin:20px auto 6px;font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);letter-spacing:0.08em;">▸ 花言杯系列 · 1款</div>
+<div class="grid">
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-low" style="width:30%"></div></div>
+    <div class="card-header">
+      <div class="card-title">简·奥斯汀 × 三重玫瑰<small>花言杯 · 发售时间待定</small></div>
+      <div class="card-header-right"><span class="status-badge badge-wip">验证完成待打样</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">产品设计</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">产品验证</div></div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">产品打样 ← 当前优先</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">材质 / 颜色确认</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装设计 / 包材采购</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">电商上架图 / 基础宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- 大文豪杯组 · 激光雕刻 -->
+<div style="max-width:1300px;margin:20px auto 6px;font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);letter-spacing:0.08em;">▸ 大文豪杯组 · 激光雕刻系列 · 1款（进行中）</div>
+<div class="grid">
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-low" style="width:10%"></div></div>
+    <div class="card-header">
+      <div class="card-title">盖茨比的金色幻梦｜激光雕刻杯碟套组
+        <small>大文豪系列 · 真空镀钛 · 激光雕刻 · 含杯+碟 · 发售时间待定</small>
+      </div>
+      <div class="card-header-right"><span class="status-badge badge-wip">设计启动</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">以桌垫设计图为基础转化为激光雕刻图稿 ← 今日任务</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">确认杯碟尺寸 / 工艺参数</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">送厂打样</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">雕刻效果确认</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装设计 / 包材采购</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">电商上架图 / 基础宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+    <div class="note">🖌 以盖茨比桌垫设计为素材源，转化激光雕刻图稿，工艺参考中土第三纪元杯组（真空镀钛）</div>
+  </div>
+
+</div>
+
+<!-- 中土第三纪元杯组 -->
+<div style="max-width:1300px;margin:20px auto 6px;font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);letter-spacing:0.08em;">▸ 中土第三纪元杯组 · 2款 · 真空镀钛 · 含杯子+盘子 · 金银分开销售</div>
+<div class="grid">
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">中土第三纪元杯子｜金款<small>中土第三纪元杯组 · 真空镀钛 · 含杯+盘</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">中土第三纪元杯子｜银款<small>中土第三纪元杯组 · 真空镀钛 · 含杯+盘</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">已完成</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 激光雕刻钛合杯碟系列 -->
+<div style="max-width:1300px;margin:20px auto 6px;font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);letter-spacing:0.08em;">▸ 盖茨比的金色幻梦杯 · 大文豪系列 · 同中土工艺</div>
+<div class="grid">
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-low" style="width:30%"></div></div>
+    <div class="card-header">
+      <div class="card-title">盖茨比的金色幻梦杯
+        <small>真空镀钛 · 激光雕刻 · 杯+碟 · 大文豪系列延伸</small>
+      </div>
+      <div class="card-header-right"><span class="status-badge badge-wip">打样中</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">图案设计完成（桌垫图移植）</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">设计已发给代工厂</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">等待工厂打样（真空镀钛 + 激光雕刻）</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装设计 / 包材采购</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">电商上架图 / 基础宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照 / 博主送测 / 上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记 / 博主返图</div></div>
+    </div>
+    <div class="note">🎨 图案来源：了不起的盖茨比桌垫设计 · 激光雕刻上钛合杯碟 · 可延展至其他大文豪桌垫图案</div>
+  </div>
+
+</div>
+
+
+<div id="keyboard" class="section-label">
+  <h2>大文豪键盘套件</h2>
+  <span class="section-sub">Literary Masters Keyboard Kit</span>
+  <span class="section-count">2 产品</span>
+</div>
+
+<div class="grid">
+
+  <!-- 大文豪75 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-high" style="width:72%"></div></div>
+    <div class="card-header">
+      <div class="card-title">大文豪 75
+        <small>Literary Masters 75% · 发售时间待定</small>
+      </div>
+      <div class="card-header-right"><span class="status-badge badge-wip">最终装配中</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期 · 硬件</div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">内胆 PCB · 棉 · 电池</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">外壳 — 最终样品已发出</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">110套主体制作完成</div></div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">补寄螺丝 + 磁铁 → 完成最终装配</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">轴体采购 — 樱桃爸爸 · 计划5万个 · 预计0.4–0.5元/个（75+100共用）</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">脚垫采购</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">线材采购</div></div>
+      <div class="phase-tag tag-mid">中期 · 配件与包装</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">包装盒设计启动中 — 已发料给丝丝包装代工厂</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">等待代工厂出包装尺寸 + 刀版图</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">皮壳样品已到位 · 已发华善文具 · 沟通中（尺寸/磁铁点位/铁片吸附/边角/烫金/开孔）</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">电商上架图 / 基础宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">产品拍照 ← 与大文豪100并联启动</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">博主送测</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">小红书 / 淘宝上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+    <div class="note">⚡ 螺丝+磁铁补寄 → 装配完成 → 拍照与大文豪100并联 · 包装刀版到位后启动设计</div>
+  </div>
+
+  <!-- 大文豪100 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-high" style="width:95%"></div></div>
+    <div class="card-header">
+      <div class="card-title">大文豪 100
+        <small>Literary Masters 100% · 准备发售</small>
+      </div>
+      <div class="card-header-right"><span class="status-badge badge-done">已发售</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期 · 硬件</div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">全套硬件实装完成</div></div>
+      <div class="phase-tag tag-mid">中期 · 配件与包装</div>
+      <div class="task-row"><div class="task-icon icon-redo">↺</div><div class="task-text redo-text">电商上架图 — 需修改（字小太挤）← 优先</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">详情长页面完成</div></div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">长页面版式改方图 ← 优先</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">基础宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">产品硬照拍摄完成</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">详情长页面完成</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">3:4 上架图组已上传</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">1:1 上架图组已上传</div></div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">宣发视频拍摄</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">小红书 / 淘宝上架完成</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">博主送测</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+    <div class="note">📐 长页面改方图 + 电商上架图修改（字小太挤）→ 重新上传；宣发视频同步推进</div>
+  </div>
+
+</div>
+
+<!-- ======== 耳机壳系列 ======== -->
+<div id="earphone" class="section-label">
+  <h2>耳机壳系列</h2>
+  <span class="section-sub">Earphone Shell Series</span>
+  <span class="section-count">1 产品</span>
+</div>
+
+<div class="grid">
+
+  <!-- 简奥斯汀玫瑰耳机壳 -->
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-low" style="width:20%"></div></div>
+    <div class="card-header">
+      <div class="card-title">简奥斯汀 · 玫瑰耳机壳
+        <small>Jane Austen Rose · 发售时间待定</small>
+      </div>
+      <div class="card-header-right"><span class="status-badge badge-wip">模型验证中</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期 · 模型与打样</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">版权申请</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">3D 模型修正中</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">模型验证中</div></div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">送厂打样 ← 下一步</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">材质 / 颜色确认</div></div>
+      <div class="phase-tag tag-mid">中期 · 包装与素材</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包装设计</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">包材采购</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">电商上架图 / 基础宣发图</div></div>
+      <div class="phase-tag tag-late">后期</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">产品硬照拍摄</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">博主送测</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">小红书 / 淘宝上架</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">博主返图收集发布</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">抖音渠道（规划中）</div></div>
+    </div>
+    <div class="note">🔧 模型验证通过后 → 送厂打样 → 材质颜色确认 → 启动包装设计</div>
+  </div>
+
+</div>
+
+<!-- ======== 账号与平台运营 ======== -->
+<div id="ops" class="section-label">
+  <h2>账号与平台运营</h2>
+  <span class="section-sub">Platform Operations</span>
+</div>
+
+<div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(280px,1fr));">
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-done" style="width:100%"></div></div>
+    <div class="card-header">
+      <div class="card-title">小红书账号运营<small>Xiaohongshu Operations</small></div>
+      <div class="card-header-right"><span class="status-badge badge-done">持续进行</span></div>
+    </div>
+    <div class="tasks">
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">每日更新概念设计</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">产品宣传视频 / 照片笔记</div></div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">博主送测（雨果优先）</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">–</div><div class="task-text wait-text">博主返图收集 · 发布到自有平台</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-low" style="width:10%"></div></div>
+    <div class="card-header">
+      <div class="card-title">品牌认证 · 大文豪系列
+        <small>小红书 + 淘宝 · 注册商标 · 平台认证中</small>
+      </div>
+      <div class="card-header-right"><span class="status-badge badge-wip">进行中</span></div>
+    </div>
+    <div class="tasks">
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">商标注册完成（大文豪系列）</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">小红书品牌资料提交完毕</div></div>
+      <div class="task-row"><div class="task-icon icon-done">✓</div><div class="task-text done-text">淘宝品牌资料提交完毕</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">等待两平台审核通过</div></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-mid" style="width:60%"></div></div>
+    <div class="card-header">
+      <div class="card-title">电商平台布局<small>E-Commerce Channels</small></div>
+      <div class="card-header-right"><span class="status-badge badge-wip">扩展中</span></div>
+    </div>
+    <div class="platform-list">
+      <span class="platform-tag pt-live">小红书 · 在售</span>
+      <span class="platform-tag pt-live">淘宝 · 在售</span>
+      <span class="platform-tag pt-plan">抖音 · 规划中</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======== 小红书博主通讯录 ======== -->
+<div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(280px,1fr));margin-top:0;">
+  <div class="project-card">
+    <div class="progress-bar"><div class="progress-fill fill-low" style="width:18%"></div></div>
+    <div class="card-header">
+      <div class="card-title">海外官网制作<small>Overseas Official Website · 品牌官网 / 内容架构 / 页面搭建</small></div>
+      <div class="card-header-right"><span class="status-badge badge-wip">进行中</span></div>
+    </div>
+    <div class="tasks">
+      <div class="phase-tag tag-early">前期</div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">官网定位确认：品牌展示 / 产品承接 / 海外沟通入口</div></div>
+      <div class="task-row"><div class="task-icon icon-wip">→</div><div class="task-text wip-text">正在梳理站点结构：首页 / 品牌页 / 产品页 / 联系页</div></div>
+      <div class="phase-tag tag-mid">中期</div>
+      <div class="task-row"><div class="task-icon icon-todo">!</div><div class="task-text todo-text">确定建站方案、域名、服务器与语言版本</div></div>
+      <div class="task-row"><div class="task-icon icon-wait">…</div><div class="task-text wait-text">补充官网文案、视觉素材、产品信息与表单逻辑</div></div>
+      <div class="phase-tag tag-post">持续运营</div>
+      <div class="task-row"><div class="task-icon icon-wait">…</div><div class="task-text wait-text">后续承接海外流量、内容更新、SEO 与询盘收集</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="bloggers" class="section-label">
+  <h2>小红书博主通讯录</h2>
+  <span class="section-sub">KOL Directory</span>
+  <span class="section-count">8 人</span>
+</div>
+
+<div style="max-width:1300px;margin:12px auto 0;">
+  <div style="background:white;border:1.5px solid #ddd6c8;border-radius:4px;overflow:hidden;">
+
+    <!-- 表头 -->
+    <div style="display:grid;grid-template-columns:100px 80px 130px 1fr;gap:0;background:var(--cream);border-bottom:1.5px solid var(--ink);padding:8px 18px;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);">
+      <div>博主昵称</div>
+      <div>联系人</div>
+      <div>电话</div>
+      <div>收货地址</div>
+    </div>
+
+    <!-- 小茉莉 -->
+    <div style="display:grid;grid-template-columns:100px 80px 130px 1fr;gap:0;padding:10px 18px;border-bottom:1px dashed #ece6da;align-items:start;">
+      <div style="font-family:'Noto Serif SC',serif;font-size:13px;font-weight:700;">小茉莉</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);">—</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;">15366727418</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;">江苏省泰州市高港区田河菜鸟驿站</div>
+    </div>
+
+    <!-- 小螃蟹 -->
+    <div style="display:grid;grid-template-columns:100px 80px 130px 1fr;gap:0;padding:10px 18px;border-bottom:1px dashed #ece6da;align-items:start;background:#fafaf8;">
+      <div style="font-family:'Noto Serif SC',serif;font-size:13px;font-weight:700;">小螃蟹</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);">杨大洋</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;">18656943824</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;">安徽省合肥市经开区芙蓉路西城秀里</div>
+    </div>
+
+    <!-- 可乐牛奶 -->
+    <div style="display:grid;grid-template-columns:100px 80px 130px 1fr;gap:0;padding:10px 18px;border-bottom:1px dashed #ece6da;align-items:start;">
+      <div style="font-family:'Noto Serif SC',serif;font-size:13px;font-weight:700;">可乐牛奶</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);">苏苏</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;">15957402535</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;">浙江省宁波市镇海区庄市街道滨湖半岛8号楼306 <span style="font-size:10px;background:#fde8e5;color:var(--red);padding:1px 5px;border-radius:2px;margin-left:4px;">请送上门</span></div>
+    </div>
+
+    <!-- 邬琛 -->
+    <div style="display:grid;grid-template-columns:100px 80px 130px 1fr;gap:0;padding:10px 18px;border-bottom:1px dashed #ece6da;align-items:start;background:#fafaf8;">
+      <div style="font-family:'Noto Serif SC',serif;font-size:13px;font-weight:700;">邬琛</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);">邬琛</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;">18002601513</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;">广东省东莞市厚街镇家具大道鸿建家具城D座正门东莞专卖店</div>
+    </div>
+
+    <!-- 淮南有妤 -->
+    <div style="display:grid;grid-template-columns:100px 80px 130px 1fr;gap:0;padding:10px 18px;border-bottom:1px dashed #ece6da;align-items:start;">
+      <div style="font-family:'Noto Serif SC',serif;font-size:13px;font-weight:700;">淮南有妤</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);">小妤</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;">13710720032</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;">广东省广州市越秀区东山街道寺右新马路75号优家国际青年社区1619房</div>
+    </div>
+
+    <!-- 可可冰 -->
+    <div style="display:grid;grid-template-columns:100px 80px 130px 1fr;gap:0;padding:10px 18px;border-bottom:1px dashed #ece6da;align-items:start;background:#fafaf8;">
+      <div style="font-family:'Noto Serif SC',serif;font-size:13px;font-weight:700;">可可冰</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);">可可冰</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;">13755176919</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;">湖南省长沙市开福区洪山路188号藏珑小区2-3栋 <span style="font-size:10px;background:#fde8e5;color:var(--red);padding:1px 5px;border-radius:2px;margin-left:4px;">送货上门·打电话</span></div>
+    </div>
+
+    <!-- 折西 -->
+    <div style="display:grid;grid-template-columns:100px 80px 130px 1fr;gap:0;padding:10px 18px;border-bottom:1px dashed #ece6da;align-items:start;">
+      <div style="font-family:'Noto Serif SC',serif;font-size:13px;font-weight:700;">折西</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);">折西</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;">15606090729</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;">福建省厦门市集美区九天湖二里14号菜鸟驿站</div>
+    </div>
+
+    <!-- 银宙 -->
+    <div style="display:grid;grid-template-columns:100px 80px 130px 1fr;gap:0;padding:10px 18px;align-items:start;background:#fafaf8;">
+      <div style="font-family:'Noto Serif SC',serif;font-size:13px;font-weight:700;">银宙</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;color:var(--muted);">宙宙</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;">13611571054</div>
+      <div style="font-family:'Noto Serif SC',serif;font-size:12px;">江苏省南京市浦口区江浦街道雨山路招商雍宁府</div>
+    </div>
+
+  </div>
+  <div style="font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;margin-top:8px;">⚠ 含个人隐私信息 · 请勿对外分享此文件</div>
+</div>
+
+</div>
+<script>
+document.title = 'Oddity Store | 工作推进平台';
+document.querySelector('header h1').innerHTML = '工作推进平台<span style="font-style:italic;color:var(--muted)"> / Oddity Store</span>';
+document.querySelector('header .sub').textContent = '产品线总览 · 进度追踪 · 2026';
+</script>
+</body>
+</html>

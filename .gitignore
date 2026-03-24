@@ -1,0 +1,29 @@
+# Archive / old files
+_archive/
+
+# Temp scripts
+_*.py
+_*.json
+create_english_pages.py
+
+# Build tools
+.claude/
+
+# Large source assets (not for deployment)
+网站内容整理/
+品牌手册/
+美化参考/
+
+# OS files
+.DS_Store
+Thumbs.db
+Icon?
+desktop.ini
+
+# Python scripts (build tools)
+*.py
+__pycache__/
+*.pyc
+
+# Root-level markdown (duplicates of docs/)
+/oddity-*.md

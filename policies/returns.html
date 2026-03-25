@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Return &amp; Refund Policy — Oddity Store</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Special+Elite&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap");
+
+    :root {
+      --paper: #ece2d4;
+      --paper-soft: #f5ede1;
+      --paper-deep: #dfd1bf;
+      --ink: #17110d;
+      --muted: #6c5d52;
+      --line: rgba(23, 17, 13, 0.16);
+      --line-strong: rgba(23, 17, 13, 0.36);
+      --accent: #ab442e;
+      --mark: #fff100;
+      --mono: "Special Elite", "Courier Prime", "Courier New", monospace;
+      --serif: "Special Elite", "Courier Prime", "Courier New", monospace;
+      --sans: "Courier Prime", "Courier New", monospace;
+      --editorial: "Playfair Display", Georgia, "Times New Roman", serif;
+      --shadow: 0 24px 58px rgba(32, 22, 15, 0.1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--sans);
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.8), transparent 34%),
+        linear-gradient(180deg, #efe6d8 0%, #e6d9c8 100%);
+      position: relative;
+      letter-spacing: -0.03em;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.24;
+      background:
+        repeating-linear-gradient(0deg, rgba(23,17,13,0.025) 0 1px, transparent 1px 126px),
+        repeating-linear-gradient(90deg, rgba(23,17,13,0.018) 0 1px, transparent 1px 132px);
+      mix-blend-mode: multiply;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; }
+
+    .shell {
+      width: min(1520px, calc(100vw - 28px));
+      margin: 14px auto 34px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0)),
+        var(--paper-soft);
+      border: 1px solid var(--line-strong);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── Notice Bar ── */
+    .notice {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      padding: 12px 26px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.18);
+      font: 12px/1.5 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .notice strong {
+      font-family: var(--sans);
+      font-size: 13px;
+      letter-spacing: normal;
+      text-transform: none;
+      margin-left: 8px;
+    }
+    .notice-meta { display: flex; gap: 14px; flex-wrap: wrap; color: var(--muted); }
+
+    /* ── Site Header ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 26px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(245, 237, 225, 0.88);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      min-width: 0;
+      line-height: 0;
+    }
+    .brand img { width: 118px; max-width: 100%; object-fit: contain; }
+    .brand-tag { display: none; }
+
+    .nav-wrap { display: flex; justify-content: center; min-width: 0; }
+
+    .main-nav {
+      display: flex;
+      align-items: stretch;
+      position: relative;
+      min-width: 0;
+      overflow: visible;
+      white-space: nowrap;
+    }
+    .main-nav::-webkit-scrollbar { display: none; }
+
+    .nav-item { position: relative; display: flex; align-items: stretch; }
+    .nav-item.has-dropdown { padding-bottom: 16px; margin-bottom: -16px; }
+
+    .nav-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 16px 12px;
+      border: 0;
+      cursor: pointer;
+      background: transparent;
+      color: inherit;
+      font: 12px/1.2 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: color 180ms ease, transform 220ms ease;
+    }
+    .nav-link span { display: none; }
+    .nav-link:hover { color: var(--accent); }
+    .nav-link:hover::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 3px;
+      background: var(--mark);
+      animation: navLineIn .32s ease forwards;
+    }
+    .nav-link:hover { transform: translateY(-1px); }
+
+    .nav-trigger { gap: 8px; }
+    .nav-trigger::before {
+      content: "";
+      width: 6px; height: 6px;
+      margin-top: -2px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      transition: transform .2s ease;
+    }
+    .nav-item.has-dropdown:hover .nav-trigger::before,
+    .nav-item.has-dropdown:focus-within .nav-trigger::before {
+      transform: rotate(225deg);
+      margin-top: 2px;
+    }
+
+    .nav-panel {
+      position: absolute;
+      left: 0;
+      top: calc(100% + 10px);
+      min-width: 268px;
+      padding: 16px 18px 18px;
+      border: 1px solid var(--line-strong);
+      background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0)), rgba(245, 237, 225, 0.97);
+      box-shadow: 0 18px 32px rgba(28, 18, 11, 0.1);
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity .24s ease, transform .24s ease;
+      z-index: 25;
+    }
+    .nav-panel::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: -12px;
+      height: 12px;
+    }
+    .nav-item.has-dropdown:hover .nav-panel,
+    .nav-item.has-dropdown:focus-within .nav-panel {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .nav-panel-label {
+      display: inline-flex;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font: 10px/1.2 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .nav-panel-links { display: grid; gap: 0; }
+    .nav-panel-link {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+      min-height: 46px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+      transition: color 180ms ease, transform 180ms ease;
+    }
+    .nav-panel-link:last-child { border-bottom: 0; }
+    .nav-panel-link::after {
+      content: "";
+      width: 8px; height: 8px;
+      border-top: 1.5px solid currentColor;
+      border-right: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      opacity: 0.45;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+    .nav-panel-link:hover { color: var(--accent); transform: translateX(4px); }
+    .nav-panel-link:hover::after { opacity: 1; transform: rotate(45deg) translateX(2px); }
+
+    .utility-group { display: flex; align-items: center; gap: 14px; }
+    .lang-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 28px;
+      padding: 0 6px;
+      color: var(--ink);
+      font: 11px/1.2 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: color 180ms ease, transform 180ms ease;
+    }
+    .lang-link::after {
+      content: "";
+      position: absolute;
+      left: 6px; right: 6px; bottom: -3px;
+      height: 2px;
+      background: var(--mark);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform .24s ease;
+    }
+    .lang-link:hover { color: var(--accent); transform: translateY(-1px); }
+    .lang-link:hover::after { transform: scaleX(1); }
+
+    .utility-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      position: relative;
+      cursor: pointer;
+      transition: color 180ms ease, transform 180ms ease;
+    }
+    .utility-link:hover { color: var(--accent); transform: translateY(-1px); }
+    .utility-link.search::before {
+      content: "";
+      width: 16px; height: 16px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      position: relative;
+      top: -1px; left: -1px;
+    }
+    .utility-link.search::after {
+      content: "";
+      position: absolute;
+      width: 2px; height: 7px;
+      background: currentColor;
+      bottom: 5px; right: 7px;
+      transform: rotate(-45deg);
+    }
+    .utility-link.account::before {
+      content: "";
+      width: 12px; height: 12px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      position: absolute;
+      top: 4px;
+    }
+    .utility-link.account::after {
+      content: "";
+      width: 20px; height: 8px;
+      border: 2px solid currentColor;
+      border-top: 0;
+      border-radius: 0 0 10px 10px;
+      position: absolute;
+      bottom: 4px;
+    }
+    .utility-link.cart::before {
+      content: "";
+      width: 16px; height: 14px;
+      border: 2px solid currentColor;
+      border-radius: 0 0 3px 3px;
+      position: absolute;
+      bottom: 5px;
+    }
+    .utility-link.cart::after {
+      content: "";
+      width: 10px; height: 6px;
+      border: 2px solid currentColor;
+      border-bottom: 0;
+      border-radius: 6px 6px 0 0;
+      position: absolute;
+      top: 5px;
+    }
+
+    /* ── Mobile Nav ── */
+    .mobile-actions { display: none; align-items: center; justify-content: flex-end; gap: 16px; }
+    .mobile-icon-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      position: relative;
+      cursor: pointer;
+    }
+    .mobile-icon-button.search::before {
+      content: "";
+      width: 14px; height: 14px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      position: relative;
+      top: -1px; left: -1px;
+    }
+    .mobile-icon-button.search::after {
+      content: "";
+      position: absolute;
+      width: 2px; height: 6px;
+      background: currentColor;
+      bottom: 6px; right: 8px;
+      transform: rotate(-45deg);
+    }
+    .mobile-icon-button.cart::before {
+      content: "";
+      width: 14px; height: 12px;
+      border: 2px solid currentColor;
+      border-radius: 0 0 3px 3px;
+      position: absolute;
+      bottom: 6px;
+    }
+    .mobile-icon-button.cart::after {
+      content: "";
+      width: 9px; height: 5px;
+      border: 2px solid currentColor;
+      border-bottom: 0;
+      border-radius: 5px 5px 0 0;
+      position: absolute;
+      top: 7px;
+    }
+
+    .mobile-toggle,
+    .mobile-link,
+    .mobile-summary,
+    .mobile-sublink {
+      font: 11px/1.2 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: color 180ms ease, transform 180ms ease;
+    }
+    .mobile-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 42px; height: 42px;
+      padding: 0;
+      cursor: pointer;
+      color: var(--ink);
+      border: 0;
+      background: transparent;
+    }
+    .toggle-bars {
+      position: relative;
+      display: block;
+      width: 22px; height: 14px;
+    }
+    .toggle-bars::before,
+    .toggle-bars::after,
+    .toggle-bars span {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 22px; height: 2px;
+      background: var(--ink);
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+    .toggle-bars::before { top: 0; }
+    .toggle-bars span { top: 6px; }
+    .toggle-bars::after { top: 12px; }
+    .mobile-toggle.is-open .toggle-bars::before { top: 6px; transform: rotate(45deg); }
+    .mobile-toggle.is-open .toggle-bars span { opacity: 0; }
+    .mobile-toggle.is-open .toggle-bars::after { top: 6px; transform: rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      max-height: 0;
+      opacity: 0;
+      padding: 0 18px 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(245, 237, 225, 0.92);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      pointer-events: none;
+      transition: max-height .55s cubic-bezier(.075,.82,.165,1), opacity .28s ease, padding-bottom .28s ease;
+    }
+    .mobile-menu-inner { display: grid; gap: 12px; }
+    .mobile-nav, .mobile-utility { display: grid; gap: 0; }
+    .mobile-branch { display: grid; border-bottom: 1px solid var(--line); }
+    .mobile-summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 48px;
+      padding: 14px 0;
+      cursor: pointer;
+      color: var(--ink);
+      user-select: none;
+    }
+    .mobile-summary::-webkit-details-marker { display: none; }
+    .mobile-summary::after {
+      content: "";
+      width: 8px; height: 8px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      transition: transform .2s ease;
+    }
+    .mobile-branch[open] .mobile-summary::after { transform: rotate(225deg); }
+    .mobile-nav > .mobile-link,
+    .mobile-utility > .mobile-link { border-bottom: 1px solid var(--line); }
+    .mobile-summary:hover, .mobile-link:hover, .mobile-sublink:hover { color: var(--accent); }
+    .mobile-subnav { display: grid; gap: 0; padding-bottom: 8px; }
+    .mobile-sublink {
+      display: flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 10px 0 10px 14px;
+      color: var(--muted);
+      border-top: 1px solid rgba(23, 17, 13, 0.08);
+    }
+    .mobile-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 48px;
+      padding: 14px 0;
+      color: var(--ink);
+      border: 0;
+    }
+
+    /* ── Policy Content ── */
+    .policy-hero {
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background: #16110d;
+      padding: 60px 48px 52px;
+      text-align: center;
+    }
+    .policy-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 20%, rgba(171, 68, 46, 0.08), transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(255, 241, 0, 0.03), transparent 50%);
+      pointer-events: none;
+    }
+    .policy-hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      color: rgba(255,255,255,0.52);
+      font: 11px/1.2 var(--mono);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .policy-hero-kicker::before,
+    .policy-hero-kicker::after {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: rgba(255,255,255,0.28);
+    }
+    .policy-hero-title {
+      margin: 0;
+      font: 700 clamp(32px, 6vw, 52px)/1.1 var(--serif);
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .policy-hero-sub {
+      margin: 16px auto 0;
+      max-width: 480px;
+      font: 14px/1.7 var(--sans);
+      color: rgba(255,255,255,0.58);
+    }
+
+    .policy-body {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 48px 48px 64px;
+    }
+
+    .policy-updated {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 36px;
+      padding: 7px 14px;
+      border: 1px solid var(--line-strong);
+      font: 10px/1.2 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .policy-updated::before {
+      content: "";
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .policy-body h2 {
+      margin: 40px 0 16px;
+      font: 700 clamp(20px, 3.5vw, 26px)/1.2 var(--serif);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .policy-body h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .policy-body h3 {
+      margin: 28px 0 12px;
+      font: 700 16px/1.3 var(--mono);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .policy-body p {
+      margin: 0 0 16px;
+      font: 15px/1.85 var(--sans);
+      color: var(--ink);
+    }
+
+    .policy-body ul, .policy-body ol {
+      margin: 0 0 20px;
+      padding-left: 24px;
+    }
+    .policy-body li {
+      margin-bottom: 8px;
+      font: 14px/1.75 var(--sans);
+      color: var(--ink);
+    }
+
+    .policy-body a {
+      color: var(--accent);
+      border-bottom: 1px solid rgba(171, 68, 46, 0.3);
+      transition: border-color 180ms ease;
+    }
+    .policy-body a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .policy-divider {
+      margin: 40px 0;
+      border: none;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 0;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0)), #16110d;
+      color: rgba(255,255,255,0.82);
+    }
+    .footer::before { content: none; }
+    .footer-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 18px;
+      padding: 24px;
+    }
+    .footer-label {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 10px;
+      border: 1px solid rgba(255,255,255,0.22);
+      font-size: 10px;
+      color: rgba(255,255,255,0.72);
+    }
+    .footer h3 { margin: 16px 0 12px; font-size: 34px; line-height: 1; color: #fff; }
+    .footer strong { color: #fff; }
+    .footer p { margin: 6px 0; font-size: 13px; }
+    .footer a { transition: color 180ms ease; }
+    .footer a:hover { color: #fff; }
+
+    /* ── Animations ── */
+    @keyframes navLineIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    /* ── Responsive ── */
+    @media (max-width: 1180px) {
+      .site-header { grid-template-columns: auto minmax(0,1fr) auto; }
+      .brand img { width: 80px; }
+      .nav-link { padding: 10px 8px; font-size: 10px; }
+    }
+
+    @media (max-width: 1040px) {
+      .notice, .site-header { padding-left: 18px; padding-right: 18px; }
+      .site-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        min-height: 68px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+      .nav-wrap, .utility-group { display: none; }
+      .mobile-toggle { display: inline-flex; }
+      .mobile-actions { display: flex; }
+      .mobile-menu { display: block; }
+      .brand {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 74px; height: 58px;
+        overflow: visible;
+        z-index: 1;
+      }
+      .brand img { width: 58px; height: auto; max-width: 58px; margin: 0; }
+      .mobile-toggle { position: relative; z-index: 2; flex: 0 0 auto; }
+      .mobile-actions { position: relative; z-index: 2; flex: 0 0 auto; min-width: 74px; justify-content: flex-end; gap: 12px; }
+      .shell.nav-open .mobile-menu {
+        max-height: 620px;
+        opacity: 1;
+        padding-bottom: 18px;
+        pointer-events: auto;
+      }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .shell { width: min(calc(100vw - 12px), 100%); margin: 6px auto 18px; }
+      .notice { grid-template-columns: 1fr; gap: 10px; padding-top: 14px; font-size: 11px; }
+      .site-header { min-height: 60px; padding-top: 6px; padding-bottom: 6px; }
+      .brand { width: 68px; height: 52px; }
+      .brand img { width: 52px; height: auto; max-width: 52px; margin: 0; }
+      .policy-hero { padding: 40px 22px 36px; }
+      .policy-body { padding: 32px 22px 48px; }
+      .footer h3 { font-size: 28px; }
+      .footer-grid { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+
+    <!-- Notice Bar -->
+    <div class="notice">
+      <div>
+        Seriously Impractical
+        <strong>Take the ideas people dismiss too quickly, and build them seriously.</strong>
+      </div>
+      <div class="notice-meta">
+        <span>FILE ID OS-RETURNS</span>
+        <span>POLICY</span>
+        <span>UPDATED 2026-03</span>
+      </div>
+    </div>
+
+    <!-- Site Header -->
+    <header class="site-header">
+      <a class="brand" href="../../">
+        <img src="../../logo/不现实商店logo2.png" alt="Oddity Store">
+        <div class="brand-tag">Oddity Store</div>
+      </a>
+
+      <div class="nav-wrap">
+        <nav class="main-nav" aria-label="Primary">
+          <a class="nav-link" href="../../">Home</a>
+
+          <div class="nav-item has-dropdown">
+            <a class="nav-link nav-trigger" href="../../keycaps/">Keycaps</a>
+            <div class="nav-panel">
+              <span class="nav-panel-label">Keycap Series</span>
+              <div class="nav-panel-links">
+                <a class="nav-panel-link" href="../../keycaps/">All Keycaps</a>
+                <a class="nav-panel-link" href="../../keycaps/">Magic Series</a>
+                <a class="nav-panel-link" href="../../keycaps/">Literary Series</a>
+                <a class="nav-panel-link" href="../../keycaps/">World Entry</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-item has-dropdown">
+            <a class="nav-link nav-trigger" href="../../keyboards/">Keyboards</a>
+            <div class="nav-panel">
+              <span class="nav-panel-label">Keyboard Collection</span>
+              <div class="nav-panel-links">
+                <a class="nav-panel-link" href="../../keyboards/">All Keyboards</a>
+                <a class="nav-panel-link" href="../../keyboards/">Literary Keyboards</a>
+                <a class="nav-panel-link" href="../../keyboards/">Keyboard Protectors</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-item has-dropdown">
+            <a class="nav-link nav-trigger" href="../../deskmats/">Desk Mats</a>
+            <div class="nav-panel">
+              <span class="nav-panel-label">Desk Mat Series</span>
+              <div class="nav-panel-links">
+                <a class="nav-panel-link" href="../../deskmats/">All Desk Mats</a>
+                <a class="nav-panel-link" href="../../deskmats/">Literary Desk Mats</a>
+                <a class="nav-panel-link" href="../../deskmats/">Magic Desk Mats</a>
+                <a class="nav-panel-link" href="../../keycaps/">World Entry Desk Mats</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-item has-dropdown">
+            <a class="nav-link nav-trigger" href="../../cups/">Cups</a>
+            <div class="nav-panel">
+              <span class="nav-panel-label">Cup Series</span>
+              <div class="nav-panel-links">
+                <a class="nav-panel-link" href="../../cups/">All Cups</a>
+                <a class="nav-panel-link" href="../../cups/">Van Gogh Bedroom Cup</a>
+                <a class="nav-panel-link" href="../../cups/">Magic Tower Cup</a>
+                <a class="nav-panel-link" href="../../cups/">Middle Earth Cup</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-item has-dropdown">
+            <a class="nav-link nav-trigger" href="#">Cases</a>
+            <div class="nav-panel">
+              <span class="nav-panel-label">Case Collection</span>
+              <div class="nav-panel-links">
+                <a class="nav-panel-link" href="#">All Cases</a>
+                <a class="nav-panel-link" href="#">Phone Cases</a>
+                <a class="nav-panel-link" href="#">Earphone Cases</a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-link" href="../../about/">About</a>
+        </nav>
+      </div>
+
+      <div class="utility-group">
+        <a class="lang-link" href="./returns-cn.html" aria-label="Switch to Chinese">CN</a>
+        <a class="utility-link search" href="#" aria-label="Search"></a>
+        <a class="utility-link account" href="#" aria-label="Account"></a>
+        <a class="utility-link cart" href="#" aria-label="Cart"><span></span></a>
+      </div>
+
+      <button class="mobile-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <span class="toggle-bars"><span></span></span>
+      </button>
+
+      <div class="mobile-actions" aria-label="Mobile quick actions">
+        <a class="mobile-icon-button search" href="#" aria-label="Search"></a>
+        <a class="mobile-icon-button cart" href="#" aria-label="Cart"><span></span></a>
+      </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-inner">
+        <nav class="mobile-nav" aria-label="Mobile navigation">
+          <a class="mobile-link" href="../../"><span>Home</span></a>
+          <details class="mobile-branch">
+            <summary class="mobile-summary">Keycaps</summary>
+            <div class="mobile-subnav">
+              <a class="mobile-sublink" href="../../keycaps/">All Keycaps</a>
+              <a class="mobile-sublink" href="../../keycaps/">Magic Series</a>
+              <a class="mobile-sublink" href="../../keycaps/">Literary Series</a>
+              <a class="mobile-sublink" href="../../keycaps/">World Entry</a>
+            </div>
+          </details>
+          <details class="mobile-branch">
+            <summary class="mobile-summary">Keyboards</summary>
+            <div class="mobile-subnav">
+              <a class="mobile-sublink" href="../../keyboards/">All Keyboards</a>
+              <a class="mobile-sublink" href="../../keyboards/">Literary Keyboards</a>
+              <a class="mobile-sublink" href="../../keyboards/">Keyboard Protectors</a>
+            </div>
+          </details>
+          <details class="mobile-branch">
+            <summary class="mobile-summary">Desk Mats</summary>
+            <div class="mobile-subnav">
+              <a class="mobile-sublink" href="../../deskmats/">All Desk Mats</a>
+              <a class="mobile-sublink" href="../../deskmats/">Literary Desk Mats</a>
+              <a class="mobile-sublink" href="../../deskmats/">Magic Desk Mats</a>
+              <a class="mobile-sublink" href="../../keycaps/">World Entry Desk Mats</a>
+            </div>
+          </details>
+          <details class="mobile-branch">
+            <summary class="mobile-summary">Cups</summary>
+            <div class="mobile-subnav">
+              <a class="mobile-sublink" href="../../cups/">All Cups</a>
+              <a class="mobile-sublink" href="../../cups/">Van Gogh Bedroom Cup</a>
+              <a class="mobile-sublink" href="../../cups/">Magic Tower Cup</a>
+              <a class="mobile-sublink" href="../../cups/">Middle Earth Cup</a>
+            </div>
+          </details>
+          <details class="mobile-branch">
+            <summary class="mobile-summary">Cases</summary>
+            <div class="mobile-subnav">
+              <a class="mobile-sublink" href="#">All Cases</a>
+              <a class="mobile-sublink" href="#">Phone Cases</a>
+              <a class="mobile-sublink" href="#">Earphone Cases</a>
+            </div>
+          </details>
+          <a class="mobile-link" href="../../about/"><span>About</span></a>
+        </nav>
+        <div class="mobile-utility">
+          <a class="mobile-link" href="./returns-cn.html"><span>CN / 中文</span></a>
+          <a class="mobile-link" href="#"><span>Account</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="policy-hero">
+      <span class="policy-hero-kicker"><span></span>Policy<span></span></span>
+      <h1 class="policy-hero-title">Return &amp; Refund Policy</h1>
+      <p class="policy-hero-sub">Our commitment to your satisfaction, with clear and fair return guidelines.</p>
+    </section>
+
+    <!-- Content -->
+    <div class="policy-body">
+      <span class="policy-updated"><span></span>Last Updated: March 2026</span>
+
+      <h2>Return Window</h2>
+      <ul>
+        <li>Returns accepted within 7 days of delivery</li>
+        <li>Items must be unused, in original packaging, with all tags attached</li>
+      </ul>
+
+      <h2>Non-Returnable Items</h2>
+      <ul>
+        <li>Custom or personalized products</li>
+        <li>Items marked as &ldquo;Final Sale&rdquo;</li>
+        <li>Pre-order items that have entered production</li>
+        <li>Used or damaged items (unless defective)</li>
+      </ul>
+
+      <h2>Defective Products</h2>
+      <ul>
+        <li>If you receive a defective product, contact us within 48 hours of delivery</li>
+        <li>Provide photos of the defect and your order number</li>
+        <li>We will arrange a replacement or full refund at no additional cost</li>
+      </ul>
+
+      <h2>Refund Process</h2>
+      <ul>
+        <li>Refunds are processed within 5&ndash;7 business days after we receive the returned item</li>
+        <li>Refunds are issued to the original payment method</li>
+        <li>Original shipping costs are non-refundable unless the return is due to our error</li>
+      </ul>
+
+      <h2>How to Initiate a Return</h2>
+      <ol>
+        <li>Email us at <a href="mailto:support@odditystore.com">support@odditystore.com</a> with your order number</li>
+        <li>Include photos of the item and reason for return</li>
+        <li>Wait for return authorization before shipping</li>
+      </ol>
+
+      <hr class="policy-divider">
+
+      <p>For return questions, contact us at <a href="mailto:support@odditystore.com">support@odditystore.com</a></p>
+    </div>
+
+        <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <span class="footer-label">Seriously Impractical</span>
+          <h3>Seriously Impractical</h3>
+          <p>We don't just make products &mdash; we build worlds you can type on, read into, collect, and converse with.</p>
+        </div>
+        <div>
+          <strong>Products</strong>
+          <p><a href="../../keycaps/">Keycaps</a></p>
+          <p><a href="../../keyboards/">Keyboards</a></p>
+          <p><a href="../../deskmats/">Desk Mats</a></p>
+          <p><a href="../../cups/">Cups</a></p>
+        </div>
+        <div>
+          <strong>Support</strong>
+          <p><a href="./shipping.html">Shipping Policy</a></p>
+          <p><a href="./returns.html">Returns &amp; Refunds</a></p>
+          <p><a href="./quality.html">Quality Standards</a></p>
+          <p><a href="./terms.html">Terms of Service</a></p>
+        </div>
+        <div>
+          <strong>Legal</strong>
+          <p><a href="./privacy.html">Privacy Policy</a></p>
+          <p><a href="../../about/">About Us</a></p>
+          <p><a href="mailto:support@odditystore.com">Contact</a></p>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    const toggle = document.querySelector('.mobile-toggle');
+    const shell = document.querySelector('.shell');
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        toggle.classList.toggle('is-open');
+        shell.classList.toggle('nav-open');
+        toggle.setAttribute('aria-expanded', toggle.classList.contains('is-open'));
+      });
+    }
+  </script>
+</body>
+</html>

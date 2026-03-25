@@ -633,33 +633,115 @@
 
     .slide {
       display: none;
-      grid-template-columns: minmax(360px, 430px) minmax(0, 1fr);
-      gap: 18px;
-      min-height: clamp(520px, 50vw, 700px);
-      padding: 18px;
       position: relative;
       z-index: 1;
+      min-height: clamp(380px, 42vw, 520px);
+      overflow: hidden;
     }
 
-    .slide.is-active { display: grid; }
+    .slide.is-active {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      align-items: stretch;
+    }
 
     .panel {
       position: relative;
+      z-index: 2;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      gap: 22px;
-      padding: 26px;
-      border: 1px solid var(--line-strong);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.44), rgba(255,255,255,0.05)),
-        var(--paper);
-      overflow: hidden;
+      justify-content: center;
+      padding: 42px 36px;
+      background: transparent;
+      pointer-events: none;
     }
 
     .panel::before,
     .panel::after {
       content: none;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 420px;
+      pointer-events: auto;
+    }
+
+    .hero-name {
+      margin: 0;
+      font: 700 clamp(28px, 4.5vw, 44px)/1.08 var(--serif);
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .hero-desc {
+      margin: 0;
+      font: 14px/1.65 var(--sans);
+      color: var(--muted);
+      max-width: 360px;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .hero-price {
+      font: 700 26px/1 var(--mono);
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .hero-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      font: 10px/1.2 var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .hero-status.in-stock {
+      background: rgba(34,120,60,0.92);
+      color: #fff;
+    }
+
+    .hero-status.pre-order {
+      background: rgba(171,68,46,0.92);
+      color: #fff;
+    }
+
+    .slide .hero-kicker .eyebrow,
+    .slide .hero-kicker .stamp {
+      border-color: var(--line-strong);
+      color: var(--ink);
+      background: transparent;
+    }
+
+    .slide .hero-actions .btn.primary {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+    .slide .hero-actions .btn.primary:hover {
+      background: var(--mark);
+      border-color: var(--mark);
+      color: #fff;
+    }
+
+    .slide .hero-actions .btn.secondary {
+      border-color: var(--line-strong);
+      color: var(--ink);
+      background: transparent;
+    }
+    .slide .hero-actions .btn.secondary:hover {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: var(--paper);
     }
 
     .hero-kicker { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -791,47 +873,25 @@
 
     .visual {
       position: relative;
+      z-index: 1;
       overflow: hidden;
-      border: 1px solid var(--line-strong);
       background: var(--paper-deep);
+      aspect-ratio: 4 / 3;
     }
 
     .visual::before {
-      content: "不现实预览";
-      position: absolute;
-      left: 16px;
-      top: 16px;
-      z-index: 2;
-      padding: 8px 10px;
-      border: 1px solid rgba(255,255,255,0.44);
-      background: rgba(17,12,9,0.68);
-      color: rgba(255,255,255,0.86);
-      font: 10px/1.2 var(--mono);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
+      content: none;
     }
 
     .visual::after {
-      content: "Case File";
-      position: absolute;
-      right: -50px;
-      top: 118px;
-      z-index: 2;
-      padding: 10px 18px;
-      border: 1px solid rgba(255,255,255,0.36);
-      background: rgba(17,12,9,0.62);
-      color: rgba(255,255,255,0.84);
-      font: 10px/1.2 var(--mono);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      transform: rotate(90deg);
+      content: none;
     }
 
     .visual img {
+      width: 100%;
       height: 100%;
-      min-height: clamp(480px, 46vw, 660px);
       object-fit: cover;
-      filter: saturate(0.95);
+      filter: saturate(0.92);
       transition: transform .8s cubic-bezier(.19,1,.22,1), filter .45s ease;
     }
 
@@ -940,6 +1000,93 @@
     .grid-three { grid-template-columns: repeat(3, minmax(0,1fr)); }
     .grid-cats { grid-template-columns: repeat(5, minmax(0,1fr)); }
     .grid-services { grid-template-columns: repeat(4, minmax(0,1fr)); }
+
+    /* ── Blogger Grid ── */
+    .blogger-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .blogger-card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.15);
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      transition: transform 280ms ease, box-shadow 280ms ease;
+    }
+    .blogger-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(20,20,20,0.1);
+    }
+    .blogger-cover {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: var(--paper-deep);
+    }
+    .blogger-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .blogger-card:hover .blogger-cover img {
+      transform: scale(1.05);
+    }
+    .blogger-platform {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      font: 10px/1.2 var(--mono);
+      letter-spacing: 0.06em;
+      border-radius: 2px;
+    }
+    .blogger-play {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      font-size: 12px;
+      border-radius: 50%;
+      transition: background 200ms;
+    }
+    .blogger-card:hover .blogger-play {
+      background: var(--mark);
+    }
+    .blogger-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 10px 12px 12px;
+    }
+    .blogger-name {
+      font: 600 12px/1.3 var(--sans);
+      color: var(--ink);
+    }
+    .blogger-product {
+      font: 10px/1.3 var(--mono);
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
 
     .collection-shell {
       position: relative;
@@ -1322,6 +1469,19 @@
     }
 
     .media.square { aspect-ratio: 1 / 1; }
+    .media.wide { aspect-ratio: 9 / 4; }
+
+    .card.card-wide {
+      grid-column: span 2;
+    }
+
+    .card-link {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      height: 100%;
+    }
     .media.poster { aspect-ratio: 3 / 4; }
     .media img { height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.19,1,.22,1), filter .35s ease; }
     .card:hover .media img { transform: scale(1.05) translateX(-10px); filter: contrast(1.04); }
@@ -1557,6 +1717,7 @@
       .nav-link span { font-size: 8px; }
       .grid-products, .grid-services { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .grid-cats { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .blogger-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
       .collection-showcase { grid-auto-columns: calc((100% - 18px) / 2); }
     }
 
@@ -1608,6 +1769,9 @@
         justify-content: flex-end;
         gap: 12px;
       }
+      .slide.is-active { grid-template-columns: 1fr 1fr; }
+      .slide { min-height: clamp(320px, 38vw, 440px); }
+      .panel { padding: 28px 22px; }
       .shell.nav-open .mobile-menu {
         max-height: 620px;
         opacity: 1;
@@ -1625,9 +1789,11 @@
       .shell.nav-open .mobile-utility .mobile-link:nth-child(1) { transition-delay: .42s; }
       .shell.nav-open .mobile-utility .mobile-link:nth-child(2) { transition-delay: .47s; }
       .shell.nav-open .mobile-utility .mobile-link:nth-child(3) { transition-delay: .52s; }
-      .slide { grid-template-columns: 1fr; }
-      .panel { order: 2; }
-      .visual img { min-height: 420px; }
+      .slide { min-height: clamp(360px, 60vw, 480px); padding: 0; }
+      .panel { padding: 28px 18px; }
+      .hero-name { font-size: clamp(26px, 7vw, 36px); }
+      .hero-desc { font-size: 13px; }
+      .hero-price { font-size: 22px; }
       .section-hd, .grid-three, .footer-grid { grid-template-columns: 1fr; }
       .collection-showcase { grid-auto-columns: clamp(240px, 78vw, 320px); }
     }
@@ -1666,19 +1832,31 @@
       .mobile-utility { grid-template-columns: 1fr; }
       .lang-link { display: none; }
       .content { padding-top: 12px; padding-bottom: 18px; }
-      .slide, .frame { padding: 12px; }
+      .slide { padding: 0 !important; }
+      .slide.is-active { grid-template-columns: 1fr; }
+      .visual { aspect-ratio: 16 / 10; order: -1; }
+      .frame { padding: 12px; }
       #collections .frame { padding: 14px; }
       .collection-controls {
         justify-content: flex-start;
         margin-top: 14px;
       }
-      .panel, .hero-note, .card-bd, .category-bd, .service-bd, .footer-grid { padding: 16px; }
-      .hero-title h1 { font-size: clamp(34px, 10vw, 52px); }
-      .visual::after { display: none; }
-      .hero-note { position: static; width: auto; border-top: 1px solid rgba(255,255,255,0.16); }
+      .panel { padding: 18px 16px !important; }
+      .card-bd, .category-bd, .service-bd, .footer-grid { padding: 16px; }
+      .hero-name { font-size: clamp(22px, 6.5vw, 28px) !important; }
+      .hero-desc { font-size: 12px; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+      .hero-kicker { gap: 6px; }
+      .hero-kicker .eyebrow, .hero-kicker .stamp { padding: 4px 7px; font-size: 9px; }
+      .hero-price { font-size: 22px !important; }
+      .hero-meta { margin-top: 0; }
+      .hero-actions { gap: 8px; margin-top: 6px !important; }
+      .hero-actions .btn { padding: 10px 14px; font-size: 10px; min-height: 38px; }
+      .hero-actions .btn.secondary { display: none; }
+      .hero-content { gap: 6px; max-width: 100%; }
       .tabs-bar { grid-template-columns: 1fr; }
       .arrows { justify-content: flex-end; }
       .grid-products, .grid-three, .grid-cats, .grid-services { grid-template-columns: 1fr; }
+      .blogger-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
       .collection-body {
         grid-template-columns: 1fr auto;
         padding: 16px;
@@ -1692,6 +1870,304 @@
       .collection-overlay h3 { font-size: clamp(30px, 8vw, 42px); }
       .section-title { font-size: clamp(30px, 8vw, 42px); }
       .footer h3 { font-size: 28px; }
+    }
+    /* ── User Reviews ── */
+    .review-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .review-card {
+      background: rgba(255,255,255,0.38);
+      border: 1px solid var(--line);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .review-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex: 0 0 40px;
+    }
+    .review-user {
+      font: 600 13px/1.3 var(--sans);
+      color: var(--ink);
+    }
+    .review-stars {
+      color: #d4a023;
+      font-size: 14px;
+      letter-spacing: 2px;
+    }
+    .review-text {
+      font: 13px/1.68 var(--sans);
+      color: var(--muted);
+    }
+    .review-product-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.24);
+      font: 10px/1.2 var(--mono);
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-top: auto;
+    }
+
+    /* ── Social Follow Buttons ── */
+    .social-follow-buttons {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .social-follow-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: 1px solid var(--line);
+      background: transparent;
+      font: 10px/1.2 var(--mono);
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      text-decoration: none;
+      transition: background 180ms ease, color 180ms ease;
+    }
+    .social-follow-btn:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .social-follow-btn svg {
+      flex: 0 0 14px;
+    }
+
+    /* ── Section Header with right actions ── */
+    .section-hd-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    /* ── Blogger V2 (video hover) ── */
+    .blogger-grid-v2 {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .blogger-card-v2 {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.15);
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      transition: transform 280ms ease, box-shadow 280ms ease;
+    }
+    .blogger-card-v2:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(20,20,20,0.1);
+    }
+    .blogger-cover-v2 {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: var(--paper-deep);
+    }
+    .blogger-cover-v2 img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .blogger-card-v2:hover .blogger-cover-v2 img {
+      transform: scale(1.05);
+    }
+    .blogger-hover-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+    .blogger-card-v2:hover .blogger-hover-overlay {
+      opacity: 1;
+    }
+    .blogger-play-lg {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.18);
+      border: 2px solid rgba(255,255,255,0.5);
+      border-radius: 50%;
+      color: #fff;
+      font-size: 22px;
+    }
+    .blogger-buy-btn {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px;
+      background: #d4a023;
+      color: #fff;
+      font: 11px/1.2 var(--mono);
+      letter-spacing: 0.1em;
+      text-align: center;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(100%);
+      transition: opacity 300ms ease, transform 300ms ease;
+    }
+    .blogger-card-v2:hover .blogger-buy-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Featured Scroll (当前推荐) ── */
+    .featured-scroll-shell {
+      position: relative;
+      z-index: 1;
+    }
+    .featured-scroll-track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: calc((100% - 54px) / 4);
+      gap: 18px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      overscroll-behavior-x: contain;
+    }
+    .featured-scroll-track::-webkit-scrollbar {
+      display: none;
+    }
+    .featured-card {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      background: rgba(255,252,247,0.5);
+      scroll-snap-align: start;
+      overflow: hidden;
+      transition: transform .45s cubic-bezier(.19,1,.22,1), border-color .3s ease, box-shadow .3s ease;
+    }
+    .featured-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(23,17,13,0.48);
+      box-shadow: 0 18px 36px rgba(31, 21, 14, 0.08);
+    }
+    .featured-card.is-wide {
+      grid-column: span 2;
+    }
+    .featured-media {
+      position: relative;
+      overflow: hidden;
+      background: var(--paper-deep);
+      border-bottom: 1px solid var(--line);
+    }
+    .featured-media.ratio-square { aspect-ratio: 1 / 1; }
+    .featured-media.ratio-wide { aspect-ratio: 9 / 4; }
+    .featured-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .8s cubic-bezier(.19,1,.22,1);
+    }
+    .featured-card:hover .featured-media img {
+      transform: scale(1.05);
+    }
+    .featured-status {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      padding: 4px 10px;
+      font: 10px/1.2 var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .featured-status.in-stock {
+      background: rgba(34,120,60,0.92);
+      color: #fff;
+    }
+    .featured-status.pre-order {
+      background: rgba(171,68,46,0.92);
+      color: #fff;
+    }
+    .featured-body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 14px 16px;
+    }
+    .featured-name {
+      font: 600 14px/1.3 var(--sans);
+      color: var(--ink);
+      margin: 0 0 6px;
+    }
+    .featured-price {
+      font: 700 18px/1 var(--mono);
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+    .featured-cart-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border-top: 1px solid var(--line);
+      background: transparent;
+      font: 11px/1.2 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      margin-top: auto;
+      transition: background 180ms ease, color 180ms ease;
+    }
+    .featured-cart-btn:hover {
+      background: var(--mark);
+      color: #fff;
+    }
+
+    @media (max-width: 1180px) {
+      .review-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .blogger-grid-v2 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .featured-scroll-track { grid-auto-columns: calc((100% - 18px) / 2); }
+    }
+
+    @media (max-width: 1040px) {
+      .section-hd-right { align-items: flex-start; }
+      .blogger-grid-v2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .featured-scroll-track { grid-auto-columns: clamp(240px, 78vw, 320px); }
+    }
+
+    @media (max-width: 760px) {
+      .review-grid { grid-template-columns: 1fr; }
+      .blogger-grid-v2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .social-follow-buttons { flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -1871,130 +2347,73 @@
       <section class="hero reveal" id="top" aria-label="Hero carousel / 首屏轮播">
         <article class="slide is-active">
           <div class="panel">
-            <div>
+            <div class="hero-content">
               <div class="hero-kicker">
                 <span class="eyebrow">魔法系列</span>
                 <span class="stamp">独家头条</span>
               </div>
-              <div class="hero-title">
-                <h1>启示魔法日报键帽</h1>
-                <p>如果魔法世界有新闻编辑部，那一定藏在这台键盘里。</p>
+              <h1 class="hero-name">启示魔法日报键帽</h1>
+              <p class="hero-desc">如果魔法世界有新闻编辑部，那一定藏在这台键盘里。</p>
+              <div class="hero-meta">
+                <span class="hero-price">¥ 329</span>
+                <span class="hero-status in-stock">现货</span>
               </div>
               <div class="hero-actions">
-                <a class="btn primary" href="./keycaps/">查看产品</a>
-                <a class="btn secondary" href="./keycaps/">查看系列</a>
-              </div>
-            </div>
-
-            <div class="ledger">
-              <div class="ledger-row">
-                <strong>一句话概念</strong>
-                <span>如果魔法世界有新闻编辑部，那一定藏在这台键盘里。</span>
-              </div>
-              <div class="ledger-row">
-                <strong>系列关键词</strong>
-                <span>魔法逻辑、奇物世界、幻想秩序。</span>
-              </div>
-              <div class="ledger-row">
-                <strong>进入方式</strong>
-                <span>每颗键都是一条等待揭示的标题，永远处于“发送前”的状态。</span>
+                <a class="btn primary" href="./products/magic-daily.html">立即选购</a>
+                <a class="btn secondary" href="./keycaps/">浏览键帽</a>
               </div>
             </div>
           </div>
-
           <div class="visual">
-            <img src="./assets/keycaps/magic-daily/hero.jpg" alt="Magic Daily / 魔法日报键帽">
-            <aside class="hero-note">
-              <small>魔法系列</small>
-              <strong>每一颗键，都是一条尚未刊发的独家头条</strong>
-              <p>打字不是沟通，而是施咒；版面不是信息，而是隐秘的秩序。</p>
-            </aside>
+            <img src="./assets/keycaps/magic-daily/photo-dsc06144.jpg" alt="启示魔法日报键帽实拍">
           </div>
         </article>
 
         <article class="slide">
           <div class="panel">
-            <div>
+            <div class="hero-content">
               <div class="hero-kicker">
                 <span class="eyebrow">大文豪键盘</span>
                 <span class="stamp">书房装置</span>
               </div>
-              <div class="hero-title">
-                <h1>大文豪100</h1>
-                <p>它不是一把只负责输入的键盘，更像一间放在桌面的书房：木头、书页、灯光与字句都在这里慢慢发酵。</p>
+              <h1 class="hero-name">大文豪100</h1>
+              <p class="hero-desc">实木大配列三模客制化键盘套件。执百键，叙史诗。</p>
+              <div class="hero-meta">
+                <span class="hero-price">¥ 999</span>
+                <span class="hero-status in-stock">现货</span>
               </div>
               <div class="hero-actions">
-                <a class="btn primary" href="#">查看键盘</a>
-                <a class="btn secondary" href="#">我们提供什么</a>
-              </div>
-            </div>
-
-            <div class="ledger">
-              <div class="ledger-row">
-                <strong>材质气质</strong>
-                <span>木纹、书页、黄铜与灯光一起出现，让它更像可以使用的文学陈列。</span>
-              </div>
-              <div class="ledger-row">
-                <strong>使用感受</strong>
-                <span>适合长时间书写，也适合被停下来观看。</span>
-              </div>
-              <div class="ledger-row">
-                <strong>制作态度</strong>
-                <span>不是把一块木头装进键盘，而是把一间书房慢慢搭到桌面上。</span>
+                <a class="btn primary" href="./products/great-writer-100.html">立即选购</a>
+                <a class="btn secondary" href="./keyboards/">浏览键盘</a>
               </div>
             </div>
           </div>
-
           <div class="visual">
-            <img src="./assets/keyboards/great-writer-100/launch-01.jpg" alt="Great Writer 100 / 大文豪100">
-            <aside class="hero-note">
-              <small>大文豪键盘</small>
-              <strong>把书房气味做进一把键盘里</strong>
-              <p>它更像一个可以进入、可以停留、也可以被收藏的书写空间。</p>
-            </aside>
+            <img src="./assets/keyboards/great-writer-100/photo-hero.jpg" alt="大文豪100键盘实拍">
           </div>
         </article>
 
         <article class="slide">
           <div class="panel">
-            <div>
+            <div class="hero-content">
               <div class="hero-kicker">
                 <span class="eyebrow">杯欢世界</span>
                 <span class="stamp">概念杯系列</span>
               </div>
-              <div class="hero-title">
-                <h1>梵高卧室杯</h1>
-                <p>这不是一只杯子，而是你可以真正走进的《梵高的卧室》。</p>
+              <h1 class="hero-name">梵高卧室杯</h1>
+              <p class="hero-desc">把梵高黄房子的午后，收进一只可以真正端起来的杯子里。</p>
+              <div class="hero-meta">
+                <span class="hero-price">¥ 359</span>
+                <span class="hero-status in-stock">现货</span>
               </div>
               <div class="hero-actions">
-                <a class="btn primary" href="./deskmats/">查看周边</a>
-                <a class="btn secondary" href="#">社区内容</a>
-              </div>
-            </div>
-
-            <div class="ledger">
-              <div class="ledger-row">
-                <strong>一句话概念</strong>
-                <span>把自己安放在这一下午的光里。</span>
-              </div>
-              <div class="ledger-row">
-                <strong>空间叙事</strong>
-                <span>你低头看到的不再只是水，而是房间、窗、床和画里停住的光线。</span>
-              </div>
-              <div class="ledger-row">
-                <strong>工艺方式</strong>
-                <span>高温釉中彩与无缝贴画，把一幅画变成可以握住的空间体验。</span>
+                <a class="btn primary" href="./products/cup-van-gogh-bedroom.html">立即选购</a>
+                <a class="btn secondary" href="./cups/">浏览杯子</a>
               </div>
             </div>
           </div>
-
           <div class="visual">
-            <img src="./assets/cups/van-gogh-bedroom/detail-1-1.png" alt="Bedroom Cup / 梵高卧室杯">
-            <aside class="hero-note">
-              <small>杯欢世界</small>
-              <strong>每一只杯子，都是一个可以进入的梦境容器</strong>
-              <p>如果键盘是可敲击的诗句，杯子就是可以握住的空间裂缝。</p>
-            </aside>
+            <img src="./assets/cups/van-gogh-bedroom/photo-dsc03416.jpg" alt="梵高卧室杯实拍">
           </div>
         </article>
       </section>
@@ -2015,76 +2434,130 @@
         <div class="frame">
           <div class="section-hd">
             <div>
-              <span class="label">当前在售</span>
+              <span class="label">当前推荐</span>
               <h2 class="section-title">当前推荐</h2>
             </div>
-            <p class="section-note">它们分别代表魔法、文学、桌面场景与杯欢世界，也是第一次认识不现实商店最直接的四个入口。</p>
+            <p class="section-note">它们分别代表魔法、文学、桌面场景与杯欢世界，也是第一次认识不现实商店最直接的入口。</p>
           </div>
 
-          <div class="grid-products">
-            <article class="card">
-              <div class="media square">
-                <span class="card-tag">键帽</span>
-                <img src="./assets/keycaps/magic-daily/cover-01.png" alt="魔法日报键帽">
-              </div>
-              <div class="card-bd">
-                <span class="mini">当前入口 01</span>
-                <h3>启示魔法日报键帽</h3>
-                <p>如果魔法世界有新闻编辑部，那一定藏在这台键盘里。</p>
-                <div class="chips">
-                <span class="chip">魔法系列</span>
-                  <span class="chip">独家头条</span>
-                </div>
-              </div>
-            </article>
+          <div class="featured-scroll-shell">
+            <div class="featured-scroll-track" id="featured-track" data-collection-track>
+              <article class="featured-card">
+                <a href="./products/magic-daily.html" class="card-link" style="height:100%;display:flex;flex-direction:column">
+                  <div class="featured-media ratio-square">
+                    <img src="./assets/keycaps/magic-daily/cover-01.png" alt="魔法日报键帽">
+                    <span class="featured-status in-stock">现货</span>
+                  </div>
+                  <div class="featured-body">
+                    <div class="featured-name">魔法日报键帽</div>
+                    <div class="featured-price">¥329</div>
+                  </div>
+                  <span class="featured-cart-btn">加入购物车</span>
+                </a>
+              </article>
 
-            <article class="card">
-              <div class="media square">
-                <span class="card-tag">键盘</span>
-                <img src="./assets/keyboards/great-writer-100/launch-02.jpg" alt="大文豪100">
-              </div>
-              <div class="card-bd">
-                <span class="mini">当前入口 02</span>
-                <h3>大文豪100</h3>
-                <p>一把像书房一样被搭起来的键盘，适合书写，也适合被放在桌面上慢慢观看。</p>
-                <div class="chips">
-                  <span class="chip">大文豪</span>
-                  <span class="chip">书房装置</span>
-                </div>
-              </div>
-            </article>
+              <article class="featured-card">
+                <a href="./products/pouring-wine.html" class="card-link" style="height:100%;display:flex;flex-direction:column">
+                  <div class="featured-media ratio-square">
+                    <img src="./assets/keycaps/pouring-wine/cover-01.png" alt="碎片将进酒键帽">
+                    <span class="featured-status in-stock">现货</span>
+                  </div>
+                  <div class="featured-body">
+                    <div class="featured-name">碎片将进酒键帽</div>
+                    <div class="featured-price">¥329</div>
+                  </div>
+                  <span class="featured-cart-btn">加入购物车</span>
+                </a>
+              </article>
 
-            <article class="card">
-              <div class="media square">
-                <span class="card-tag">桌垫</span>
-                <img src="./assets/deskmats/li-qingzhao-gold-record.jpg" alt="金石录桌垫">
-              </div>
-              <div class="card-bd">
-                <span class="mini">当前入口 03</span>
-                <h3>金石录桌垫</h3>
-                <p>把古典文献里的记忆、时间与保存，铺成一整张可以停留的桌面风景。</p>
-                <div class="chips">
-                  <span class="chip">桌垫</span>
-                  <span class="chip">世界延展</span>
-                </div>
-              </div>
-            </article>
+              <article class="featured-card is-wide">
+                <a href="./products/deskmat-magic-daily.html" class="card-link" style="height:100%;display:flex;flex-direction:column">
+                  <div class="featured-media ratio-wide">
+                    <img src="./assets/deskmats/magic-daily.png" alt="魔法日报桌垫">
+                    <span class="featured-status in-stock">现货</span>
+                  </div>
+                  <div class="featured-body">
+                    <div class="featured-name">魔法日报桌垫</div>
+                    <div class="featured-price">¥99</div>
+                  </div>
+                  <span class="featured-cart-btn">加入购物车</span>
+                </a>
+              </article>
 
-            <article class="card">
-              <div class="media square">
-                <span class="card-tag">杯子</span>
-                <img src="./assets/cups/van-gogh-bedroom/photo-dsc03416.jpg" alt="梵高卧室杯">
-              </div>
-              <div class="card-bd">
-                <span class="mini">当前入口 04</span>
-                <h3>梵高卧室杯</h3>
-                <p>把梵高黄房子的午后，收进一只可以真正端起来的杯子里。</p>
-                <div class="chips">
-                  <span class="chip">杯欢世界</span>
-                  <span class="chip">可进入的空间</span>
-                </div>
-              </div>
-            </article>
+              <article class="featured-card">
+                <a href="./products/great-writer-100.html" class="card-link" style="height:100%;display:flex;flex-direction:column">
+                  <div class="featured-media ratio-square">
+                    <img src="./assets/keyboards/great-writer-100/cover-01.jpg" alt="大文豪100键盘">
+                    <span class="featured-status in-stock">现货</span>
+                  </div>
+                  <div class="featured-body">
+                    <div class="featured-name">大文豪100键盘</div>
+                    <div class="featured-price">¥999</div>
+                  </div>
+                  <span class="featured-cart-btn">加入购物车</span>
+                </a>
+              </article>
+
+              <article class="featured-card">
+                <a href="./products/middle-earth.html" class="card-link" style="height:100%;display:flex;flex-direction:column">
+                  <div class="featured-media ratio-square">
+                    <img src="./assets/keycaps/middle-earth/cover-01.png" alt="中土地图键帽">
+                    <span class="featured-status in-stock">现货</span>
+                  </div>
+                  <div class="featured-body">
+                    <div class="featured-name">中土地图键帽</div>
+                    <div class="featured-price">¥329</div>
+                  </div>
+                  <span class="featured-cart-btn">加入购物车</span>
+                </a>
+              </article>
+
+              <article class="featured-card is-wide">
+                <a href="./products/deskmat-li-qingzhao.html" class="card-link" style="height:100%;display:flex;flex-direction:column">
+                  <div class="featured-media ratio-wide">
+                    <img src="./assets/deskmats/li-qingzhao-gold-record.jpg" alt="李清照金石录桌垫">
+                    <span class="featured-status in-stock">现货</span>
+                  </div>
+                  <div class="featured-body">
+                    <div class="featured-name">李清照金石录桌垫</div>
+                    <div class="featured-price">¥99</div>
+                  </div>
+                  <span class="featured-cart-btn">加入购物车</span>
+                </a>
+              </article>
+
+              <article class="featured-card">
+                <a href="./products/cup-van-gogh-bedroom.html" class="card-link" style="height:100%;display:flex;flex-direction:column">
+                  <div class="featured-media ratio-square">
+                    <img src="./assets/cups/van-gogh-bedroom/cover.jpg" alt="梵高卧室杯">
+                    <span class="featured-status in-stock">现货</span>
+                  </div>
+                  <div class="featured-body">
+                    <div class="featured-name">梵高卧室杯</div>
+                    <div class="featured-price">¥129</div>
+                  </div>
+                  <span class="featured-cart-btn">加入购物车</span>
+                </a>
+              </article>
+
+              <article class="featured-card">
+                <a href="./products/herbology.html" class="card-link" style="height:100%;display:flex;flex-direction:column">
+                  <div class="featured-media ratio-square">
+                    <img src="./assets/keycaps/herbology/cover-01.jpg" alt="草药学键帽">
+                    <span class="featured-status in-stock">现货</span>
+                  </div>
+                  <div class="featured-body">
+                    <div class="featured-name">草药学键帽</div>
+                    <div class="featured-price">价格待录入</div>
+                  </div>
+                  <span class="featured-cart-btn">加入购物车</span>
+                </a>
+              </article>
+            </div>
+            <div class="collection-controls" aria-label="推荐滑动控制">
+              <button class="collection-nav is-prev" type="button" data-collection-nav="prev" data-target="featured-track" aria-label="上一组"></button>
+              <button class="collection-nav" type="button" data-collection-nav="next" data-target="featured-track" aria-label="下一组"></button>
+            </div>
           </div>
         </div>
       </section>
@@ -2108,7 +2581,7 @@
               <div class="collection-body">
                 <div class="collection-copy">
                   <span class="mini">系列 01</span>
-                  <h3>魔法系列</h3>
+                  <h3>魔法系列键帽</h3>
                   <p>魔法逻辑、奇物世界与幻想秩序，被压缩进一整套可以敲击的编辑部与奇店目录。</p>
                 </div>
                 <span class="archive-arrow" aria-hidden="true"><span></span></span>
@@ -2122,7 +2595,7 @@
               <div class="collection-body">
                 <div class="collection-copy">
                   <span class="mini">系列 02</span>
-                  <h3>大文豪系列</h3>
+                  <h3>大文豪系列键帽</h3>
                   <p>语言的建筑、文学气质与书写性的输入体验。</p>
                 </div>
                 <span class="archive-arrow" aria-hidden="true"><span></span></span>
@@ -2131,12 +2604,12 @@
 
             <article class="collection-card">
               <div class="collection-media">
-                <img src="./assets/keyboards/great-writer-100/launch-02.jpg" alt="大文豪键盘">
+                <img src="./assets/keyboards/great-writer-100/photo-hero.jpg" alt="大文豪系列客制化套件">
               </div>
               <div class="collection-body">
                 <div class="collection-copy">
                   <span class="mini">系列 03</span>
-                  <h3>大文豪键盘</h3>
+                  <h3>大文豪系列客制化套件</h3>
                   <p>把文学书房、木作质地与书写欲望，一起做成桌面上的实体。</p>
                 </div>
                 <span class="archive-arrow" aria-hidden="true"><span></span></span>
@@ -2164,7 +2637,7 @@
               <div class="collection-body">
                 <div class="collection-copy">
                   <span class="mini">系列 05</span>
-                  <h3>世界入口</h3>
+                  <h3>入口系列键帽</h3>
                   <p>城市、车票与出走冲动，被压进一套可以随手敲开的平行入口。</p>
                 </div>
                 <span class="archive-arrow" aria-hidden="true"><span></span></span>
@@ -2261,50 +2734,164 @@
         </div>
       </section>
 
+      <section class="section reveal" id="reviews">
+        <div class="frame">
+          <div class="section-hd">
+            <div>
+              <span class="label">真实反馈</span>
+              <h2 class="section-title">用户评价</h2>
+            </div>
+            <div class="section-hd-right">
+              <p class="section-note" style="text-align:right">来自真实购买用户的评价与反馈</p>
+              <div class="social-follow-buttons">
+                <a class="social-follow-btn" href="https://www.instagram.com/" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+                  Follow
+                </a>
+                <a class="social-follow-btn" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="10" fill="#FF2442"/><path d="M15.5 8.5l-1.5 7h-4l-1.5-7h2.5l.5 4 .5-4h3z" fill="#fff"/></svg>
+                  关注
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-grid">
+            <article class="review-card">
+              <div class="review-header">
+                <img class="review-avatar" src="./assets/keycaps/magic-daily/cover-01.png" alt="用户头像">
+                <span class="review-user">@键盘爱好者</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">键帽做工超出预期，配色非常有氛围感。装上之后整个桌面都变得不一样了，每天打字都有仪式感。</p>
+              <span class="review-product-tag">购买了：魔法日报键帽</span>
+            </article>
+
+            <article class="review-card">
+              <div class="review-header">
+                <img class="review-avatar" src="./assets/keyboards/great-writer-100/cover-01.jpg" alt="用户头像">
+                <span class="review-user">@桌面收藏家</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">大文豪100的实木手感太惊艳了，重量和质感都恰到好处。客服回复也很快，整体购物体验非常好。</p>
+              <span class="review-product-tag">购买了：大文豪100键盘</span>
+            </article>
+
+            <article class="review-card">
+              <div class="review-header">
+                <img class="review-avatar" src="./assets/cups/van-gogh-bedroom/cover.jpg" alt="用户头像">
+                <span class="review-user">@文创玩家</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">桌垫印刷质量很高，图案细节清晰。搭配键帽放在桌面上效果绝了，朋友看到都问哪里买的。</p>
+              <span class="review-product-tag">购买了：李清照金石录桌垫</span>
+            </article>
+
+            <article class="review-card">
+              <div class="review-header">
+                <img class="review-avatar" src="./assets/keycaps/pouring-wine/cover-01.png" alt="用户头像">
+                <span class="review-user">@外设发烧友</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">梵高卧室杯拿到手的瞬间就被惊艳到了，釉面质感和细节还原度都很高，放在书桌上特别有艺术感。</p>
+              <span class="review-product-tag">购买了：梵高卧室杯</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="section reveal" id="community">
         <div class="frame">
           <div class="section-hd">
             <div>
-              <span class="label">社区内容</span>
-              <h2 class="section-title">用户与博主</h2>
+              <span class="label">创作者内容</span>
+              <h2 class="section-title">博主展示</h2>
             </div>
-            <p class="section-note">真实用户、博主与工作室内容，会把这些产品从概念页带到真实桌面和真实生活里。</p>
+            <div class="section-hd-right">
+              <p class="section-note" style="text-align:right">开箱、上桌、细节展示 — 更真实的产品体验</p>
+              <div class="social-follow-buttons">
+                <a class="social-follow-btn" href="https://www.instagram.com/" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+                  Follow
+                </a>
+                <a class="social-follow-btn" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="10" fill="#FF2442"/><path d="M15.5 8.5l-1.5 7h-4l-1.5-7h2.5l.5 4 .5-4h3z" fill="#fff"/></svg>
+                  关注
+                </a>
+              </div>
+            </div>
           </div>
 
-          <div class="grid-three">
-            <article class="card">
-              <div class="media poster">
-                <span class="card-tag">收藏者</span>
-                <img src="./assets/keycaps/magic-daily/photo-dsc05757.jpg" alt="客户评价示意">
+          <div class="blogger-grid-v2">
+            <article class="blogger-card-v2">
+              <div class="blogger-cover-v2">
+                <img src="./assets/community/blogger-01.jpg" alt="魔法日报键帽开箱">
+                <span class="blogger-platform">
+                  <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#FF2442"/><path d="M15.5 8.5l-1.5 7h-4l-1.5-7h2.5l.5 4 .5-4h3z" fill="#fff"/></svg>
+                  小红书
+                </span>
+                <div class="blogger-hover-overlay">
+                  <span class="blogger-play-lg">▶</span>
+                </div>
+                <a href="./products/magic-daily.html" class="blogger-buy-btn">购买同款 →</a>
               </div>
-              <div class="card-bd">
-                <span class="mini">社区记录 01</span>
-                <h3>用户评价</h3>
-                <p>真正有说服力的，不是我们自己解释，而是别人把它放上桌之后还愿意继续拍、继续写、继续收藏。</p>
-              </div>
-            </article>
-
-            <article class="card">
-              <div class="media poster">
-                <span class="card-tag">视频内容</span>
-                <img src="./assets/keycaps/magic-daily/photo-dsc06109.jpg" alt="博主展示">
-              </div>
-              <div class="card-bd">
-                <span class="mini">社区记录 02</span>
-                <h3>博主内容</h3>
-                <p>开箱、上桌和细节展示，会更快告诉新用户：这些东西为什么不是普通周边。</p>
+              <div class="blogger-info">
+                <span class="blogger-name">@开箱博主</span>
+                <span class="blogger-product">魔法日报键帽</span>
               </div>
             </article>
 
-            <article class="card">
-              <div class="media poster">
-                <span class="card-tag">工作室档案</span>
-                <img src="./assets/cups/van-gogh-bedroom/photo-dsc03448.jpg" alt="工作室社媒内容">
+            <article class="blogger-card-v2">
+              <div class="blogger-cover-v2">
+                <img src="./assets/keyboards/great-writer-100/photo-01.jpg" alt="大文豪100键盘">
+                <span class="blogger-platform">
+                  <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#FF2442"/><path d="M15.5 8.5l-1.5 7h-4l-1.5-7h2.5l.5 4 .5-4h3z" fill="#fff"/></svg>
+                  小红书
+                </span>
+                <div class="blogger-hover-overlay">
+                  <span class="blogger-play-lg">▶</span>
+                </div>
+                <a href="./products/great-writer-100.html" class="blogger-buy-btn">购买同款 →</a>
               </div>
-              <div class="card-bd">
-                <span class="mini">社区记录 03</span>
-                <h3>工作室记录</h3>
-                <p>工作室内容不是营销补丁，而是每个系列持续更新的幕后档案。</p>
+              <div class="blogger-info">
+                <span class="blogger-name">@桌面博主</span>
+                <span class="blogger-product">大文豪100键盘</span>
+              </div>
+            </article>
+
+            <article class="blogger-card-v2">
+              <div class="blogger-cover-v2">
+                <img src="./assets/cups/van-gogh-bedroom/photo-dsc03416.jpg" alt="梵高卧室杯">
+                <span class="blogger-platform">
+                  <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#FF2442"/><path d="M15.5 8.5l-1.5 7h-4l-1.5-7h2.5l.5 4 .5-4h3z" fill="#fff"/></svg>
+                  小红书
+                </span>
+                <div class="blogger-hover-overlay">
+                  <span class="blogger-play-lg">▶</span>
+                </div>
+                <a href="./products/cup-van-gogh-bedroom.html" class="blogger-buy-btn">购买同款 →</a>
+              </div>
+              <div class="blogger-info">
+                <span class="blogger-name">@杯子收藏</span>
+                <span class="blogger-product">梵高卧室杯</span>
+              </div>
+            </article>
+
+            <article class="blogger-card-v2">
+              <div class="blogger-cover-v2">
+                <img src="./assets/keycaps/magic-daily/photo-dsc06109.jpg" alt="魔法日报键帽细节">
+                <span class="blogger-platform">
+                  <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#FF2442"/><path d="M15.5 8.5l-1.5 7h-4l-1.5-7h2.5l.5 4 .5-4h3z" fill="#fff"/></svg>
+                  小红书
+                </span>
+                <div class="blogger-hover-overlay">
+                  <span class="blogger-play-lg">▶</span>
+                </div>
+                <a href="./products/magic-daily.html" class="blogger-buy-btn">购买同款 →</a>
+              </div>
+              <div class="blogger-info">
+                <span class="blogger-name">@文创好物</span>
+                <span class="blogger-product">魔法日报键帽</span>
               </div>
             </article>
           </div>
@@ -2342,7 +2929,7 @@
               <div class="service-bd">
                 <div class="service-number">03</div>
                 <h3>工艺打磨</h3>
-                <p>我们不为“打字”设计，而是为“叙事”与“沉浸”而造。</p>
+                <p>我们不为"打字"设计，而是为"叙事"与"沉浸"而造。</p>
               </div>
             </article>
 
@@ -2428,7 +3015,7 @@
     });
 
     function getCollectionStep(track) {
-      const card = track.querySelector(".collection-card");
+      const card = track.querySelector(".collection-card") || track.querySelector(".featured-card");
       if (!card) return track.clientWidth * 0.8;
       const styles = window.getComputedStyle(track);
       const gap = parseFloat(styles.columnGap || styles.gap || 0);

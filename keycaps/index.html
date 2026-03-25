@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>键帽 — 不现实商店</title>
+  <title>Keycaps — Oddity Store</title>
   <style>
+    @import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Special+Elite&display=swap");
+
     :root {
-      --paper: #e8e4df;
-      --paper-soft: #edeae6;
-      --paper-deep: #d5d0ca;
-      --ink: #1a1a1a;
-      --muted: #6b6560;
-      --line: rgba(26, 26, 26, 0.14);
-      --line-strong: rgba(26, 26, 26, 0.3);
-      --accent: #c0392b;
-      --mark: #f5e642;
-      --mono: "Courier New", Consolas, monospace;
-      --serif: Georgia, "Times New Roman", serif;
-      --sans: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-      --shadow: 0 24px 58px rgba(20, 20, 20, 0.08);
+      --paper: #ece2d4;
+      --paper-soft: #f5ede1;
+      --paper-deep: #dfd1bf;
+      --ink: #17110d;
+      --muted: #6c5d52;
+      --line: rgba(23, 17, 13, 0.16);
+      --line-strong: rgba(23, 17, 13, 0.36);
+      --accent: #ab442e;
+      --mark: #fff100;
+      --mono: "Special Elite", "Courier Prime", "Courier New", monospace;
+      --serif: "Special Elite", "Courier Prime", "Courier New", monospace;
+      --sans: "Courier Prime", "Courier New", monospace;
+      --shadow: 0 24px 58px rgba(32, 22, 15, 0.1);
     }
 
     * { box-sizing: border-box; }
@@ -30,8 +32,9 @@
       font-family: var(--sans);
       background:
         radial-gradient(circle at top, rgba(255,255,255,0.8), transparent 34%),
-        linear-gradient(180deg, #e8e4df 0%, #ddd9d3 100%);
+        linear-gradient(180deg, #efe6d8 0%, #e6d9c8 100%);
       position: relative;
+      letter-spacing: -0.03em;
     }
 
     body::before {
@@ -93,7 +96,7 @@
       align-items: center;
       padding: 14px 26px;
       border-bottom: 1px solid var(--line);
-      background: rgba(237, 234, 230, 0.9);
+      background: rgba(245, 237, 225, 0.88);
       backdrop-filter: blur(12px);
     }
 
@@ -172,8 +175,8 @@
       min-width: 268px;
       padding: 16px 18px 18px;
       border: 1px solid var(--line-strong);
-      background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0)), rgba(237, 234, 230, 0.97);
-      box-shadow: 0 18px 32px rgba(20, 20, 20, 0.08);
+      background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0)), rgba(245, 237, 225, 0.97);
+      box-shadow: 0 18px 32px rgba(28, 18, 11, 0.1);
       opacity: 0;
       transform: translateY(8px);
       pointer-events: none;
@@ -407,7 +410,7 @@
       opacity: 0;
       padding: 0 18px 0;
       border-bottom: 1px solid var(--line);
-      background: rgba(237, 234, 230, 0.92);
+      background: rgba(245, 237, 225, 0.92);
       backdrop-filter: blur(12px);
       overflow: hidden;
       pointer-events: none;
@@ -615,29 +618,22 @@
     .product-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 20px;
+      gap: 22px;
     }
 
-    /* ── Product Card (档案索引卡风格) ── */
+    /* ── Product Card ── */
     .product-card {
       position: relative;
       display: flex;
       flex-direction: column;
-      border: 1px solid var(--line-strong);
+      border: 1px solid var(--line);
       background: rgba(255,255,255,0.18);
       transition: transform 280ms ease, box-shadow 280ms ease;
+      cursor: pointer;
     }
     .product-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 16px 36px rgba(20, 20, 20, 0.08);
-    }
-    .product-card-link {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
+      box-shadow: 0 16px 36px rgba(32, 22, 15, 0.1);
     }
     .product-card-img {
       position: relative;
@@ -659,8 +655,8 @@
       top: 10px;
       left: 10px;
       display: inline-flex;
-      padding: 4px 8px;
-      font: 9px/1.2 var(--mono);
+      padding: 5px 10px;
+      font: 10px/1.2 var(--mono);
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
@@ -676,11 +672,11 @@
       background: rgba(108,93,82,0.88);
       color: rgba(255,255,255,0.82);
     }
-    /* Card body */
     .product-card-body {
       display: flex;
       flex-direction: column;
-      padding: 14px 14px 0;
+      gap: 8px;
+      padding: 14px 14px 16px;
       flex: 1;
     }
     .product-card-kicker {
@@ -803,53 +799,6 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 10px 8px;
-      border: 0;
-      background: transparent;
-      font: 10px/1 var(--mono);
-      letter-spacing: 0.1em;
-      color: var(--ink);
-      cursor: pointer;
-      transition: background 180ms, color 180ms;
-    }
-    .product-card-cart-btn:hover {
-      background: var(--mark);
-      color: var(--ink);
-    }
-    .product-card-cart-btn svg {
-      width: 14px; height: 14px;
-      fill: none; stroke: currentColor; stroke-width: 1.8;
-    }
-    .product-card-detail-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      border-left: 1px solid var(--line);
-      color: var(--muted);
-      transition: background 180ms, color 180ms;
-    }
-    .product-card-detail-btn:hover {
-      background: var(--mark);
-      color: var(--ink);
-    }
-    .product-card-detail-btn svg {
-      width: 16px; height: 16px;
-      fill: none; stroke: currentColor; stroke-width: 1.8;
-    }
-    .product-card.has-discount .product-card-discount-tag { display: inline-flex; }
-    .product-card.has-discount .product-card-price { color: var(--accent); }
-    .product-card-actions {
-      display: flex;
-      gap: 0;
-      border-top: 1px solid var(--line);
-    }
-    .product-card-cart-btn {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
       padding: 11px 12px;
       border: none;
       background: transparent;
@@ -861,17 +810,13 @@
       transition: background 200ms, color 200ms;
     }
     .product-card-cart-btn:hover {
-      background: var(--mark);
-      color: var(--ink);
+      background: #d4a843;
+      color: #fff;
     }
     .product-card-cart-btn svg {
-      width: 14px;
-      height: 14px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      width: 14px; height: 14px;
+      fill: none; stroke: currentColor;
+      stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
     }
     .product-card-detail-btn {
       display: flex;
@@ -886,70 +831,13 @@
       transition: background 200ms, color 200ms;
     }
     .product-card-detail-btn:hover {
-      background: var(--mark);
-      color: var(--ink);
+      background: #d4a843;
+      color: #fff;
     }
     .product-card-detail-btn svg {
-      width: 14px;
-      height: 14px;
-      fill: none;
-      stroke: currentColor;
+      width: 14px; height: 14px;
+      fill: none; stroke: currentColor;
       stroke-width: 1.6;
-    }
-
-    /* ── Editorial Insert ── */
-    .editorial-insert {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 24px;
-      align-items: center;
-      padding: 28px 24px;
-      border: 1px solid var(--line);
-      background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0));
-    }
-    .editorial-insert-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-      color: var(--muted);
-      font: 10px/1.2 var(--mono);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-    .editorial-insert-kicker::before {
-      content: "";
-      width: 18px;
-      height: 1px;
-      background: var(--line-strong);
-    }
-    .editorial-insert h3 {
-      margin: 0;
-      font: 600 22px/1.3 var(--sans);
-    }
-    .editorial-insert p {
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
-      max-width: 520px;
-    }
-    .editorial-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 18px;
-      border: 1px solid var(--line-strong);
-      font: 11px/1.2 var(--mono);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      transition: all 180ms ease;
-      white-space: nowrap;
-    }
-    .editorial-link:hover {
-      background: var(--ink);
-      color: var(--paper-soft);
       border-color: var(--ink);
     }
 
@@ -1072,206 +960,206 @@
     <!-- Notice Bar -->
     <div class="notice">
       <div>
-        认真不现实
-        <strong>把那些被轻易否定的想法，认认真真地做一次</strong>
+        Seriously Impractical
+        <strong>Take the ideas people dismiss too quickly, and build them seriously.</strong>
       </div>
       <div class="notice-meta">
-        <span>档案编号 OS-001</span>
-        <span>进行中</span>
-        <span>更新于 2026-03-21</span>
+        <span>FILE ID OS-001</span>
+        <span>IN PROGRESS</span>
+        <span>UPDATED 2026-03-21</span>
       </div>
     </div>
 
     <!-- Site Header -->
     <header class="site-header">
       <a class="brand" href="../">
-        <img src="../assets/logo/oddity-store-logo.png" alt="不现实商店">
-        <div class="brand-tag">不现实商店</div>
+        <img src="../logo/不现实商店logo2.png" alt="Oddity Store">
+        <div class="brand-tag">Oddity Store</div>
       </a>
 
       <div class="nav-wrap">
         <nav class="main-nav" aria-label="Primary">
-          <a class="nav-link" href="../">首页</a>
+          <a class="nav-link" href="../">Home</a>
 
           <div class="nav-item has-dropdown">
-            <a class="nav-link nav-trigger is-active" href="../keycaps/">键帽</a>
+            <a class="nav-link nav-trigger is-active" href="../keycaps/">Keycaps</a>
             <div class="nav-panel">
-              <span class="nav-panel-label">键帽系列</span>
+              <span class="nav-panel-label">Keycap Series</span>
               <div class="nav-panel-links">
-                <a class="nav-panel-link" href="./">全部键帽</a>
-                <a class="nav-panel-link" href="../keycaps/">魔法系列</a>
-                <a class="nav-panel-link" href="../keycaps/">大文豪系列</a>
-                <a class="nav-panel-link" href="../keycaps/">世界入口</a>
+                <a class="nav-panel-link" href="../keycaps/">All Keycaps</a>
+                <a class="nav-panel-link" href="../keycaps/">Magic Series</a>
+                <a class="nav-panel-link" href="../keycaps/">Literary Series</a>
+                <a class="nav-panel-link" href="../keycaps/">World Entry</a>
               </div>
             </div>
           </div>
 
           <div class="nav-item has-dropdown">
-            <a class="nav-link nav-trigger" href="../keyboards/">键盘</a>
+            <a class="nav-link nav-trigger" href="../keyboards/">Keyboards</a>
             <div class="nav-panel">
-              <span class="nav-panel-label">键盘分组</span>
+              <span class="nav-panel-label">Keyboard Collection</span>
               <div class="nav-panel-links">
-                <a class="nav-panel-link" href="../keyboards/">全部键盘</a>
-                <a class="nav-panel-link" href="../keyboards/">大文豪键盘</a>
-                <a class="nav-panel-link" href="../keyboards/">键盘保护膜</a>
+                <a class="nav-panel-link" href="../keyboards/">All Keyboards</a>
+                <a class="nav-panel-link" href="../keyboards/">Literary Keyboards</a>
+                <a class="nav-panel-link" href="../keyboards/">Keyboard Protectors</a>
               </div>
             </div>
           </div>
 
           <div class="nav-item has-dropdown">
-            <a class="nav-link nav-trigger" href="../deskmats/">桌垫</a>
+            <a class="nav-link nav-trigger" href="../deskmats/">Desk Mats</a>
             <div class="nav-panel">
-              <span class="nav-panel-label">桌垫系列</span>
+              <span class="nav-panel-label">Desk Mat Series</span>
               <div class="nav-panel-links">
-                <a class="nav-panel-link" href="../deskmats/">全部桌垫</a>
-                <a class="nav-panel-link" href="../deskmats/">文学桌垫</a>
-                <a class="nav-panel-link" href="../deskmats/">魔法桌垫</a>
-                <a class="nav-panel-link" href="../keycaps/">世界入口桌垫</a>
+                <a class="nav-panel-link" href="../deskmats/">All Desk Mats</a>
+                <a class="nav-panel-link" href="../deskmats/">Literary Desk Mats</a>
+                <a class="nav-panel-link" href="../deskmats/">Magic Desk Mats</a>
+                <a class="nav-panel-link" href="../keycaps/">World Entry Desk Mats</a>
               </div>
             </div>
           </div>
 
           <div class="nav-item has-dropdown">
-            <a class="nav-link nav-trigger" href="../cups/">杯子</a>
+            <a class="nav-link nav-trigger" href="../cups/">Cups</a>
             <div class="nav-panel">
-              <span class="nav-panel-label">杯子系列</span>
+              <span class="nav-panel-label">Cup Series</span>
               <div class="nav-panel-links">
-                <a class="nav-panel-link" href="../cups/">全部杯子</a>
-                <a class="nav-panel-link" href="../cups/">梵高卧室杯</a>
-                <a class="nav-panel-link" href="../cups/">魔法塔楼杯</a>
-                <a class="nav-panel-link" href="../cups/">中土世界杯</a>
+                <a class="nav-panel-link" href="../cups/">All Cups</a>
+                <a class="nav-panel-link" href="../cups/">Van Gogh Bedroom Cup</a>
+                <a class="nav-panel-link" href="../cups/">Magic Tower Cup</a>
+                <a class="nav-panel-link" href="../cups/">Middle Earth Cup</a>
               </div>
             </div>
           </div>
 
           <div class="nav-item has-dropdown">
-            <a class="nav-link nav-trigger" href="#">壳类</a>
+            <a class="nav-link nav-trigger" href="#">Cases</a>
             <div class="nav-panel">
-              <span class="nav-panel-label">壳类分组</span>
+              <span class="nav-panel-label">Case Collection</span>
               <div class="nav-panel-links">
-                <a class="nav-panel-link" href="#">全部壳类</a>
-                <a class="nav-panel-link" href="#">手机壳</a>
-                <a class="nav-panel-link" href="#">耳机壳</a>
+                <a class="nav-panel-link" href="#">All Cases</a>
+                <a class="nav-panel-link" href="#">Phone Cases</a>
+                <a class="nav-panel-link" href="#">Earphone Cases</a>
               </div>
             </div>
           </div>
 
-          <a class="nav-link" href="#">关于</a>
+          <a class="nav-link" href="#">About</a>
         </nav>
       </div>
 
       <div class="utility-group">
-        <a class="lang-link" href="./en.html" aria-label="切换到英文">EN</a>
-        <a class="utility-link search" href="#" aria-label="搜索"></a>
-        <a class="utility-link account" href="#" aria-label="登录"></a>
-        <a class="utility-link cart" href="#" aria-label="购物车"><span></span></a>
+        <a class="lang-link" href="./cn.html" aria-label="Switch to Chinese">CN</a>
+        <a class="utility-link search" href="#" aria-label="Search"></a>
+        <a class="utility-link account" href="#" aria-label="Account"></a>
+        <a class="utility-link cart" href="#" aria-label="Cart"><span></span></a>
       </div>
 
-      <button class="mobile-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="打开菜单">
+      <button class="mobile-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
         <span class="toggle-bars"><span></span></span>
       </button>
 
-      <div class="mobile-actions" aria-label="移动端快捷操作">
-        <a class="mobile-icon-button search" href="#" aria-label="搜索"></a>
-        <a class="mobile-icon-button cart" href="#" aria-label="购物车"><span></span></a>
+      <div class="mobile-actions" aria-label="Mobile quick actions">
+        <a class="mobile-icon-button search" href="#" aria-label="Search"></a>
+        <a class="mobile-icon-button cart" href="#" aria-label="Cart"><span></span></a>
       </div>
     </header>
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu">
       <div class="mobile-menu-inner">
-        <nav class="mobile-nav" aria-label="移动端导航">
-          <a class="mobile-link" href="../"><span>首页</span></a>
+        <nav class="mobile-nav" aria-label="Mobile navigation">
+          <a class="mobile-link" href="../"><span>Home</span></a>
           <details class="mobile-branch" open>
-            <summary class="mobile-summary">键帽</summary>
+            <summary class="mobile-summary">Keycaps</summary>
             <div class="mobile-subnav">
-              <a class="mobile-sublink" href="./">全部键帽</a>
-              <a class="mobile-sublink" href="../keycaps/">魔法系列</a>
-              <a class="mobile-sublink" href="../keycaps/">大文豪系列</a>
-              <a class="mobile-sublink" href="../keycaps/">世界入口</a>
+              <a class="mobile-sublink" href="../keycaps/">All Keycaps</a>
+              <a class="mobile-sublink" href="../keycaps/">Magic Series</a>
+              <a class="mobile-sublink" href="../keycaps/">Literary Series</a>
+              <a class="mobile-sublink" href="../keycaps/">World Entry</a>
             </div>
           </details>
           <details class="mobile-branch">
-            <summary class="mobile-summary">键盘</summary>
+            <summary class="mobile-summary">Keyboards</summary>
             <div class="mobile-subnav">
-              <a class="mobile-sublink" href="../keyboards/">全部键盘</a>
-              <a class="mobile-sublink" href="../keyboards/">大文豪键盘</a>
-              <a class="mobile-sublink" href="../keyboards/">键盘保护膜</a>
+              <a class="mobile-sublink" href="../keyboards/">All Keyboards</a>
+              <a class="mobile-sublink" href="../keyboards/">Literary Keyboards</a>
+              <a class="mobile-sublink" href="../keyboards/">Keyboard Protectors</a>
             </div>
           </details>
           <details class="mobile-branch">
-            <summary class="mobile-summary">桌垫</summary>
+            <summary class="mobile-summary">Desk Mats</summary>
             <div class="mobile-subnav">
-              <a class="mobile-sublink" href="../deskmats/">全部桌垫</a>
-              <a class="mobile-sublink" href="../deskmats/">文学桌垫</a>
-              <a class="mobile-sublink" href="../deskmats/">魔法桌垫</a>
-              <a class="mobile-sublink" href="../keycaps/">世界入口桌垫</a>
+              <a class="mobile-sublink" href="../deskmats/">All Desk Mats</a>
+              <a class="mobile-sublink" href="../deskmats/">Literary Desk Mats</a>
+              <a class="mobile-sublink" href="../deskmats/">Magic Desk Mats</a>
+              <a class="mobile-sublink" href="../keycaps/">World Entry Desk Mats</a>
             </div>
           </details>
           <details class="mobile-branch">
-            <summary class="mobile-summary">杯子</summary>
+            <summary class="mobile-summary">Cups</summary>
             <div class="mobile-subnav">
-              <a class="mobile-sublink" href="../cups/">全部杯子</a>
-              <a class="mobile-sublink" href="../cups/">梵高卧室杯</a>
-              <a class="mobile-sublink" href="../cups/">魔法塔楼杯</a>
-              <a class="mobile-sublink" href="../cups/">中土世界杯</a>
+              <a class="mobile-sublink" href="../cups/">All Cups</a>
+              <a class="mobile-sublink" href="../cups/">Van Gogh Bedroom Cup</a>
+              <a class="mobile-sublink" href="../cups/">Magic Tower Cup</a>
+              <a class="mobile-sublink" href="../cups/">Middle Earth Cup</a>
             </div>
           </details>
           <details class="mobile-branch">
-            <summary class="mobile-summary">壳类</summary>
+            <summary class="mobile-summary">Cases</summary>
             <div class="mobile-subnav">
-              <a class="mobile-sublink" href="#">全部壳类</a>
-              <a class="mobile-sublink" href="#">手机壳</a>
-              <a class="mobile-sublink" href="#">耳机壳</a>
+              <a class="mobile-sublink" href="#">All Cases</a>
+              <a class="mobile-sublink" href="#">Phone Cases</a>
+              <a class="mobile-sublink" href="#">Earphone Cases</a>
             </div>
           </details>
-          <a class="mobile-link" href="#"><span>关于</span></a>
+          <a class="mobile-link" href="#"><span>About</span></a>
         </nav>
         <div class="mobile-utility">
-          <a class="mobile-link" href="./en.html"><span>English</span></a>
-          <a class="mobile-link" href="#"><span>搜索</span></a>
-          <a class="mobile-link" href="#"><span>登录</span></a>
-          <a class="mobile-link" href="#"><span>购物车</span></a>
+          <a class="mobile-link" href="./cn.html"><span>Chinese</span></a>
+          <a class="mobile-link" href="#"><span>Search</span></a>
+          <a class="mobile-link" href="#"><span>Account</span></a>
+          <a class="mobile-link" href="#"><span>Cart</span></a>
         </div>
       </div>
     </div>
 
     <!-- Category Hero -->
     <div class="category-hero">
-      <img class="category-hero-img" src="../assets/keyboards/great-writer-100/photo-hero.jpg" alt="键帽">
+      <img class="category-hero-img" src="../assets/keycaps/magic-daily/hero.jpg" alt="Keycaps">
       <div class="category-hero-overlay">
-        <span class="category-hero-kicker">品类档案 / Keycaps</span>
-        <h1 class="category-hero-title">键帽</h1>
-        <p class="category-hero-sub">每一颗键帽，都是一个微型世界的入口。从魔法报社到文豪书房，从中土地图到草药温室。</p>
+        <span class="category-hero-kicker">Category File / Keycaps</span>
+        <h1 class="category-hero-title">Keycaps</h1>
+        <p class="category-hero-sub">Every keycap is a gateway to a miniature world. From magical newsrooms to literary studies, from Middle Earth maps to magical greenhouses.</p>
       </div>
-      <span class="category-hero-stamp">分类 01 / 05</span>
+      <span class="category-hero-stamp">Category 01 / 05</span>
     </div>
 
     <!-- Breadcrumb -->
     <nav class="breadcrumb">
-      <a href="../">首页</a>
-      <span class="breadcrumb-sep">›</span>
-      <span>键帽</span>
+      <a href="../">Home</a>
+      <span class="breadcrumb-sep">&rsaquo;</span>
+      <span>Keycaps</span>
     </nav>
 
     <!-- Filter Bar -->
     <div class="filter-bar">
       <div class="filter-group">
-        <span class="filter-label">系列</span>
-        <button class="filter-chip is-active" data-filter="all">全部</button>
-        <button class="filter-chip" data-filter="magic">魔法系列</button>
-        <button class="filter-chip" data-filter="literary">大文豪系列</button>
-        <button class="filter-chip" data-filter="entry">世界入口</button>
+        <span class="filter-label">Series</span>
+        <button class="filter-chip is-active" data-filter="all">All</button>
+        <button class="filter-chip" data-filter="magic">Magic Series</button>
+        <button class="filter-chip" data-filter="literary">Literary Series</button>
+        <button class="filter-chip" data-filter="entry">World Entry</button>
       </div>
       <div style="display: flex; align-items: center; gap: 16px;">
-        <span class="product-count">18 件产品</span>
+        <span class="product-count">18 Products</span>
         <div class="filter-sort">
-          <span class="filter-label">排序</span>
+          <span class="filter-label">Sort</span>
           <select>
-            <option value="default">默认</option>
-            <option value="price-asc">价格 ↑</option>
-            <option value="price-desc">价格 ↓</option>
-            <option value="newest">最新</option>
+            <option value="default">Default</option>
+            <option value="price-asc">Price &#8593;</option>
+            <option value="price-desc">Price &#8595;</option>
+            <option value="newest">Newest</option>
           </select>
         </div>
       </div>
@@ -1281,827 +1169,815 @@
     <div class="product-grid-wrap reveal">
       <div class="product-grid">
 
-
-        <!-- KC-01: 魔法日报键帽 -->
+        <!-- KC-01: Revelation Daily Keycap -->
         <div class="product-card" data-series="magic">
           <a href="../products/magic-daily.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/magic-daily/cover-01.png" alt="魔法日报键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/magic-daily/cover-01.png" alt="Revelation Daily Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-01 / 魔法系列</span>
-              <h3 class="product-card-name">魔法日报键帽</h3>
-              <p class="product-card-desc">如果魔法世界也有报社，它就该被压进这一套键帽里。</p>
+              <span class="product-card-kicker">KC-01 / Magic Series</span>
+              <h3 class="product-card-name">Revelation Daily Keycap</h3>
+              <p class="product-card-desc">If the wizarding world had a newsroom, it would be pressed into this keycap set.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">148键</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT 热升华</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥329</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/magic-daily.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/magic-daily.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-02: 碎片将进酒键帽 -->
+        <!-- KC-02: Pouring Wine Keycap -->
         <div class="product-card" data-series="literary">
           <a href="../products/pouring-wine.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/pouring-wine/cover-01.png" alt="碎片将进酒键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/pouring-wine/cover-01.png" alt="Pouring Wine Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-02 / 大文豪系列</span>
-              <h3 class="product-card-name">碎片将进酒键帽</h3>
-              <p class="product-card-desc">举杯邀明月，对影成三人。把李白的酒气敲进键帽。</p>
+              <span class="product-card-kicker">KC-02 / Literary Series</span>
+              <h3 class="product-card-name">Pouring Wine Keycap</h3>
+              <p class="product-card-desc">A moonlit toast to poetry, where each key holds a verse of ancient starlight.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT 热升华</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥329</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/pouring-wine.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/pouring-wine.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-03: 奥利凡德魔杖店键帽 -->
+        <!-- KC-03: Ollivander Wand Shop Keycap -->
         <div class="product-card" data-series="magic">
           <a href="../products/wand-shop.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/wand-shop/cover-01.jpg" alt="奥利凡德魔杖店键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/wand-shop/cover-01.jpg" alt="Ollivander Wand Shop Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-03 / 魔法系列</span>
-              <h3 class="product-card-name">奥利凡德魔杖店键帽</h3>
-              <p class="product-card-desc">每根魔杖都在选择自己的主人，每颗键帽都在等待被激活。</p>
+              <span class="product-card-kicker">KC-03 / Magic Series</span>
+              <h3 class="product-card-name">Ollivander Wand Shop Keycap</h3>
+              <p class="product-card-desc">Every wand chooses its wizard - every key holds a spell waiting to be cast.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT 热升华</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥329</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/wand-shop.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/wand-shop.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-04: 莎士比亚的王牌键帽 -->
+        <!-- KC-04: Shakespeare Ace Keycap -->
         <div class="product-card" data-series="literary">
           <a href="../products/shakespeare.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/shakespeare/cover-01.jpg" alt="莎士比亚的王牌键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/shakespeare/cover-01.jpg" alt="Shakespeare Ace Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-04 / 大文豪系列</span>
-              <h3 class="product-card-name">莎士比亚的王牌键帽</h3>
-              <p class="product-card-desc">全世界是一座舞台，所有人不过是演员。</p>
+              <span class="product-card-kicker">KC-04 / Literary Series</span>
+              <h3 class="product-card-name">Shakespeare Ace Keycap</h3>
+              <p class="product-card-desc">All the world is a stage, and every keystroke writes a new act.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT 热升华</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥359</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/shakespeare.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/shakespeare.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-05: 二天一流武藏传键帽 -->
+        <!-- KC-05: Niten Ichi-ryu Musashi Keycap -->
         <div class="product-card" data-series="entry">
           <a href="../products/musashi.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/musashi/cover-01.png" alt="二天一流武藏传键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/musashi/cover-01.png" alt="Niten Ichi-ryu Musashi Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-05 / 世界入口</span>
-              <h3 class="product-card-name">二天一流武藏传键帽</h3>
-              <p class="product-card-desc">双刀流的传说被刻进了每一颗键帽的纹理里。</p>
+              <span class="product-card-kicker">KC-05 / World Entry</span>
+              <h3 class="product-card-name">Niten Ichi-ryu Musashi Keycap</h3>
+              <p class="product-card-desc">The way of two swords meets the way of keys - precision forged in discipline.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT 热升华</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥329</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/musashi.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/musashi.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-06: 中土地图键帽 -->
+        <!-- KC-06: Middle Earth Map Keycap -->
         <div class="product-card" data-series="literary">
           <a href="../products/middle-earth.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/middle-earth/cover-01.png" alt="中土地图键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/middle-earth/cover-01.png" alt="Middle Earth Map Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-06 / 大文豪系列</span>
-              <h3 class="product-card-name">中土地图键帽</h3>
-              <p class="product-card-desc">展开托尔金的中土世界，每颗键都是一段未完的旅程。</p>
+              <span class="product-card-kicker">KC-06 / Literary Series</span>
+              <h3 class="product-card-name">Middle Earth Map Keycap</h3>
+              <p class="product-card-desc">From the Shire to Mordor, Tolkien world mapped onto your keyboard.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT 热升华</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥329</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/middle-earth.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/middle-earth.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-07: 韦斯莱魔法把戏坊键帽 -->
+        <!-- KC-07: Weasley Wizard Wheezes Keycap -->
         <div class="product-card" data-series="magic">
           <a href="../products/trick-shop.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/trick-shop/cover-01.png" alt="韦斯莱魔法把戏坊键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/trick-shop/cover-01.png" alt="Weasley Wizard Wheezes Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-07 / 魔法系列</span>
-              <h3 class="product-card-name">韦斯莱魔法把戏坊键帽</h3>
-              <p class="product-card-desc">恶作剧是一种天赋，把它敲进每一颗键帽里。</p>
+              <span class="product-card-kicker">KC-07 / Magic Series</span>
+              <h3 class="product-card-name">Weasley Wizard Wheezes Keycap</h3>
+              <p class="product-card-desc">Pranks, potions, and mischief - all packaged into one magical set.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT 热升华</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥329</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/trick-shop.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/trick-shop.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-08: 推理女王的诡计键帽 -->
+        <!-- KC-08: Mystery Queen Scheme Keycap -->
         <div class="product-card" data-series="literary">
           <a href="../products/mystery-queen.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/mystery-queen/cover-01.png" alt="推理女王的诡计键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/mystery-queen/cover-01.png" alt="Mystery Queen Scheme Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-08 / 大文豪系列</span>
-              <h3 class="product-card-name">推理女王的诡计键帽</h3>
-              <p class="product-card-desc">每一个线索都藏在键帽的纹路里，等待被发现。</p>
+              <span class="product-card-kicker">KC-08 / Literary Series</span>
+              <h3 class="product-card-name">Mystery Queen Scheme Keycap</h3>
+              <p class="product-card-desc">Every clue is hidden in plain sight - Agatha genius distilled into keycaps.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT 热升华</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥329</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/mystery-queen.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/mystery-queen.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- Editorial Insert -->
-        <div class="editorial-insert" style="grid-column: 1 / -1;">
-          <div>
-            <div class="editorial-insert-kicker">系列推荐</div>
-            <h3>魔法系列</h3>
-            <p>魔法逻辑 × 奇物世界 × 幻想秩序。每一颗键帽，都是一个通向魔法世界的接口装置。</p>
-          </div>
-          <a class="editorial-link" href="#">查看系列 →</a>
-        </div>
-
-        <!-- KC-09: 福尔摩斯221B的密码本键帽 -->
+        <!-- KC-09: Sherlock 221B Codebook Keycap -->
         <div class="product-card" data-series="literary">
           <a href="../products/sherlock.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/sherlock/cover-01.jpg" alt="福尔摩斯221B的密码本键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/sherlock/cover-01.jpg" alt="Sherlock 221B Codebook Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-09 / 大文豪系列</span>
-              <h3 class="product-card-name">福尔摩斯221B的密码本键帽</h3>
-              <p class="product-card-desc">贝克街221B的每一个细节，都被编码进了键盘。</p>
+              <span class="product-card-kicker">KC-09 / Literary Series</span>
+              <h3 class="product-card-name">Sherlock 221B Codebook Keycap</h3>
+              <p class="product-card-desc">The game is afoot - decode the mysteries of Baker Street on your desk.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT 热升华</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥329</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/sherlock.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/sherlock.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-10: 盖茨比的金色梦幻键帽 -->
+        <!-- KC-10: Gatsby Golden Dream Keycap -->
         <div class="product-card" data-series="literary">
           <a href="../products/gatsby.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/gatsby/cover-01.png" alt="盖茨比的金色梦幻键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/gatsby/cover-01.png" alt="Gatsby Golden Dream Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-10 / 大文豪系列</span>
-              <h3 class="product-card-name">盖茨比的金色梦幻键帽</h3>
-              <p class="product-card-desc">对岸的绿灯永远在闪，每一次敲击都是一次追寻。</p>
+              <span class="product-card-kicker">KC-10 / Literary Series</span>
+              <h3 class="product-card-name">Gatsby Golden Dream Keycap</h3>
+              <p class="product-card-desc">The green light at the end of the dock, now glowing from your keyboard.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">金属漆</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥329</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/gatsby.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/gatsby.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-11: 流浪地球地下城键帽 -->
+        <!-- KC-11: Wandering Earth Underground City Keycap -->
         <div class="product-card" data-series="literary">
           <a href="../products/wandering-earth.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/wandering-earth/cover-01.png" alt="流浪地球地下城键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/wandering-earth/cover-01.png" alt="Wandering Earth Underground City Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-11 / 大文豪系列</span>
-              <h3 class="product-card-name">流浪地球地下城键帽</h3>
-              <p class="product-card-desc">地下城的灯火不灭，文明在键盘上继续前行。</p>
+              <span class="product-card-kicker">KC-11 / Literary Series</span>
+              <h3 class="product-card-name">Wandering Earth Underground City Keycap</h3>
+              <p class="product-card-desc">Beneath the frozen surface, humanity last hope is etched into every key.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT 热升华</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥389</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/wandering-earth.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/wandering-earth.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-12: 狄金森的封闭花园键帽 -->
+        <!-- KC-12: Dickinson Sealed Garden Keycap -->
         <div class="product-card" data-series="literary">
           <a href="../products/dickinson.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/dickinson/cover-01.jpg" alt="狄金森的封闭花园键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/dickinson/cover-01.jpg" alt="Dickinson Sealed Garden Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-12 / 大文豪系列</span>
-              <h3 class="product-card-name">狄金森的封闭花园键帽</h3>
-              <p class="product-card-desc">在封闭的花园里，每一颗键帽都是一首未寄出的诗。</p>
+              <span class="product-card-kicker">KC-12 / Literary Series</span>
+              <h3 class="product-card-name">Dickinson Sealed Garden Keycap</h3>
+              <p class="product-card-desc">A reclusive poet inner world, blooming silently on your desktop.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT+鎏金</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥329</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/dickinson.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/dickinson.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-13: 王尔德华丽与忧伤键帽 -->
+        <!-- KC-13: Wilde Beauty and Sorrow Keycap -->
         <div class="product-card" data-series="literary">
           <a href="../products/wilde.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/wilde/cover-01.png" alt="王尔德华丽与忧伤键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/wilde/cover-01.png" alt="Wilde Beauty and Sorrow Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-13 / 大文豪系列</span>
-              <h3 class="product-card-name">王尔德华丽与忧伤键帽</h3>
-              <p class="product-card-desc">华丽是表象，忧伤是底色，每颗键帽都在诉说。</p>
+              <span class="product-card-kicker">KC-13 / Literary Series</span>
+              <h3 class="product-card-name">Wilde Beauty and Sorrow Keycap</h3>
+              <p class="product-card-desc">Art for art sake - Oscar Wilde aesthetic philosophy made tangible.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">金属漆</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥359</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/wilde.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/wilde.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-14: 雨古巴黎圣母院键帽 -->
+        <!-- KC-14: Hugo Notre-Dame Keycap -->
         <div class="product-card" data-series="literary">
           <a href="../products/hugo.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/hugo/cover-01.jpg" alt="雨古巴黎圣母院键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/hugo/cover-01.jpg" alt="Hugo Notre-Dame Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-14 / 大文豪系列</span>
-              <h3 class="product-card-name">雨古巴黎圣母院键帽</h3>
-              <p class="product-card-desc">钟声下的誓言，被铸进了每一颗键帽。</p>
+              <span class="product-card-kicker">KC-14 / Literary Series</span>
+              <h3 class="product-card-name">Hugo Notre-Dame Keycap</h3>
+              <p class="product-card-desc">The bells of Notre-Dame ring through every keystroke of this Gothic masterpiece.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT全鎏金</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥359</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/hugo.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/hugo.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-15: 李清照金石录键帽 -->
+        <!-- KC-15: Li Qingzhao Gold Stone Record Keycap -->
         <div class="product-card" data-series="literary">
           <a href="../products/li-qingzhao.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/li-qingzhao/cover-01.jpg" alt="李清照金石录键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/li-qingzhao/cover-01.jpg" alt="Li Qingzhao Gold Stone Record Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-15 / 大文豪系列</span>
-              <h3 class="product-card-name">李清照金石录键帽</h3>
-              <p class="product-card-desc">古典文献的记忆与保存，都被压进了键帽里。</p>
+              <span class="product-card-kicker">KC-15 / Literary Series</span>
+              <h3 class="product-card-name">Li Qingzhao Gold Stone Record Keycap</h3>
+              <p class="product-card-desc">Classical Chinese literature preserved in every curve and character.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT全鎏金</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥359</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/li-qingzhao.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/li-qingzhao.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-16: 出逃布达佩斯键帽 -->
+        <!-- KC-16: Escape Budapest Keycap -->
         <div class="product-card" data-series="entry">
           <a href="../products/budapest.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/budapest/cover-01.png" alt="出逃布达佩斯键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/budapest/cover-01.png" alt="Escape Budapest Keycap">
+              <span class="product-card-status in-stock">In Stock</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-16 / 世界入口</span>
-              <h3 class="product-card-name">出逃布达佩斯键帽</h3>
-              <p class="product-card-desc">一张车票、一次出逃，每颗键都是一扇平行世界的门。</p>
+              <span class="product-card-kicker">KC-16 / World Entry</span>
+              <h3 class="product-card-name">Escape Budapest Keycap</h3>
+              <p class="product-card-desc">A chessboard adventure through the grand corridors of a Hungarian masterpiece.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT 热升华</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥359</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">$129</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/budapest.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/budapest.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-17: 草药学与魔法温室键帽 -->
+        <!-- KC-17: Herbology and Magical Greenhouse Keycap -->
         <div class="product-card" data-series="magic">
           <a href="../products/herbology.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/herbology/cover-01.jpg" alt="草药学与魔法温室键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/herbology/cover-01.jpg" alt="Herbology and Magical Greenhouse Keycap">
+              <span class="product-card-status pre-order">Pre-order</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-17 / 魔法系列</span>
-              <h3 class="product-card-name">草药学与魔法温室键帽</h3>
-              <p class="product-card-desc">温室里的魔法植物正在生长，每颗键帽都藏着一株秘密草药。</p>
+              <span class="product-card-kicker">KC-17 / Magic Series</span>
+              <h3 class="product-card-name">Herbology and Magical Greenhouse Keycap</h3>
+              <p class="product-card-desc">Magical plants are alive and growing - each key sprouts a botanical secret.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT+金属漆</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥329</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">Price TBD</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/herbology.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/herbology.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- KC-18: 混血传奇魔药课笔记键帽 -->
+        <!-- KC-18: Potions Class Notes Keycap -->
         <div class="product-card" data-series="magic">
           <a href="../products/potions-notes.html" class="product-card-link">
             <div class="product-card-img">
-              <img src="../assets/keycaps/potions-notes/cover-01.jpg" alt="混血传奇魔药课笔记键帽">
-              <span class="product-card-status in-stock">现货</span>
+              <img src="../assets/keycaps/potions-notes/cover-01.jpg" alt="Potions Class Notes Keycap">
+              <span class="product-card-status pre-order">Pre-order</span>
             </div>
             <div class="product-card-body">
-              <span class="product-card-kicker">KC-18 / 魔法系列</span>
-              <h3 class="product-card-name">混血传奇魔药课笔记键帽</h3>
-              <p class="product-card-desc">半个世纪的魔药笔记，被编入了每一颗键帽。</p>
+              <span class="product-card-kicker">KC-18 / Magic Series</span>
+              <h3 class="product-card-name">Potions Class Notes Keycap</h3>
+              <p class="product-card-desc">Half-Blood Prince annotations - every formula, every shortcut, every secret.</p>
               <div class="product-card-specs">
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">键帽数量</span>
-                  <span class="product-card-spec-value">待补录</span>
+                  <span class="product-card-spec-label">Keys</span>
+                  <span class="product-card-spec-value">148 Keys</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">工艺</span>
-                  <span class="product-card-spec-value">PBT 热升华</span>
+                  <span class="product-card-spec-label">Craft</span>
+                  <span class="product-card-spec-value">PBT Dye-Sub</span>
                 </div>
                 <div class="product-card-spec">
-                  <span class="product-card-spec-label">兼容配列</span>
-                  <span class="product-card-spec-value">MX十字轴/多配列</span>
+                  <span class="product-card-spec-label">Compatibility</span>
+                  <span class="product-card-spec-value">MX Cross / Multi</span>
                 </div>
               </div>
             </div>
             <div class="product-card-price-area">
-              <span class="product-card-price-label">折扣价位预留</span>
-              <span class="product-card-price">¥359</span>
+              <span class="product-card-price-label">Discount placeholder</span>
+              <span class="product-card-price">Price TBD</span>
               <span class="product-card-price-original"></span>
               <span class="product-card-discount-tag"></span>
-              <span class="product-card-price-links">支持后续原价 / 折扣价</span>
+              <span class="product-card-price-links">Supports future sale pricing</span>
             </div>
           </a>
           <div class="product-card-actions">
             <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
               <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
+              Add to Cart
             </button>
-            <a class="product-card-detail-btn" href="../products/potions-notes.html" title="查看详情">
+            <a class="product-card-detail-btn" href="../products/potions-notes.html" title="View Details">
               <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -2109,30 +1985,30 @@
     <footer class="footer">
       <div class="footer-grid">
         <div>
-          <span class="footer-label">认真不现实</span>
-          <h3>认真不现实</h3>
-          <p>我们不是只在做商品，我们是在做一个个可敲、可读、可藏、可对话的世界装置。</p>
+          <span class="footer-label">Seriously Impractical</span>
+          <h3>Seriously Impractical</h3>
+          <p>We don't just make products &mdash; we build worlds you can type on, read into, collect, and converse with.</p>
         </div>
         <div>
-          <strong>产品</strong>
-          <p>键帽</p>
-          <p>键盘</p>
-          <p>桌垫</p>
-          <p>杯子</p>
+          <strong>Products</strong>
+          <p>Keycaps</p>
+          <p>Keyboards</p>
+          <p>Desk Mats</p>
+          <p>Cups</p>
         </div>
         <div>
-          <strong>支持</strong>
-          <p>配送与常见问题</p>
-          <p>账号</p>
-          <p>购物车</p>
-          <p>海外下单</p>
+          <strong>Support</strong>
+          <p>Shipping & FAQ</p>
+          <p>Account</p>
+          <p>Cart</p>
+          <p>International Orders</p>
         </div>
         <div>
-          <strong>渠道</strong>
+          <strong>Channels</strong>
           <p>Instagram</p>
           <p>YouTube</p>
           <p>TikTok</p>
-          <p>博主展示</p>
+          <p>Community</p>
         </div>
       </div>
     </footer>
@@ -2171,7 +2047,7 @@
             card.style.display = 'none';
           }
         });
-        if (countEl) countEl.textContent = visible + ' 件产品';
+        if (countEl) countEl.textContent = visible + ' Products';
       });
     });
 

@@ -3,22 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>键盘 — 不现实商店</title>
+  <title>关于我们 — 不现实商店</title>
   <style>
+    @import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Special+Elite&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap");
+
     :root {
-      --paper: #e8e4df;
-      --paper-soft: #edeae6;
-      --paper-deep: #d5d0ca;
-      --ink: #1a1a1a;
-      --muted: #6b6560;
-      --line: rgba(26, 26, 26, 0.14);
-      --line-strong: rgba(26, 26, 26, 0.3);
-      --accent: #c0392b;
-      --mark: #f5e642;
-      --mono: "Courier New", Consolas, monospace;
-      --serif: Georgia, "Times New Roman", serif;
-      --sans: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-      --shadow: 0 24px 58px rgba(20, 20, 20, 0.08);
+      --paper: #ece2d4;
+      --paper-soft: #f5ede1;
+      --paper-deep: #dfd1bf;
+      --ink: #17110d;
+      --muted: #6c5d52;
+      --line: rgba(23, 17, 13, 0.16);
+      --line-strong: rgba(23, 17, 13, 0.36);
+      --accent: #ab442e;
+      --mark: #fff100;
+      --mono: "Special Elite", "Courier Prime", "Courier New", monospace;
+      --serif: "Special Elite", "Courier Prime", "Courier New", monospace;
+      --sans: "Courier Prime", "Courier New", monospace;
+      --editorial: "Playfair Display", Georgia, "Times New Roman", serif;
+      --shadow: 0 24px 58px rgba(32, 22, 15, 0.1);
     }
 
     * { box-sizing: border-box; }
@@ -30,8 +33,9 @@
       font-family: var(--sans);
       background:
         radial-gradient(circle at top, rgba(255,255,255,0.8), transparent 34%),
-        linear-gradient(180deg, #e8e4df 0%, #ddd9d3 100%);
+        linear-gradient(180deg, #efe6d8 0%, #e6d9c8 100%);
       position: relative;
+      letter-spacing: -0.03em;
     }
 
     body::before {
@@ -93,7 +97,7 @@
       align-items: center;
       padding: 14px 26px;
       border-bottom: 1px solid var(--line);
-      background: rgba(237, 234, 230, 0.9);
+      background: rgba(245, 237, 225, 0.88);
       backdrop-filter: blur(12px);
     }
 
@@ -172,8 +176,8 @@
       min-width: 268px;
       padding: 16px 18px 18px;
       border: 1px solid var(--line-strong);
-      background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0)), rgba(237, 234, 230, 0.97);
-      box-shadow: 0 18px 32px rgba(20, 20, 20, 0.08);
+      background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0)), rgba(245, 237, 225, 0.97);
+      box-shadow: 0 18px 32px rgba(28, 18, 11, 0.1);
       opacity: 0;
       transform: translateY(8px);
       pointer-events: none;
@@ -407,7 +411,7 @@
       opacity: 0;
       padding: 0 18px 0;
       border-bottom: 1px solid var(--line);
-      background: rgba(237, 234, 230, 0.92);
+      background: rgba(245, 237, 225, 0.92);
       backdrop-filter: blur(12px);
       overflow: hidden;
       pointer-events: none;
@@ -459,364 +463,331 @@
       border: 0;
     }
 
-    /* ── Category Hero ── */
-    .category-hero {
+    /* ── About: Hero ── */
+    .about-hero {
       position: relative;
       overflow: hidden;
       border-bottom: 1px solid var(--line);
+      background: #16110d;
+      padding: 80px 48px 72px;
+      text-align: center;
     }
-    .category-hero-img {
-      width: 100%;
-      height: 320px;
-      object-fit: cover;
-      filter: brightness(0.7);
-    }
-    .category-hero-overlay {
+    .about-hero::before {
+      content: "";
       position: absolute;
       inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 36px 32px;
+      background:
+        radial-gradient(ellipse at 50% 20%, rgba(171, 68, 46, 0.08), transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(255, 241, 0, 0.03), transparent 50%);
+      pointer-events: none;
     }
-    .category-hero-kicker {
+    .about-hero-kicker {
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 12px;
-      color: rgba(255,255,255,0.72);
+      margin-bottom: 24px;
+      color: rgba(255,255,255,0.52);
       font: 11px/1.2 var(--mono);
       letter-spacing: 0.18em;
       text-transform: uppercase;
     }
-    .category-hero-kicker::before {
+    .about-hero-kicker::before,
+    .about-hero-kicker::after {
       content: "";
-      width: 24px;
+      width: 32px;
       height: 1px;
-      background: rgba(255,255,255,0.48);
+      background: rgba(255,255,255,0.28);
     }
-    .category-hero-title {
+    .about-hero-title {
       margin: 0;
-      font: 700 clamp(38px, 7vw, 56px)/1.05 var(--serif);
+      font: 700 clamp(42px, 8vw, 72px)/1.05 var(--serif);
       color: #fff;
       letter-spacing: -0.01em;
     }
-    .category-hero-sub {
-      margin: 10px 0 0;
-      max-width: 520px;
-      font: 15px/1.6 var(--sans);
-      color: rgba(255,255,255,0.82);
+    .about-hero-sub {
+      margin: 20px auto 0;
+      max-width: 580px;
+      font: 15px/1.7 var(--sans);
+      color: rgba(255,255,255,0.68);
     }
-    .category-hero-stamp {
-      position: absolute;
-      top: 22px;
-      right: 26px;
+
+    /* ── About: Section Shared ── */
+    .about-section {
+      padding: 56px 48px;
+      border-bottom: 1px solid var(--line);
+    }
+    .section-stamp {
       display: inline-flex;
       align-items: center;
-      padding: 7px 12px;
-      border: 1px solid rgba(255,255,255,0.28);
-      color: rgba(255,255,255,0.62);
+      gap: 10px;
+      margin-bottom: 28px;
+      padding: 7px 14px;
+      border: 1px solid var(--line-strong);
       font: 10px/1.2 var(--mono);
       letter-spacing: 0.16em;
       text-transform: uppercase;
-    }
-
-    /* ── Breadcrumb ── */
-    .breadcrumb {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 26px;
-      border-bottom: 1px solid var(--line);
-      font: 11px/1.2 var(--mono);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
       color: var(--muted);
     }
-    .breadcrumb a { transition: color 180ms ease; }
-    .breadcrumb a:hover { color: var(--accent); }
-    .breadcrumb-sep { opacity: 0.4; }
+    .section-stamp::before {
+      content: "";
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .section-title {
+      margin: 0 0 24px;
+      font: 700 clamp(28px, 5vw, 40px)/1.1 var(--serif);
+      letter-spacing: -0.01em;
+    }
 
-    /* ── Filter Bar ── */
-    .filter-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      padding: 16px 26px;
-      border-bottom: 1px solid var(--line);
+    /* ── Brand Statement ── */
+    .brand-statement {
+      max-width: 800px;
+    }
+    .brand-statement-text {
+      font: 16px/1.85 var(--sans);
+      color: var(--ink);
+      margin: 0;
+    }
+    .brand-statement-text em {
+      font-style: normal;
+      color: var(--accent);
+      border-bottom: 1px solid rgba(171, 68, 46, 0.3);
+    }
+
+    /* ── Founder Letter ── */
+    .founder-section {
       background: rgba(255,255,255,0.12);
     }
-    .filter-sort {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .filter-label {
-      font: 10px/1.2 var(--mono);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-right: 4px;
-    }
-    .filter-sort select {
-      padding: 7px 12px;
-      border: 1px solid var(--line-strong);
-      background: transparent;
-      color: var(--ink);
-      font: 11px/1.2 var(--mono);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      cursor: pointer;
-      appearance: none;
-      -webkit-appearance: none;
-      padding-right: 28px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2317110d' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-    }
-    .product-count {
-      font: 11px/1.2 var(--mono);
-      letter-spacing: 0.12em;
-      color: var(--muted);
-    }
-
-    /* ── Product Grid ── */
-    .product-grid-wrap {
-      padding: 26px;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    /* ── Product Card ── */
-    .product-card {
+    .founder-letter {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 40px;
       position: relative;
-      display: flex;
-      flex-direction: column;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.08));
       border: 1px solid var(--line);
-      background: rgba(255,255,255,0.18);
-      transition: transform 280ms ease, box-shadow 280ms ease;
     }
-    .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 36px rgba(20, 20, 20, 0.08);
-    }
-    .product-card-link {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-    }
-    .product-card-img {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 1;
-      background: var(--paper-deep);
-    }
-    .product-card-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .5s ease;
-    }
-    .product-card:hover .product-card-img img {
-      transform: scale(1.04);
-    }
-    .product-card-status {
+    .founder-letter::before {
+      content: "\201C";
       position: absolute;
-      top: 10px;
-      left: 10px;
-      display: inline-flex;
-      padding: 5px 10px;
-      font: 10px/1.2 var(--mono);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      top: 16px;
+      left: 24px;
+      font: 700 80px/1 var(--editorial);
+      color: var(--accent);
+      opacity: 0.18;
     }
-    .product-card-status.in-stock {
-      background: rgba(34,120,60,0.88);
-      color: #fff;
+    .founder-letter p {
+      margin: 0 0 20px;
+      font: 400 15px/2 var(--editorial);
+      color: var(--ink);
+      letter-spacing: 0.01em;
     }
-    .product-card-status.pre-order {
-      background: rgba(171,68,46,0.88);
-      color: #fff;
+    .founder-letter p:last-of-type {
+      margin-bottom: 0;
     }
-    .product-card-body {
+    .founder-sig {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      font: 400 14px/1.4 var(--editorial);
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    /* ── What We Make ── */
+    .make-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .make-card {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      padding: 14px 14px 16px;
+      padding: 28px 22px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.16);
+      transition: border-color 280ms ease, transform 280ms ease;
+    }
+    .make-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .make-card-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px; height: 48px;
+      margin-bottom: 18px;
+      border: 1px solid var(--line-strong);
+      font-size: 22px;
+      line-height: 1;
+    }
+    .make-card-title {
+      margin: 0 0 10px;
+      font: 700 16px/1.2 var(--serif);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .make-card-desc {
+      margin: 0;
+      font: 13px/1.65 var(--sans);
+      color: var(--muted);
       flex: 1;
     }
-    .product-card-series {
+    .make-card-link {
       display: inline-flex;
-      align-self: flex-start;
-      padding: 4px 8px;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      font: 10px/1.2 var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      transition: gap 180ms ease;
+    }
+    .make-card:hover .make-card-link { gap: 10px; }
+    .make-card-link::after {
+      content: "\2192";
+      font-size: 13px;
+    }
+
+    /* ── Our Series ── */
+    .series-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+    .series-card {
+      padding: 22px 18px;
       border: 1px solid var(--line);
-      font: 9px/1.2 var(--mono);
+      background: rgba(255,255,255,0.1);
+      transition: border-color 280ms ease, transform 280ms ease;
+    }
+    .series-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .series-card-en {
+      display: block;
+      margin-bottom: 6px;
+      font: 10px/1.2 var(--mono);
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
     }
-    .product-card-name {
-      margin: 0;
-      font: 600 16px/1.3 var(--sans);
-      color: var(--ink);
+    .series-card-name {
+      margin: 0 0 8px;
+      font: 700 15px/1.2 var(--serif);
     }
-    .product-card-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .product-card-code {
-      font: 10px/1.2 var(--mono);
-      letter-spacing: 0.12em;
-      color: var(--muted);
-    }
-    .product-card-desc {
+    .series-card-tag {
       margin: 0;
       font: 12px/1.5 var(--sans);
       color: var(--muted);
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
     }
-    .product-card-spec-grid {
+
+    /* ── How We Work ── */
+    .principles-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      margin-top: 8px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
     }
-    .product-card-spec-box {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      padding: 8px 6px;
+    .principle {
+      padding: 24px 20px;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,0.08);
+      border-top: 3px solid var(--accent);
     }
-    .spec-box-label {
-      font: 9px/1.2 var(--mono);
-      letter-spacing: 0.1em;
+    .principle-num {
+      display: block;
+      margin-bottom: 12px;
+      font: 10px/1 var(--mono);
+      letter-spacing: 0.16em;
       color: var(--muted);
+    }
+    .principle-title {
+      margin: 0 0 6px;
+      font: 700 15px/1.2 var(--serif);
       text-transform: uppercase;
-    }
-    .spec-box-value {
-      font: 11px/1.3 var(--sans);
-      color: var(--ink);
-      font-weight: 600;
-    }
-    .product-card-price-area {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .product-card-price-label {
-      font: 9px/1.2 var(--mono);
-      letter-spacing: 0.08em;
-      color: var(--muted);
-    }
-    .product-card-price-note {
-      font: 9px/1.2 var(--mono);
-      color: var(--muted);
       letter-spacing: 0.04em;
     }
-    .product-card-specs {
+    .principle-cn {
+      display: block;
+      margin-bottom: 10px;
+      font: 13px/1.4 var(--sans);
+      color: var(--accent);
+    }
+    .principle-desc {
+      margin: 0;
+      font: 13px/1.65 var(--sans);
+      color: var(--muted);
+    }
+
+    /* ── Collaborations ── */
+    .collab-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px 8px;
-      margin-top: 4px;
+      gap: 14px;
+      margin-bottom: 24px;
     }
-    .product-card-spec {
+    .collab-tag {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      font: 10px/1.3 var(--mono);
+      padding: 10px 18px;
+      border: 1px solid var(--line-strong);
+      font: 13px/1.2 var(--sans);
+      letter-spacing: 0.04em;
+      transition: border-color 180ms ease, color 180ms ease;
+    }
+    .collab-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .collab-more {
+      font: 14px/1.6 var(--sans);
       color: var(--muted);
-      letter-spacing: 0.04em;
+      font-style: italic;
     }
-    .product-card-spec::before {
-      content: '';
-      display: inline-block;
-      width: 3px;
-      height: 3px;
-      background: var(--muted);
-      border-radius: 50%;
-      opacity: .5;
+
+    /* ── Connect ── */
+    .connect-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
     }
-    .product-card-price-row {
+    .connect-item {
       display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-top: auto;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      transition: border-color 180ms ease, transform 180ms ease;
     }
-    .product-card-price {
-      font: 700 20px/1 var(--mono);
-      color: var(--ink);
-      letter-spacing: 0.04em;
+    .connect-item:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
     }
-    .product-card-actions {
-      display: flex;
-      gap: 0;
-      border-top: 1px solid var(--line);
-    }
-    .product-card-cart-btn {
-      flex: 1;
+    .connect-icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      padding: 11px 12px;
-      border: none;
-      background: transparent;
-      font: 11px/1 var(--mono);
+      width: 32px; height: 32px;
+      border: 1px solid var(--line-strong);
+      font: 12px/1 var(--mono);
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+    .connect-label {
+      font: 11px/1.2 var(--mono);
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--ink);
-      cursor: pointer;
-      transition: background 200ms, color 200ms;
     }
-    .product-card-cart-btn:hover {
-      background: var(--mark);
-      color: var(--ink);
-    }
-    .product-card-cart-btn svg {
-      width: 14px;
-      height: 14px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .product-card-detail-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 11px 14px;
-      border: none;
-      border-left: 1px solid var(--line);
-      background: transparent;
+    .connect-handle {
+      display: block;
+      margin-top: 2px;
+      font: 13px/1.3 var(--sans);
       color: var(--muted);
-      cursor: pointer;
-      transition: background 200ms, color 200ms;
-    }
-    .product-card-detail-btn:hover {
-      background: var(--mark);
-      color: var(--ink);
-    }
-    .product-card-detail-btn svg {
-      width: 14px;
-      height: 14px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.6;
+      letter-spacing: normal;
+      text-transform: none;
     }
 
     /* ── Footer ── */
@@ -859,7 +830,7 @@
       .site-header { grid-template-columns: auto minmax(0,1fr) auto; }
       .brand img { width: 80px; }
       .nav-link { padding: 10px 8px; font-size: 10px; }
-      .product-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .series-grid { grid-template-columns: repeat(3, 1fr); }
     }
 
     @media (max-width: 1040px) {
@@ -898,7 +869,9 @@
         padding-bottom: 18px;
         pointer-events: auto;
       }
-      .product-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .make-grid { grid-template-columns: repeat(2, 1fr); }
+      .principles-grid { grid-template-columns: repeat(2, 1fr); }
+      .connect-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-grid { grid-template-columns: 1fr; }
     }
 
@@ -908,14 +881,13 @@
       .site-header { min-height: 60px; padding-top: 6px; padding-bottom: 6px; }
       .brand { width: 68px; height: 52px; }
       .brand img { width: 52px; height: auto; max-width: 52px; margin: 0; }
-      .category-hero-img { height: 220px; }
-      .category-hero-overlay { padding: 22px 18px; }
-      .category-hero-title { font-size: clamp(30px, 8vw, 42px); }
-      .breadcrumb { padding: 12px 18px; }
-      .filter-bar { padding: 14px 18px; flex-direction: column; align-items: flex-start; }
-      .product-grid-wrap { padding: 18px; }
-      .product-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
-      .product-card-name { font-size: 14px; }
+      .about-hero { padding: 52px 22px 44px; }
+      .about-section { padding: 36px 22px; }
+      .founder-letter { padding: 32px 24px; }
+      .make-grid { grid-template-columns: 1fr; }
+      .series-grid { grid-template-columns: repeat(2, 1fr); }
+      .principles-grid { grid-template-columns: 1fr; }
+      .connect-grid { grid-template-columns: 1fr; }
       .footer h3 { font-size: 28px; }
       .footer-grid { padding: 16px; }
     }
@@ -928,12 +900,12 @@
     <div class="notice">
       <div>
         认真不现实
-        <strong>把那些被轻易否定的想法，认认真真地做一次</strong>
+        <strong>把那些被轻易否定的想法，认认真真地做一次。</strong>
       </div>
       <div class="notice-meta">
-        <span>档案编号 OS-001</span>
-        <span>进行中</span>
-        <span>更新于 2026-03-21</span>
+        <span>FILE ID OS-ABOUT</span>
+        <span>ARCHIVE</span>
+        <span>UPDATED 2026-03-25</span>
       </div>
     </div>
 
@@ -962,12 +934,13 @@
           </div>
 
           <div class="nav-item has-dropdown">
-            <a class="nav-link nav-trigger is-active" href="../keyboards/cn.html">键盘</a>
+            <a class="nav-link nav-trigger" href="../keyboards/cn.html">键盘</a>
             <div class="nav-panel">
-              <span class="nav-panel-label">键盘分组</span>
+              <span class="nav-panel-label">键盘系列</span>
               <div class="nav-panel-links">
                 <a class="nav-panel-link" href="../keyboards/cn.html">全部键盘</a>
-                <a class="nav-panel-link" href="../products/great-writer-100-cn.html">大文豪键盘</a>
+                <a class="nav-panel-link" href="../keyboards/cn.html">大文豪键盘</a>
+                <a class="nav-panel-link" href="../keyboards/cn.html">键盘保护膜</a>
               </div>
             </div>
           </div>
@@ -980,7 +953,7 @@
                 <a class="nav-panel-link" href="../deskmats/cn.html">全部桌垫</a>
                 <a class="nav-panel-link" href="../deskmats/cn.html">文学桌垫</a>
                 <a class="nav-panel-link" href="../deskmats/cn.html">魔法桌垫</a>
-                <a class="nav-panel-link" href="../deskmats/cn.html">世界入口桌垫</a>
+                <a class="nav-panel-link" href="../keycaps/cn.html">世界入口桌垫</a>
               </div>
             </div>
           </div>
@@ -1001,7 +974,7 @@
           <div class="nav-item has-dropdown">
             <a class="nav-link nav-trigger" href="#">壳类</a>
             <div class="nav-panel">
-              <span class="nav-panel-label">壳类分组</span>
+              <span class="nav-panel-label">壳类系列</span>
               <div class="nav-panel-links">
                 <a class="nav-panel-link" href="#">全部壳类</a>
                 <a class="nav-panel-link" href="#">手机壳</a>
@@ -1010,7 +983,7 @@
             </div>
           </div>
 
-          <a class="nav-link" href="#">关于</a>
+          <a class="nav-link is-active" href="./cn.html">关于</a>
         </nav>
       </div>
 
@@ -1045,11 +1018,12 @@
               <a class="mobile-sublink" href="../keycaps/cn.html">世界入口</a>
             </div>
           </details>
-          <details class="mobile-branch" open>
+          <details class="mobile-branch">
             <summary class="mobile-summary">键盘</summary>
             <div class="mobile-subnav">
               <a class="mobile-sublink" href="../keyboards/cn.html">全部键盘</a>
-              <a class="mobile-sublink" href="../products/great-writer-100-cn.html">大文豪键盘</a>
+              <a class="mobile-sublink" href="../keyboards/cn.html">大文豪键盘</a>
+              <a class="mobile-sublink" href="../keyboards/cn.html">键盘保护膜</a>
             </div>
           </details>
           <details class="mobile-branch">
@@ -1058,7 +1032,7 @@
               <a class="mobile-sublink" href="../deskmats/cn.html">全部桌垫</a>
               <a class="mobile-sublink" href="../deskmats/cn.html">文学桌垫</a>
               <a class="mobile-sublink" href="../deskmats/cn.html">魔法桌垫</a>
-              <a class="mobile-sublink" href="../deskmats/cn.html">世界入口桌垫</a>
+              <a class="mobile-sublink" href="../keycaps/cn.html">世界入口桌垫</a>
             </div>
           </details>
           <details class="mobile-branch">
@@ -1078,7 +1052,7 @@
               <a class="mobile-sublink" href="#">耳机壳</a>
             </div>
           </details>
-          <a class="mobile-link" href="../about/cn.html"><span>关于</span></a>
+          <a class="mobile-link" href="./cn.html"><span>关于</span></a>
         </nav>
         <div class="mobile-utility">
           <a class="mobile-link" href="./"><span>English</span></a>
@@ -1089,92 +1063,190 @@
       </div>
     </div>
 
-    <!-- Category Hero -->
-    <div class="category-hero">
-      <img class="category-hero-img" src="../assets/keyboards/great-writer-100/cover-01.jpg" alt="键盘">
-      <div class="category-hero-overlay">
-        <span class="category-hero-kicker">品类档案 / Keyboards</span>
-        <h1 class="category-hero-title">键盘</h1>
-        <p class="category-hero-sub">不只是输入工具，而是桌面上的叙事主角。实木大配列三模客制化键盘套件，用100键的完整逻辑，撑起你的全能桌面。</p>
+    <!-- 1. Hero Section -->
+    <section class="about-hero reveal">
+      <span class="about-hero-kicker">关于 / 不现实商店</span>
+      <h1 class="about-hero-title">认真不现实</h1>
+      <p class="about-hero-sub">把那些被轻易否定的想法，认认真真地做一次。</p>
+    </section>
+
+    <!-- 2. Brand Statement -->
+    <section class="about-section reveal">
+      <span class="section-stamp"><span></span>我们是谁</span>
+      <h2 class="section-title">我们是谁</h2>
+      <div class="brand-statement">
+        <p class="brand-statement-text">
+          不现实商店，是一家专门贩卖<em>"不可能之物"</em>的创意品牌。我们制造的不只是商品，而是连接另一个时空的装置：连接一段记忆、一首未写完的诗，或一个未曾存在却始终想象中的维度。我们以<em>"不合逻辑、难以量产、不切实际"</em>为原材料，制造键帽、杯子、耳机壳、手机壳与联名收藏品，并将其打包成一座现实中的幻想场所。
+        </p>
       </div>
-      <span class="category-hero-stamp">分类 02 / 05</span>
-    </div>
+    </section>
 
-    <!-- Breadcrumb -->
-    <nav class="breadcrumb">
-      <a href="../cn/">首页</a>
-      <span class="breadcrumb-sep">›</span>
-      <span>键盘</span>
-    </nav>
-
-    <!-- Filter Bar -->
-    <div class="filter-bar">
-      <span class="product-count">1 件产品</span>
-      <div class="filter-sort">
-        <span class="filter-label">排序</span>
-        <select>
-          <option value="default">默认</option>
-          <option value="price-asc">价格 ↑</option>
-          <option value="price-desc">价格 ↓</option>
-          <option value="newest">最新</option>
-        </select>
+    <!-- 3. Founder's Letter -->
+    <section class="about-section founder-section reveal">
+      <span class="section-stamp"><span></span>主理人自诉</span>
+      <h2 class="section-title">主理人自诉</h2>
+      <div class="founder-letter">
+        <p>"不现实"这个词，很多人对我讲过，甚至自己也对自己说过很多次。很多时候，它不是在讨论事情本身，而是在终止一段对话。不讲道理、不靠谱、做不成、算了吧——这些意思，最后都会汇成一句"不现实"。</p>
+        <p>但我慢慢发现，被说"不现实"的，往往不是因为它错，而是因为它不被优先。幻想、故事、虚构、假的东西，本来就不以结果为目标。它们存在的意义，也不是为了证明自己是对的。</p>
+        <p>我开始意识到，真正让我在意的，从来不是这些想法是否现实，而是它们有没有被认真对待过。</p>
+        <p>所以我做不现实商店，不是想把幻想变成现实，也不是想为"不现实"辩护。我只是想把那些被轻易否定的想法，认认真真地做一次。不计结果，不讲效率，不急着成功。只是把一个想法，从脑子里，带到现实中来。</p>
+        <p>所以让我们认真的 不现实吧。</p>
+        <div class="founder-sig">&mdash; 不现实商店主理人</div>
       </div>
-    </div>
+    </section>
 
-    <!-- Product Grid -->
-    <div class="product-grid-wrap reveal">
-      <div class="product-grid">
+    <!-- 4. What We Make -->
+    <section class="about-section reveal">
+      <span class="section-stamp"><span></span>我们做什么</span>
+      <h2 class="section-title">我们做什么</h2>
+      <div class="make-grid">
+        <a class="make-card" href="../keycaps/cn.html">
+          <div class="make-card-icon">&#9000;</div>
+          <h3 class="make-card-title">键帽</h3>
+          <p class="make-card-desc">每一颗键帽，都是一个平行世界的微型通道。我们不为"打字"设计，而是为"叙事"与"沉浸"而造。</p>
+          <span class="make-card-link">探索键帽</span>
+        </a>
+        <a class="make-card" href="../keyboards/cn.html">
+          <div class="make-card-icon">&#9881;</div>
+          <h3 class="make-card-title">键盘</h3>
+          <p class="make-card-desc">实木大配列，三模客制化机械键盘。文学气质与精密工程的交汇之处。</p>
+          <span class="make-card-link">探索键盘</span>
+        </a>
+        <a class="make-card" href="../deskmats/cn.html">
+          <div class="make-card-icon">&#9634;</div>
+          <h3 class="make-card-title">桌垫</h3>
+          <p class="make-card-desc">桌面上的广阔画布——每一张桌垫，都是一片来自尚未存在的世界的风景。</p>
+          <span class="make-card-link">探索桌垫</span>
+        </a>
+        <a class="make-card" href="../cups/cn.html">
+          <div class="make-card-icon">&#9749;</div>
+          <h3 class="make-card-title">杯子</h3>
+          <p class="make-card-desc">每一只杯子，都是一个可以进入的梦境容器。如果键盘是可以敲击的诗句，那杯子，就是可以握住的空间裂缝。</p>
+          <span class="make-card-link">探索杯子</span>
+        </a>
+      </div>
+    </section>
 
-        <!-- Product 1: 大文豪100键盘套件 -->
-        <div class="product-card">
-          <a href="../products/great-writer-100-cn.html" class="product-card-link">
-            <div class="product-card-img">
-              <img src="../assets/keyboards/great-writer-100/cover-01.jpg" alt="大文豪100键盘套件">
-              <span class="product-card-status in-stock">现货</span>
-            </div>
-            <div class="product-card-body">
-              <div class="product-card-meta">
-                <span class="product-card-code">KB-01</span>
-                <span class="product-card-series">大文豪键盘</span>
-              </div>
-              <h3 class="product-card-name">大文豪100键盘套件｜执百键叙史诗</h3>
-              <p class="product-card-desc">真正的创作者，从不妥协空间。用100键的完整逻辑，撑起你的全能桌面。</p>
-              <div class="product-card-spec-grid">
-                <div class="product-card-spec-box">
-                  <span class="spec-box-label">框体材质</span>
-                  <span class="spec-box-value">实木（胡桃木）</span>
-                </div>
-                <div class="product-card-spec-box">
-                  <span class="spec-box-label">连接</span>
-                  <span class="spec-box-value">三模（有线/蓝牙/2.4G）</span>
-                </div>
-                <div class="product-card-spec-box">
-                  <span class="spec-box-label">配列</span>
-                  <span class="spec-box-value">100键大配列</span>
-                </div>
-              </div>
-              <div class="product-card-price-row">
-                <div class="product-card-price-area">
-                  <span class="product-card-price-label">折扣价位预留</span>
-                  <span class="product-card-price">¥ 999</span>
-                </div>
-                <span class="product-card-price-note">支持后续原价 / 折扣价</span>
-              </div>
-            </div>
-          </a>
-          <div class="product-card-actions">
-            <button class="product-card-cart-btn" type="button" onclick="event.stopPropagation()">
-              <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              加入购物车
-            </button>
-            <a class="product-card-detail-btn" href="../products/great-writer-100-cn.html" title="查看详情">
-              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
+    <!-- 5. Our Series -->
+    <section class="about-section reveal">
+      <span class="section-stamp"><span></span>产品系列</span>
+      <h2 class="section-title">产品系列</h2>
+      <div class="series-grid">
+        <a class="series-card" href="../keycaps/cn.html">
+          <span class="series-card-en">The Arcane Systems</span>
+          <h3 class="series-card-name">魔法系列</h3>
+          <p class="series-card-tag">魔法逻辑 &times; 奇物世界 &times; 幻想秩序</p>
+        </a>
+        <a class="series-card" href="../keycaps/cn.html">
+          <span class="series-card-en">The Literary Realms</span>
+          <h3 class="series-card-name">大文豪系列</h3>
+          <p class="series-card-tag">语言的建筑 &times; 文学气质 &times; 书写性的输入体验</p>
+        </a>
+        <a class="series-card" href="../keycaps/cn.html">
+          <span class="series-card-en">World Entry</span>
+          <h3 class="series-card-name">世界入口</h3>
+          <p class="series-card-tag">幻想版图 &times; 键盘地图 &times; 空间感知</p>
+        </a>
+        <a class="series-card" href="../cups/cn.html">
+          <span class="series-card-en">Cup World</span>
+          <h3 class="series-card-name">杯欢世界</h3>
+          <p class="series-card-tag">梦境容器 &times; 釉中彩工艺 &times; 景德镇瓷器</p>
+        </a>
+        <a class="series-card" href="../keyboards/cn.html">
+          <span class="series-card-en">Great Writer Keyboard</span>
+          <h3 class="series-card-name">大文豪键盘</h3>
+          <p class="series-card-tag">实木大配列 &times; 三模客制化</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- 6. How We Work -->
+    <section class="about-section reveal">
+      <span class="section-stamp"><span></span>我们的方式</span>
+      <h2 class="section-title">我们的方式</h2>
+      <div class="principles-grid">
+        <div class="principle">
+          <span class="principle-num">01</span>
+          <h3 class="principle-title">Theme First</h3>
+          <span class="principle-cn">主题优先</span>
+          <p class="principle-desc">每一件产品都始于一个故事。叙事决定形态，而非反之。</p>
         </div>
-
+        <div class="principle">
+          <span class="principle-num">02</span>
+          <h3 class="principle-title">Craft Obsession</h3>
+          <span class="principle-cn">工艺执念</span>
+          <p class="principle-desc">不同的叙事，匹配不同的工艺。我们选择最能服务故事的制造方式。</p>
+        </div>
+        <div class="principle">
+          <span class="principle-num">03</span>
+          <h3 class="principle-title">No Compromise</h3>
+          <span class="principle-cn">不妥协</span>
+          <p class="principle-desc">我们不为量产而简化。如果想法需要复杂，我们就构建复杂。</p>
+        </div>
+        <div class="principle">
+          <span class="principle-num">04</span>
+          <h3 class="principle-title">World Building</h3>
+          <span class="principle-cn">世界构建</span>
+          <p class="principle-desc">产品是通往平行世界的入口。每一件物品都是一扇门，而不仅仅是一个物体。</p>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- 7. Collaborations -->
+    <section class="about-section reveal">
+      <span class="section-stamp"><span></span>品牌联名</span>
+      <h2 class="section-title">品牌联名</h2>
+      <div class="collab-list">
+        <span class="collab-tag">上海大剧院</span>
+        <span class="collab-tag">刘慈欣漫画宇宙</span>
+        <span class="collab-tag">流浪地球</span>
+        <span class="collab-tag">悲惨世界</span>
+      </div>
+      <p class="collab-more">更多联名即将到来...</p>
+    </section>
+
+    <!-- 8. Connect -->
+    <section class="about-section reveal">
+      <span class="section-stamp"><span></span>联系我们</span>
+      <h2 class="section-title">联系我们</h2>
+      <div class="connect-grid">
+        <a class="connect-item" href="https://instagram.com/odditystore" target="_blank" rel="noopener">
+          <span class="connect-icon">IG</span>
+          <div>
+            <span class="connect-label">Instagram</span>
+            <span class="connect-handle">@odditystore</span>
+          </div>
+        </a>
+        <a class="connect-item" href="https://youtube.com/@odditystore" target="_blank" rel="noopener">
+          <span class="connect-icon">YT</span>
+          <div>
+            <span class="connect-label">YouTube</span>
+            <span class="connect-handle">Oddity Store</span>
+          </div>
+        </a>
+        <a class="connect-item" href="https://tiktok.com/@odditystore" target="_blank" rel="noopener">
+          <span class="connect-icon">TT</span>
+          <div>
+            <span class="connect-label">TikTok</span>
+            <span class="connect-handle">@odditystore</span>
+          </div>
+        </a>
+        <a class="connect-item" href="#" target="_blank" rel="noopener">
+          <span class="connect-icon">XH</span>
+          <div>
+            <span class="connect-label">小红书</span>
+            <span class="connect-handle">不现实商店</span>
+          </div>
+        </a>
+        <a class="connect-item" href="mailto:contact@odditystore.com">
+          <span class="connect-icon">@</span>
+          <div>
+            <span class="connect-label">Email</span>
+            <span class="connect-handle">contact@odditystore.com</span>
+          </div>
+        </a>
+      </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -1182,7 +1254,7 @@
         <div>
           <span class="footer-label">认真不现实</span>
           <h3>认真不现实</h3>
-          <p>我们不是只在做商品，我们是在做一个个可敲、可读、可藏、可对话的世界装置。</p>
+          <p>我们不只是做产品——我们构建你可以敲击、阅读、收藏和对话的世界。</p>
         </div>
         <div>
           <strong>产品</strong>
@@ -1193,17 +1265,17 @@
         </div>
         <div>
           <strong>支持</strong>
-          <p>配送与常见问题</p>
-          <p>账号</p>
+          <p>物流与常见问题</p>
+          <p>登录</p>
           <p>购物车</p>
-          <p>海外下单</p>
+          <p>国际订单</p>
         </div>
         <div>
           <strong>渠道</strong>
           <p>Instagram</p>
           <p>YouTube</p>
           <p>TikTok</p>
-          <p>博主展示</p>
+          <p>小红书</p>
         </div>
       </div>
     </footer>

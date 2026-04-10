@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 971 285" width="971" height="285" role="img" aria-label="Great Writer 100 keyboard layout">
+  <rect x="2" y="2" width="967" height="281" rx="8" ry="8" fill="#c8c4bf" stroke="#9e9a96" stroke-width="1.5"/>
+  <!-- Legend -->
+  <rect x="12" y="267" width="10" height="8" rx="2" fill="#dedad4" stroke="#9e9a96" stroke-width="1"/>
+  <text x="26" y="274" font-size="7" fill="#6b6560" font-family="Courier Prime,monospace">FN row</text>
+  <rect x="70" y="267" width="10" height="8" rx="2" fill="#e8e4df" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="84" y="274" font-size="7" fill="#6b6560" font-family="Courier Prime,monospace">Arrow / Nav</text>
+  <rect x="154" y="267" width="10" height="8" rx="2" fill="#e0dbd5" stroke="#9e9a96" stroke-width="1"/>
+  <text x="168" y="274" font-size="7" fill="#6b6560" font-family="Courier Prime,monospace">Numpad</text>
+  <text x="959" y="274" font-size="7" fill="#6b6560" font-family="Courier Prime,monospace" text-anchor="end" letter-spacing="1">GW-100 · 100% · FULL-SIZE</text>
+  <rect x="12" y="12" width="41" height="40" rx="4" ry="4" fill="#cdc8c2" stroke="#6b6560" stroke-width="1.2"/>
+  <text x="32" y="35" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Esc</text>
+  <rect x="72" y="12" width="41" height="40" rx="4" ry="4" fill="#dedad4" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="76" y="20" font-size="5.5" fill="#c0392b" font-family="Courier Prime,monospace" font-weight="700">brt−</text>
+  <text x="92" y="45" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F1</text>
+  <rect x="116" y="12" width="41" height="40" rx="4" ry="4" fill="#dedad4" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="120" y="20" font-size="5.5" fill="#c0392b" font-family="Courier Prime,monospace" font-weight="700">brt+</text>
+  <text x="136" y="45" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F2</text>
+  <rect x="160" y="12" width="41" height="40" rx="4" ry="4" fill="#dedad4" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="164" y="20" font-size="5.5" fill="#c0392b" font-family="Courier Prime,monospace" font-weight="700">task</text>
+  <text x="180" y="45" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F3</text>
+  <rect x="204" y="12" width="41" height="40" rx="4" ry="4" fill="#dedad4" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="208" y="20" font-size="5.5" fill="#c0392b" font-family="Courier Prime,monospace" font-weight="700">app</text>
+  <text x="224" y="45" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F4</text>
+  <rect x="264" y="12" width="41" height="40" rx="4" ry="4" fill="#dedad4" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="268" y="20" font-size="5.5" fill="#c0392b" font-family="Courier Prime,monospace" font-weight="700">bl+</text>
+  <text x="284" y="45" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F5</text>
+  <rect x="308" y="12" width="41" height="40" rx="4" ry="4" fill="#dedad4" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="312" y="20" font-size="5.5" fill="#c0392b" font-family="Courier Prime,monospace" font-weight="700">bl−</text>
+  <text x="328" y="45" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F6</text>
+  <rect x="352" y="12" width="41" height="40" rx="4" ry="4" fill="#dedad4" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="356" y="20" font-size="5.5" fill="#c0392b" font-family="Courier Prime,monospace" font-weight="700">prev</text>
+  <text x="372" y="45" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F7</text>
+  <rect x="396" y="12" width="41" height="40" rx="4" ry="4" fill="#dedad4" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="400" y="20" font-size="5.5" fill="#c0392b" font-family="Courier Prime,monospace" font-weight="700">play</text>
+  <text x="416" y="45" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F8</text>
+  <rect x="456" y="12" width="41" height="40" rx="4" ry="4" fill="#dedad4" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="460" y="20" font-size="5.5" fill="#c0392b" font-family="Courier Prime,monospace" font-weight="700">next</text>
+  <text x="476" y="45" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F9</text>
+  <rect x="500" y="12" width="41" height="40" rx="4" ry="4" fill="#dedad4" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="504" y="20" font-size="5.5" fill="#c0392b" font-family="Courier Prime,monospace" font-weight="700">mute</text>
+  <text x="520" y="45" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F10</text>
+  <rect x="544" y="12" width="41" height="40" rx="4" ry="4" fill="#dedad4" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="548" y="20" font-size="5.5" fill="#c0392b" font-family="Courier Prime,monospace" font-weight="700">vol−</text>
+  <text x="564" y="45" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F11</text>
+  <rect x="588" y="12" width="41" height="40" rx="4" ry="4" fill="#dedad4" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="592" y="20" font-size="5.5" fill="#c0392b" font-family="Courier Prime,monospace" font-weight="700">vol+</text>
+  <text x="608" y="45" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F12</text>
+  <rect x="637" y="12" width="41" height="40" rx="4" ry="4" fill="#cdc8c2" stroke="#6b6560" stroke-width="1.2"/>
+  <text x="657" y="35" font-size="6.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">PrtSc</text>
+  <rect x="681" y="12" width="41" height="40" rx="4" ry="4" fill="#cdc8c2" stroke="#6b6560" stroke-width="1.2"/>
+  <text x="701" y="35" font-size="6.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">ScrLk</text>
+  <rect x="725" y="12" width="41" height="40" rx="4" ry="4" fill="#cdc8c2" stroke="#6b6560" stroke-width="1.2"/>
+  <text x="745" y="35" font-size="6.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Pause</text>
+  <rect x="12" y="56" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="32" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">`</text>
+  <rect x="56" y="56" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="76" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">1</text>
+  <rect x="100" y="56" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="120" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">2</text>
+  <rect x="144" y="56" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="164" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">3</text>
+  <rect x="188" y="56" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="208" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">4</text>
+  <rect x="232" y="56" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="252" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">5</text>
+  <rect x="276" y="56" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="296" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">6</text>
+  <rect x="320" y="56" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="340" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">7</text>
+  <rect x="364" y="56" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="384" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">8</text>
+  <rect x="408" y="56" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="428" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">9</text>
+  <rect x="452" y="56" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="472" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">0</text>
+  <rect x="496" y="56" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="516" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">−</text>
+  <rect x="540" y="56" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="560" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">=</text>
+  <rect x="581" y="56" width="44" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="603" y="79" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Bksp</text>
+  <rect x="637" y="56" width="41" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="657" y="79" font-size="6.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Ins</text>
+  <rect x="681" y="56" width="41" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="701" y="79" font-size="6.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Home</text>
+  <rect x="725" y="56" width="41" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="745" y="79" font-size="6.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">PgUp</text>
+  <rect x="786" y="56" width="41" height="40" rx="4" ry="4" fill="#cdc8c2" stroke="#6b6560" stroke-width="1.2"/>
+  <text x="806" y="79" font-size="6.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Num</text>
+  <rect x="830" y="56" width="41" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="850" y="79" font-size="8" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">/</text>
+  <rect x="874" y="56" width="41" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="894" y="79" font-size="8" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">*</text>
+  <rect x="918" y="56" width="41" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="938" y="79" font-size="8" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">−</text>
+  <rect x="12" y="100" width="63" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="43" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Tab</text>
+  <rect x="78" y="100" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="98" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">Q</text>
+  <rect x="122" y="100" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="142" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">W</text>
+  <rect x="166" y="100" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="186" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">E</text>
+  <rect x="210" y="100" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="230" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">R</text>
+  <rect x="254" y="100" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="274" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">T</text>
+  <rect x="298" y="100" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="318" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">Y</text>
+  <rect x="342" y="100" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="362" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">U</text>
+  <rect x="386" y="100" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="406" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">I</text>
+  <rect x="430" y="100" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="450" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">O</text>
+  <rect x="474" y="100" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="494" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">P</text>
+  <rect x="518" y="100" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="538" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">[</text>
+  <rect x="562" y="100" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="582" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">]</text>
+  <rect x="603" y="100" width="22" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="614" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">\|</text>
+  <rect x="637" y="100" width="41" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="657" y="123" font-size="6.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Del</text>
+  <rect x="681" y="100" width="41" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="701" y="123" font-size="6.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">End</text>
+  <rect x="725" y="100" width="41" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="745" y="123" font-size="6.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">PgDn</text>
+  <rect x="786" y="100" width="41" height="40" rx="4" ry="4" fill="#e0dbd5" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="806" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">7</text>
+  <rect x="830" y="100" width="41" height="40" rx="4" ry="4" fill="#e0dbd5" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="850" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">8</text>
+  <rect x="874" y="100" width="41" height="40" rx="4" ry="4" fill="#e0dbd5" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="894" y="123" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">9</text>
+  <rect x="918" y="100" width="41" height="83" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="938" y="145" font-size="11" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">+</text>
+  <rect x="12" y="144" width="74" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="49" y="167" font-size="7" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Caps Lk</text>
+  <rect x="89" y="144" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="109" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">A</text>
+  <rect x="133" y="144" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="153" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">S</text>
+  <rect x="177" y="144" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="197" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">D</text>
+  <rect x="221" y="144" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="241" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F</text>
+  <rect x="265" y="144" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="285" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">G</text>
+  <rect x="309" y="144" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="329" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">H</text>
+  <rect x="353" y="144" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="373" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">J</text>
+  <rect x="397" y="144" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="417" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">K</text>
+  <rect x="441" y="144" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="461" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">L</text>
+  <rect x="485" y="144" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="505" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">;</text>
+  <rect x="529" y="144" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="549" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">'</text>
+  <rect x="570" y="144" width="55" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="597" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Enter</text>
+  <rect x="786" y="144" width="41" height="40" rx="4" ry="4" fill="#e0dbd5" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="806" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">4</text>
+  <rect x="830" y="144" width="41" height="40" rx="4" ry="4" fill="#e0dbd5" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="850" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">5</text>
+  <rect x="874" y="144" width="41" height="40" rx="4" ry="4" fill="#e0dbd5" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="894" y="167" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">6</text>
+  <rect x="12" y="188" width="96" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="60" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">⇧ Shift</text>
+  <rect x="111" y="188" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="131" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">Z</text>
+  <rect x="155" y="188" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="175" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">X</text>
+  <rect x="199" y="188" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="219" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">C</text>
+  <rect x="243" y="188" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="263" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">V</text>
+  <rect x="287" y="188" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="307" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">B</text>
+  <rect x="331" y="188" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="351" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">N</text>
+  <rect x="375" y="188" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="395" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">M</text>
+  <rect x="419" y="188" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="439" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">,</text>
+  <rect x="463" y="188" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="483" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">.</text>
+  <rect x="507" y="188" width="41" height="40" rx="4" ry="4" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="527" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">/</text>
+  <rect x="548" y="188" width="77" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="586" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">⇧ Shift</text>
+  <rect x="681" y="188" width="41" height="40" rx="4" ry="4" fill="#e8e4df" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="701" y="211" font-size="13" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">↑</text>
+  <rect x="786" y="188" width="41" height="40" rx="4" ry="4" fill="#e0dbd5" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="806" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">1</text>
+  <rect x="830" y="188" width="41" height="40" rx="4" ry="4" fill="#e0dbd5" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="850" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">2</text>
+  <rect x="874" y="188" width="41" height="40" rx="4" ry="4" fill="#e0dbd5" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="894" y="211" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">3</text>
+  <rect x="918" y="188" width="41" height="83" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="938" y="233" font-size="8" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Ent</text>
+  <rect x="12" y="232" width="52" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="38" y="255" font-size="7" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Ctrl</text>
+  <rect x="67" y="232" width="52" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="93" y="255" font-size="7" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Win</text>
+  <rect x="122" y="232" width="52" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="148" y="255" font-size="7" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Alt</text>
+  <rect x="177" y="232" width="283" height="40" rx="4" ry="4" fill="#ebe8e3" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="318" y="255" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle"></text>
+  <rect x="463" y="232" width="52" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="489" y="255" font-size="7" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Alt</text>
+  <rect x="518" y="232" width="52" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="544" y="255" font-size="7" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Win</text>
+  <rect x="573" y="232" width="52" height="40" rx="4" ry="4" fill="#d4cfc9" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="599" y="255" font-size="7" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Ctrl</text>
+  <rect x="637" y="232" width="41" height="40" rx="4" ry="4" fill="#e8e4df" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="657" y="255" font-size="13" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">←</text>
+  <rect x="681" y="232" width="41" height="40" rx="4" ry="4" fill="#e8e4df" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="701" y="255" font-size="13" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">↓</text>
+  <rect x="725" y="232" width="41" height="40" rx="4" ry="4" fill="#e8e4df" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="745" y="255" font-size="13" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">→</text>
+  <rect x="786" y="232" width="85" height="40" rx="4" ry="4" fill="#e0dbd5" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="828" y="255" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">0</text>
+  <rect x="874" y="232" width="41" height="40" rx="4" ry="4" fill="#e0dbd5" stroke="#9e9a96" stroke-width="1.2"/>
+  <text x="894" y="255" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">.</text>
+</svg>

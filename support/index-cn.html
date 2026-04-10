@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>支持中心 — 不现实商店</title>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper:#e8e4df;--paper-soft:#edeae6;--paper-deep:#d5d0ca;
+      --ink:#1a1a1a;--muted:#6b6560;--line:rgba(26,26,26,0.14);--line-strong:rgba(26,26,26,0.3);
+      --accent:#c0392b;--mark:#f5e642;
+      --mono:"Courier Prime","Courier New",monospace;--serif:"Special Elite","Courier Prime",monospace;
+      --shadow:0 24px 58px rgba(20,20,20,0.08);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{color:var(--ink);font-family:var(--mono);background:radial-gradient(circle at top,rgba(255,255,255,0.8),transparent 34%),linear-gradient(180deg,#e8e4df 0%,#ddd9d3 100%);min-height:100vh;}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:0.22;background:repeating-linear-gradient(0deg,rgba(23,17,13,0.025) 0 1px,transparent 1px 126px),repeating-linear-gradient(90deg,rgba(23,17,13,0.018) 0 1px,transparent 1px 132px);mix-blend-mode:multiply;}
+    a{color:inherit;text-decoration:none;}
+    .shell{width:min(1200px,calc(100vw - 28px));margin:14px auto 60px;background:linear-gradient(180deg,rgba(255,255,255,0.24),rgba(255,255,255,0)),var(--paper-soft);border:1px solid var(--line-strong);box-shadow:var(--shadow);overflow:hidden;}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:0 26px;height:54px;border-bottom:1px solid var(--line-strong);background:rgba(255,255,255,0.12);}
+    .logo{font:700 15px/1 var(--serif);letter-spacing:0.12em;text-transform:uppercase;}
+    .nav-links{display:flex;gap:28px;}
+    .nav-links a{font:11px/1 var(--mono);letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);transition:color 0.2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--ink);}
+    .page-header{padding:60px 60px 40px;border-bottom:1px solid var(--line-strong);}
+    .page-doc-label{font:11px/1 var(--mono);letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+    .page-title{font:700 36px/1.1 var(--serif);letter-spacing:0.04em;margin-bottom:10px;}
+    .page-desc{font:14px/1.8 var(--mono);color:var(--muted);max-width:600px;}
+    .content{padding:48px 60px 80px;}
+    .section-label{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+    .section-num{font:700 11px/1 var(--mono);letter-spacing:0.18em;color:var(--accent);text-transform:uppercase;}
+    .section-title{font:700 20px/1.2 var(--serif);letter-spacing:0.04em;}
+    .section-line{flex:1;height:1px;background:var(--line-strong);}
+    .manual-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:60px;}
+    .manual-card{border:1px solid var(--line-strong);background:rgba(255,255,255,0.45);padding:28px 24px;transition:all 0.2s;position:relative;display:block;}
+    .manual-card:hover{background:rgba(255,255,255,0.7);border-color:var(--ink);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.08);}
+    .manual-card-tag{font:700 9px/1 var(--mono);letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+    .manual-card-name{font:700 18px/1.2 var(--serif);letter-spacing:0.04em;margin-bottom:6px;}
+    .manual-card-sub{font:12px/1 var(--mono);color:var(--muted);margin-bottom:16px;}
+    .manual-card-specs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+    .spec-tag{font:10px/1 var(--mono);letter-spacing:0.1em;border:1px solid var(--line-strong);padding:4px 8px;color:var(--muted);}
+    .manual-card-link{display:inline-flex;align-items:center;gap:6px;font:700 11px/1 var(--mono);letter-spacing:0.12em;text-transform:uppercase;color:var(--ink);border-bottom:2px solid var(--ink);padding-bottom:2px;}
+    .manual-card:hover .manual-card-link{color:var(--accent);border-color:var(--accent);}
+    .faq-list{margin-bottom:60px;}
+    .faq-item{border-bottom:1px solid var(--line);}
+    .faq-q{padding:18px 0;font:700 14px/1.4 var(--mono);cursor:pointer;display:flex;justify-content:space-between;align-items:center;letter-spacing:0.04em;}
+    .faq-q::after{content:"+";font-size:18px;color:var(--muted);flex-shrink:0;}
+    .faq-a{display:none;padding:0 0 18px;font:13px/1.8 var(--mono);color:var(--muted);}
+    .faq-item.open .faq-q::after{content:"–";}
+    .faq-item.open .faq-a{display:block;}
+    .contact-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
+    .contact-card{border:1px solid var(--line-strong);padding:20px 18px;background:rgba(255,255,255,0.4);}
+    .contact-card-label{font:700 10px/1 var(--mono);letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+    .contact-card-value{font:13px/1.4 var(--mono);}
+    @media(max-width:600px){.page-header{padding:36px 24px 28px;}.content{padding:32px 24px 60px;}.page-title{font-size:26px;}}
+  </style>
+</head>
+<body>
+<div style="width:min(1200px,calc(100vw - 28px));margin:14px auto 0;background:rgba(255,255,255,0.18);border:1px solid rgba(26,26,26,0.3);border-bottom:none;padding:9px 26px;display:flex;justify-content:space-between;font:11px/1 'Courier Prime',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#6b6560;">
+  <span>顺丰/DHL全球配送 · 满$149包邮</span>
+  <span><a href="./index.html" style="color:#6b6560;">English →</a></span>
+</div>
+<div class="shell">
+  <nav>
+    <a href="../cn/" class="logo">不现实商店</a>
+    <div class="nav-links">
+      <a href="../keycaps/cn.html">键帽</a>
+      <a href="../keyboards/cn.html">键盘</a>
+      <a href="../deskmats/cn.html">桌垫</a>
+      <a href="../cups/cn.html">杯子</a>
+      <a href="./index-cn.html" class="active">支持</a>
+      <a href="../about/cn.html">关于</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-doc-label">支持中心</div>
+    <h1 class="page-title">产品说明书 & 帮助</h1>
+    <p class="page-desc">查找大文豪系列键盘的使用说明、快捷键指南和常见问题解答。</p>
+  </div>
+
+  <div class="content">
+    <div class="section-label">
+      <span class="section-num">01</span>
+      <h2 class="section-title">键盘说明书</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="manual-grid">
+      <a class="manual-card" href="./great-writer-75-cn.html">
+        <div class="manual-card-tag">使用说明 · 中文版</div>
+        <div class="manual-card-name">大文豪 75</div>
+        <div class="manual-card-sub">75% 无线机械键盘套件 · GW-75</div>
+        <div class="manual-card-specs">
+          <span class="spec-tag">84键</span>
+          <span class="spec-tag">蓝牙1/2/3</span>
+          <span class="spec-tag">2.4G</span>
+          <span class="spec-tag">USB-C</span>
+          <span class="spec-tag">热插拔</span>
+        </div>
+        <span class="manual-card-link">查看说明书 →</span>
+      </a>
+
+      <a class="manual-card" href="./great-writer-100-cn.html">
+        <div class="manual-card-tag">使用说明 · 中文版</div>
+        <div class="manual-card-name">大文豪 100</div>
+        <div class="manual-card-sub">全尺寸无线机械键盘套件 · GW-100</div>
+        <div class="manual-card-specs">
+          <span class="spec-tag">全尺寸</span>
+          <span class="spec-tag">蓝牙1/2/3</span>
+          <span class="spec-tag">2.4G</span>
+          <span class="spec-tag">USB-C</span>
+          <span class="spec-tag">5000mAh</span>
+        </div>
+        <span class="manual-card-link">查看说明书 →</span>
+      </a>
+    </div>
+
+    <div class="section-label">
+      <span class="section-num">02</span>
+      <h2 class="section-title">常见问题</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">如何在多台设备之间切换蓝牙？</div>
+        <div class="faq-a">按住 FN 键，同时按 Q、W 或 E，分别切换蓝牙1、2、3频道。如需重新配对某个频道，长按对应的 FN+Q/W/E 约3秒，指示灯快速闪烁后即进入配对模式，在设备端搜索键盘名称连接。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">如何查看电量？</div>
+        <div class="faq-a">按 FN + Space（大文豪75）/ FN + Space 即可查询。RGB指示灯会短暂闪烁：绿色表示电量充足（60%以上），黄色表示中等电量（20-60%），红色表示电量偏低（低于20%）。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">如何切换 Windows 和 Mac 模式？</div>
+        <div class="faq-a">大文豪75：按 FN+M 切换。大文豪100：按 FN+A 进入WIN模式，FN+S 进入MAC模式。Mac模式下Win键与Alt键互换，映射为Command和Option。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">键盘连接不上怎么办？</div>
+        <div class="faq-a">大文豪75：长按 FN + 左Shift + Backspace 约3秒恢复出厂设置，然后重新配对。大文豪100：长按 FN + Del 约3秒恢复出厂设置。注意确认当前频道没有被其他设备占用。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">不现实商店键帽适配这款键盘吗？</div>
+        <div class="faq-a">适配。所有不现实商店键帽均采用MX轴兼容的轴柱设计，完美兼容大文豪75和大文豪100键盘套件。各款键帽产品页有具体配列兼容说明。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">如何关闭RGB背光节省电量？</div>
+        <div class="faq-a">大文豪75：按 FN + Enter 开关RGB。大文豪100：按 FN + PrtSc 关闭或打开背光。关闭背光可显著延长无线续航。</div>
+      </div>
+    </div>
+
+    <div class="section-label">
+      <span class="section-num">03</span>
+      <h2 class="section-title">联系售后</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="contact-row">
+      <div class="contact-card">
+        <div class="contact-card-label">邮箱</div>
+        <div class="contact-card-value"><a href="mailto:odditystore@yeah.net" style="color:var(--accent)">odditystore@yeah.net</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-label">Discord 社区</div>
+        <div class="contact-card-value"><a href="https://discord.gg/Qa9PJWBm" style="color:var(--accent)">discord.gg/Qa9PJWBm</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-label">小红书</div>
+        <div class="contact-card-value">724odditystore</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-label">Instagram</div>
+        <div class="contact-card-value">@724odditystore</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>q.parentElement.classList.toggle('open'));
+  });
+</script>
+</body>
+</html>

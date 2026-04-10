@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Great Writer 100 — User Manual — Oddity Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #e8e4df; --paper-soft: #edeae6; --paper-deep: #d5d0ca;
+      --ink: #1a1a1a; --muted: #6b6560;
+      --line: rgba(26,26,26,0.14); --line-strong: rgba(26,26,26,0.3);
+      --accent: #c0392b; --mark: #f5e642;
+      --mono: "Courier Prime","Courier New",monospace;
+      --serif: "Special Elite","Courier Prime",monospace;
+      --shadow: 0 24px 58px rgba(20,20,20,0.08);
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body {
+      color:var(--ink); font-family:var(--mono);
+      background: radial-gradient(circle at top,rgba(255,255,255,0.8),transparent 34%),
+        linear-gradient(180deg,#e8e4df 0%,#ddd9d3 100%);
+      min-height:100vh;
+    }
+    body::before {
+      content:""; position:fixed; inset:0; pointer-events:none; opacity:0.22;
+      background: repeating-linear-gradient(0deg,rgba(23,17,13,0.025) 0 1px,transparent 1px 126px),
+        repeating-linear-gradient(90deg,rgba(23,17,13,0.018) 0 1px,transparent 1px 132px);
+      mix-blend-mode:multiply;
+    }
+    a { color:inherit; text-decoration:none; }
+
+    .shell {
+      width:min(1200px,calc(100vw - 28px)); margin:14px auto 60px;
+      background: linear-gradient(180deg,rgba(255,255,255,0.24),rgba(255,255,255,0)),var(--paper-soft);
+      border:1px solid var(--line-strong); box-shadow:var(--shadow); overflow:hidden;
+    }
+    .notice {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:9px 26px; border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,0.18); font:11px/1 var(--mono);
+      letter-spacing:0.16em; text-transform:uppercase; color:var(--muted);
+    }
+    nav {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 26px; height:54px; border-bottom:1px solid var(--line-strong);
+      background:rgba(255,255,255,0.12);
+    }
+    .logo { font:700 15px/1 var(--serif); letter-spacing:0.12em; text-transform:uppercase; }
+    .nav-links { display:flex; gap:28px; }
+    .nav-links a { font:11px/1 var(--mono); letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); transition:color 0.2s; }
+    .nav-links a:hover,.nav-links a.active { color:var(--ink); }
+
+    .manual-wrap { display:grid; grid-template-columns:220px 1fr; min-height:80vh; }
+
+    .sidebar {
+      border-right:1px solid var(--line-strong); padding:36px 0;
+      position:sticky; top:0; height:100vh; overflow-y:auto;
+    }
+    .sidebar-title { padding:0 22px 16px; font:700 10px/1 var(--mono); letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--line); margin-bottom:16px; }
+    .sidebar-product { padding:0 22px 24px; border-bottom:1px solid var(--line); margin-bottom:8px; }
+    .sidebar-product-name { font:700 13px/1.3 var(--serif); letter-spacing:0.06em; margin-bottom:4px; }
+    .sidebar-product-sub { font:11px/1 var(--mono); color:var(--muted); letter-spacing:0.08em; }
+    .sidebar-nav { list-style:none; }
+    .sidebar-nav li a {
+      display:flex; align-items:center; gap:10px; padding:9px 22px;
+      font:11px/1 var(--mono); letter-spacing:0.12em; text-transform:uppercase;
+      color:var(--muted); transition:all 0.2s; border-left:2px solid transparent;
+    }
+    .sidebar-nav li a:hover { color:var(--ink); background:rgba(0,0,0,0.04); border-left-color:var(--ink); }
+    .sidebar-nav li a.active { color:var(--ink); font-weight:700; border-left-color:var(--accent); }
+    .sidebar-nav li a span.num { color:var(--accent); font-weight:700; min-width:16px; }
+    .sidebar-other { padding:20px 22px 0; border-top:1px solid var(--line); margin-top:12px; }
+    .sidebar-other-label { font:10px/1 var(--mono); letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+    .sidebar-other a { display:block; padding:7px 0; font:11px/1.3 var(--mono); color:var(--muted); letter-spacing:0.06em; border-bottom:1px solid var(--line); transition:color 0.2s; }
+    .sidebar-other a:hover { color:var(--ink); }
+
+    .content { padding:48px 60px 80px; max-width:860px; }
+
+    .manual-header { margin-bottom:52px; padding-bottom:32px; border-bottom:2px solid var(--ink); }
+    .manual-doc-label { font:11px/1 var(--mono); letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+    .manual-title { font:700 38px/1.1 var(--serif); letter-spacing:0.04em; margin-bottom:8px; }
+    .manual-subtitle { font:18px/1.4 var(--mono); color:var(--muted); letter-spacing:0.06em; }
+    .manual-meta { display:flex; gap:36px; margin-top:24px; padding-top:20px; border-top:1px solid var(--line); flex-wrap:wrap; }
+    .manual-meta-item { font:11px/1.5 var(--mono); color:var(--muted); letter-spacing:0.1em; }
+    .manual-meta-item strong { display:block; color:var(--ink); font-weight:700; }
+
+    .section { margin-bottom:64px; scroll-margin-top:24px; }
+    .section-label { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+    .section-num { font:700 11px/1 var(--mono); letter-spacing:0.18em; color:var(--accent); text-transform:uppercase; }
+    .section-title { font:700 22px/1.2 var(--serif); letter-spacing:0.04em; }
+    .section-line { flex:1; height:1px; background:var(--line-strong); }
+
+    p { font:14px/1.9 var(--mono); color:var(--muted); margin-bottom:16px; letter-spacing:0.04em; }
+
+    /* Switch diagram */
+    .switch-row {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:20px 0;
+    }
+    .switch-card {
+      border:1px solid var(--line-strong); padding:22px 18px;
+      background:rgba(255,255,255,0.4); text-align:center;
+    }
+    .switch-badge {
+      display:inline-flex; align-items:center; justify-content:center;
+      width:44px; height:44px; border:2px solid var(--ink);
+      font:700 20px/1 var(--serif); color:var(--ink); margin-bottom:12px;
+    }
+    .switch-badge.active { background:var(--ink); color:var(--paper); }
+    .switch-name { font:700 13px/1.2 var(--mono); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px; }
+    .switch-desc { font:12px/1.6 var(--mono); color:var(--muted); }
+
+    /* Mode cards */
+    .mode-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0; }
+    .mode-card { border:1px solid var(--line-strong); padding:22px 20px; background:rgba(255,255,255,0.4); }
+    .mode-tag { font:700 9px/1 var(--mono); letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
+    .mode-title { font:700 16px/1.2 var(--serif); margin-bottom:8px; }
+    .mode-key { display:inline-block; background:var(--ink); color:var(--paper); font:700 10px/1 var(--mono); padding:3px 8px; letter-spacing:0.1em; margin-right:4px; }
+    .mode-desc { font:12px/1.7 var(--mono); color:var(--muted); margin-top:10px; }
+
+    /* BT steps */
+    .bt-steps { margin:16px 0; }
+    .bt-step { display:flex; gap:16px; padding:14px 0; border-bottom:1px solid var(--line); }
+    .bt-step:last-child { border-bottom:none; }
+    .bt-step-num { font:700 18px/1 var(--serif); color:var(--accent); min-width:28px; margin-top:2px; }
+    .bt-step-body {}
+    .bt-step-title { font:700 12px/1.3 var(--mono); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:5px; }
+    .bt-step-desc { font:13px/1.7 var(--mono); color:var(--muted); }
+
+    /* FN table */
+    .fn-table-wrap { overflow-x:auto; margin:20px 0; }
+    .fn-table { width:100%; border-collapse:collapse; font:13px/1 var(--mono); }
+    .fn-table th { background:var(--ink); color:var(--paper); padding:12px 16px; text-align:center; font:700 10px/1 var(--mono); letter-spacing:0.2em; text-transform:uppercase; }
+    .fn-table th:first-child { text-align:left; }
+    .fn-table td { padding:10px 16px; border-bottom:1px solid var(--line); vertical-align:middle; text-align:center; font:13px/1.4 var(--mono); color:var(--muted); }
+    .fn-table td:first-child { text-align:left; font-weight:700; color:var(--ink); }
+    .fn-table tr:hover td { background:rgba(255,255,255,0.5); }
+    .fn-table .group-header td { background:rgba(0,0,0,0.05); font:700 10px/1 var(--mono); letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); padding:8px 16px; }
+
+    .key-badge { display:inline-flex; align-items:center; gap:3px; background:var(--paper-deep); border:1px solid var(--line-strong); padding:3px 8px 3px 6px; font:700 11px/1 var(--mono); color:var(--ink); letter-spacing:0.06em; }
+    .fn-combo { display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+    .no-fn { color:var(--line-strong); font-size:18px; }
+
+    /* RGB record steps */
+    .record-steps { counter-reset:record; margin:20px 0; }
+    .record-step {
+      display:flex; gap:18px; padding:18px 0; border-bottom:1px solid var(--line);
+      align-items:flex-start;
+    }
+    .record-step:last-child { border-bottom:none; }
+    .record-step-num {
+      width:32px; height:32px; border:2px solid var(--accent);
+      display:flex; align-items:center; justify-content:center;
+      font:700 14px/1 var(--serif); color:var(--accent);
+      flex-shrink:0; margin-top:2px;
+    }
+    .record-step-title { font:700 13px/1.2 var(--mono); letter-spacing:0.08em; margin-bottom:5px; }
+    .record-step-desc { font:13px/1.7 var(--mono); color:var(--muted); }
+
+    .info-box { border-left:3px solid var(--accent); background:rgba(192,57,43,0.06); padding:14px 18px; margin:16px 0; }
+    .info-box p { color:var(--ink); margin:0; font-size:13px; }
+    .info-box-title { font:700 10px/1 var(--mono); letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
+    .note-box { border:1px solid var(--line-strong); background:rgba(255,255,255,0.45); padding:14px 18px; margin:16px 0; }
+    .note-box p { margin:0; font-size:13px; }
+
+    .spec-table { width:100%; border-collapse:collapse; margin:16px 0; }
+    .spec-table td { padding:10px 0; border-bottom:1px solid var(--line); font:13px/1.5 var(--mono); vertical-align:top; }
+    .spec-table td:first-child { width:180px; color:var(--muted); font-weight:700; letter-spacing:0.06em; text-transform:uppercase; font-size:11px; padding-top:12px; }
+
+    .manual-footer { margin-top:72px; padding-top:24px; border-top:2px solid var(--line-strong); display:flex; justify-content:space-between; align-items:flex-end; }
+    .manual-footer-brand { font:700 14px/1.4 var(--serif); letter-spacing:0.1em; }
+    .manual-footer-meta { font:11px/1.8 var(--mono); color:var(--muted); text-align:right; }
+
+    @media(max-width:860px) {
+      .manual-wrap { grid-template-columns:1fr; }
+      .sidebar { display:none; }
+      .content { padding:32px 24px 60px; }
+      .switch-row,.mode-row { grid-template-columns:1fr; }
+      .manual-title { font-size:28px; }
+      .manual-meta { gap:18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div style="width:min(1200px,calc(100vw - 28px));margin:14px auto 0;background:rgba(255,255,255,0.18);border:1px solid rgba(26,26,26,0.3);border-bottom:none;padding:9px 26px;display:flex;justify-content:space-between;font:11px/1 'Courier Prime',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#6b6560;">
+  <span>Free shipping on orders over $149 · Global delivery 7–14 days</span>
+  <span><a href="../support/great-writer-100-cn.html" style="color:#6b6560;">中文版 →</a></span>
+</div>
+
+<div class="shell">
+  <nav>
+    <a href="../" class="logo">Oddity Store</a>
+    <div class="nav-links">
+      <a href="../keycaps/">Keycaps</a>
+      <a href="../keyboards/" class="active">Keyboards</a>
+      <a href="../deskmats/">Desk Mats</a>
+      <a href="../cups/">Cups</a>
+      <a href="./index.html" class="active">Support</a>
+      <a href="../about/">About</a>
+    </div>
+  </nav>
+
+  <div class="manual-wrap">
+    <aside class="sidebar">
+      <div class="sidebar-title">User Manual</div>
+      <div class="sidebar-product">
+        <div class="sidebar-product-name">Great Writer 100</div>
+        <div class="sidebar-product-sub">Full-size Wireless Keyboard Kit</div>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="#overview" class="active"><span class="num">01</span>Overview</a></li>
+        <li><a href="#switch"><span class="num">02</span>Mode Switch</a></li>
+        <li><a href="#connection"><span class="num">03</span>Connection</a></li>
+        <li><a href="#fn-win"><span class="num">04</span>WIN Key Guide</a></li>
+        <li><a href="#fn-mac"><span class="num">05</span>MAC Key Guide</a></li>
+        <li><a href="#backlight"><span class="num">06</span>Backlight</a></li>
+        <li><a href="#rgb-record"><span class="num">07</span>Custom RGB</a></li>
+        <li><a href="#battery"><span class="num">08</span>Battery</a></li>
+        <li><a href="#specs"><span class="num">09</span>Specifications</a></li>
+        <li><a href="#support-contact"><span class="num">10</span>Support</a></li>
+      </ul>
+      <div class="sidebar-other">
+        <div class="sidebar-other-label">Other Manuals</div>
+        <a href="./great-writer-75.html">Great Writer 75 →</a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="manual-header" id="overview">
+        <div class="manual-doc-label">User Manual · DOC-GW100-EN-001</div>
+        <h1 class="manual-title">Great Writer 100</h1>
+        <p class="manual-subtitle">Full-size Tri-mode Wireless Keyboard Kit</p>
+        <div class="manual-meta">
+          <div class="manual-meta-item"><strong>Model</strong>GW-100</div>
+          <div class="manual-meta-item"><strong>Layout</strong>100% Full-size</div>
+          <div class="manual-meta-item"><strong>Connectivity</strong>BT 3.0/5.0 × 3 · 2.4G · USB-C</div>
+          <div class="manual-meta-item"><strong>Battery</strong>4000 mAh</div>
+          <div class="manual-meta-item"><strong>Dimensions</strong>36.9 × 12.1 × 4.3 cm</div>
+          <div class="manual-meta-item"><strong>Version</strong>Rev. 1.0 · 2025</div>
+        </div>
+      </header>
+
+      <p>Welcome to the Great Writer 100. This manual covers the physical mode switch, Bluetooth pairing, key functions, backlight customization, and battery use. Keep this document for future reference.</p>
+
+      <!-- 02 Mode Switch -->
+      <section class="section" id="switch">
+        <div class="section-label">
+          <span class="section-num">02</span>
+          <h2 class="section-title">Physical Mode Switch</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <p>The Great Writer 100 features a three-position physical switch on the side of the keyboard. Slide to the appropriate position before connecting.</p>
+
+        <div class="switch-row">
+          <div class="switch-card">
+            <div class="switch-badge">B</div>
+            <div class="switch-name">Bluetooth</div>
+            <div class="switch-desc">Wireless connection via Bluetooth 3.0 or 5.0. Supports up to 3 paired devices.</div>
+          </div>
+          <div class="switch-card">
+            <div class="switch-badge">G</div>
+            <div class="switch-name">2.4G Wireless</div>
+            <div class="switch-desc">Connect via the included USB dongle. Plug in the receiver and slide to G.</div>
+          </div>
+          <div class="switch-card">
+            <div class="switch-badge">U</div>
+            <div class="switch-name">USB Wired</div>
+            <div class="switch-desc">Connect with USB-C cable. Also charges the battery when in U mode.</div>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-box-title">Charging</div>
+          <p>Set switch to <strong>U</strong>, insert USB-C cable. During charging, the FN key LED turns red and syncs with the backlight. Input voltage must be 5V / 1A. Do not expose to direct sunlight — overvoltage may damage the product and void warranty.</p>
+        </div>
+      </section>
+
+      <!-- 03 Connection -->
+      <section class="section" id="connection">
+        <div class="section-label">
+          <span class="section-num">03</span>
+          <h2 class="section-title">Connection Guide</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="mode-row">
+          <div class="mode-card">
+            <div class="mode-tag">WIN Mode</div>
+            <div class="mode-title">Windows System</div>
+            <span class="mode-key">FN</span><span class="mode-key">A</span>
+            <div class="mode-desc">Press FN+A to activate Windows mode. Standard Windows key mapping applies.</div>
+          </div>
+          <div class="mode-card">
+            <div class="mode-tag">MAC Mode</div>
+            <div class="mode-title">macOS / iOS</div>
+            <span class="mode-key">FN</span><span class="mode-key">S</span>
+            <div class="mode-desc">Press FN+S to activate Mac mode. Win key ↔ Command, Alt ↔ Option. F1–F12 work directly without FN.</div>
+          </div>
+        </div>
+
+        <p style="margin-top:8px;">Bluetooth pairing — with switch in <strong>B</strong> position:</p>
+        <div class="bt-steps">
+          <div class="bt-step">
+            <div class="bt-step-num">Q</div>
+            <div class="bt-step-body">
+              <div class="bt-step-title">Bluetooth Device 1</div>
+              <div class="bt-step-desc">Hold <strong>FN+Q</strong> until LED flashes rapidly. On your device, search for <strong>GW-100 BT3.0</strong> or <strong>GW-100 BT5.0</strong> and connect. LED stops flashing when paired.</div>
+            </div>
+          </div>
+          <div class="bt-step">
+            <div class="bt-step-num">W</div>
+            <div class="bt-step-body">
+              <div class="bt-step-title">Bluetooth Device 2</div>
+              <div class="bt-step-desc">Hold <strong>FN+W</strong> until LED flashes rapidly. Search and connect from your second device.</div>
+            </div>
+          </div>
+          <div class="bt-step">
+            <div class="bt-step-num">E</div>
+            <div class="bt-step-body">
+              <div class="bt-step-title">Bluetooth Device 3</div>
+              <div class="bt-step-desc">Hold <strong>FN+E</strong> until LED flashes rapidly. Search and connect from your third device.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="note-box" style="margin-top:8px;">
+          <p><strong>Switching devices:</strong> In B mode, short-press FN+Q/W/E to switch between already-paired devices. Long-press to re-enter pairing mode for that channel.</p>
+        </div>
+
+        <div class="note-box" style="margin-top:8px;">
+          <p><strong>2.4G:</strong> Slide switch to G, plug USB receiver into PC, and the keyboard connects automatically — no additional setup needed.</p>
+        </div>
+
+        <div class="note-box">
+          <p><strong>Wired:</strong> Slide switch to U, connect USB-C cable between keyboard and PC. Keyboard functions normally while charging.</p>
+        </div>
+      </section>
+
+      <!-- 04 WIN Key Guide -->
+      <section class="section" id="fn-win">
+        <div class="section-label">
+          <span class="section-num">04</span>
+          <h2 class="section-title">WIN Mode — FN Key Guide</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <p>In Windows mode (FN+A), hold FN and press the key below for the listed function.</p>
+
+        <div class="fn-table-wrap">
+          <table class="fn-table">
+            <thead>
+              <tr><th>FN +</th><th>Windows Function</th></tr>
+            </thead>
+            <tbody>
+              <tr class="group-header"><td colspan="2">— F-Row Media & Display —</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F1</span></div></td><td>Screen Brightness –</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F2</span></div></td><td>Screen Brightness +</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F3</span></div></td><td>Mission Control / Task View</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F4</span></div></td><td>App List / Launchpad</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F5</span></div></td><td>Keyboard Backlight Brightness +</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F6</span></div></td><td>Keyboard Backlight Brightness –</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F7</span></div></td><td>Previous Track</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F8</span></div></td><td>Play / Pause</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F9</span></div></td><td>Next Track</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F10</span></div></td><td>Mute</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F11</span></div></td><td>Volume –</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F12</span></div></td><td>Volume +</td></tr>
+
+              <tr class="group-header"><td colspan="2">— System Keys —</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">Ins</span></div></td><td>ScrLK (Scroll Lock)</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">PgUp</span></div></td><td>Pause</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">PgDn</span></div></td><td>End</td></tr>
+
+              <tr class="group-header"><td colspan="2">— Special Functions —</td></tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">Del</span></div><div style="font-size:10px;color:var(--muted);margin-top:4px;letter-spacing:0.08em;">Hold 3 seconds</div></td>
+                <td>Factory Reset (clears all Bluetooth pairings)</td>
+              </tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">T</span></div></td><td>Display wireless pairing mode</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="note-box">
+          <p><strong>Note:</strong> Screen brightness shortcuts (FN+F1/F2) only work on computers whose display supports software brightness adjustment.</p>
+        </div>
+      </section>
+
+      <!-- 05 MAC Key Guide -->
+      <section class="section" id="fn-mac">
+        <div class="section-label">
+          <span class="section-num">05</span>
+          <h2 class="section-title">MAC Mode — Key Guide</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <p>In Mac mode (FN+S), Win key and Alt key are swapped to match macOS layout. <strong>F1–F12 work directly without FN</strong>. Use FN+F1–F12 to send the standard function key codes.</p>
+
+        <div class="fn-table-wrap">
+          <table class="fn-table">
+            <thead>
+              <tr><th>Key (no FN)</th><th>Mac Function</th><th>FN + Key</th><th>Sends</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="key-badge">F1</span></td><td>Screen Brightness –</td><td><span class="key-badge">FN+F1</span></td><td>F1</td></tr>
+              <tr><td><span class="key-badge">F2</span></td><td>Screen Brightness +</td><td><span class="key-badge">FN+F2</span></td><td>F2</td></tr>
+              <tr><td><span class="key-badge">F3</span></td><td>Mission Control</td><td><span class="key-badge">FN+F3</span></td><td>F3</td></tr>
+              <tr><td><span class="key-badge">F4</span></td><td>Launchpad</td><td><span class="key-badge">FN+F4</span></td><td>F4</td></tr>
+              <tr><td><span class="key-badge">F5</span></td><td>Keyboard Backlight –</td><td><span class="key-badge">FN+F5</span></td><td>F5</td></tr>
+              <tr><td><span class="key-badge">F6</span></td><td>Keyboard Backlight +</td><td><span class="key-badge">FN+F6</span></td><td>F6</td></tr>
+              <tr><td><span class="key-badge">F7</span></td><td>Previous Track</td><td><span class="key-badge">FN+F7</span></td><td>F7</td></tr>
+              <tr><td><span class="key-badge">F8</span></td><td>Play / Pause</td><td><span class="key-badge">FN+F8</span></td><td>F8</td></tr>
+              <tr><td><span class="key-badge">F9</span></td><td>Next Track</td><td><span class="key-badge">FN+F9</span></td><td>F9</td></tr>
+              <tr><td><span class="key-badge">F10</span></td><td>Mute</td><td><span class="key-badge">FN+F10</span></td><td>F10</td></tr>
+              <tr><td><span class="key-badge">F11</span></td><td>Volume –</td><td><span class="key-badge">FN+F11</span></td><td>F11</td></tr>
+              <tr><td><span class="key-badge">F12</span></td><td>Volume +</td><td><span class="key-badge">FN+F12</span></td><td>F12</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 06 Backlight -->
+      <section class="section" id="backlight">
+        <div class="section-label">
+          <span class="section-num">06</span>
+          <h2 class="section-title">Backlight Controls</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <p>Control backlight mode, brightness, direction, and color using the FN combinations below.</p>
+
+        <div class="fn-table-wrap">
+          <table class="fn-table">
+            <thead>
+              <tr><th>FN +</th><th>Function</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><div class="fn-combo"><span class="key-badge">Tab</span></div></td><td>Cycle Backlight Mode</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">PrtSc</span></div></td><td>Toggle Backlight On / Off</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">↑</span></div></td><td>Backlight Speed +</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">←</span></div></td><td>Change Backlight Direction</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">→</span></div></td><td>Cycle Backlight Color <span style="font-size:11px;color:var(--muted)">(RGB models only)</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 07 Custom RGB Recording -->
+      <section class="section" id="rgb-record">
+        <div class="section-label">
+          <span class="section-num">07</span>
+          <h2 class="section-title">Custom RGB Recording</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <p>The Great Writer 100 supports per-key custom lighting. You can record your own backlight pattern and save it to the keyboard's memory.</p>
+
+        <div class="info-box">
+          <div class="info-box-title">Recording Key</div>
+          <p><strong>FN + Home</strong> = Enter / exit custom backlight recording mode</p>
+        </div>
+
+        <div class="record-steps">
+          <div class="record-step">
+            <div class="record-step-num">1</div>
+            <div>
+              <div class="record-step-title">Enter Custom Mode</div>
+              <div class="record-step-desc">Press <strong>FN + 1</strong>, <strong>FN + 2</strong>, <strong>FN + @</strong>, or <strong>FN + 3#</strong> to enter one of the custom lighting slots. All LEDs will turn on to indicate you are in custom mode.</div>
+            </div>
+          </div>
+          <div class="record-step">
+            <div class="record-step-num">2</div>
+            <div>
+              <div class="record-step-title">Start Recording</div>
+              <div class="record-step-desc">Press <strong>FN + Home</strong> to enter recording mode. All backlight LEDs will light up fully.</div>
+            </div>
+          </div>
+          <div class="record-step">
+            <div class="record-step-num">3</div>
+            <div>
+              <div class="record-step-title">Assign Keys & Colors</div>
+              <div class="record-step-desc">Select the keys you want to light up. Choose your preferred colors for each key using the color cycle function.</div>
+            </div>
+          </div>
+          <div class="record-step">
+            <div class="record-step-num">4</div>
+            <div>
+              <div class="record-step-title">Save & Exit</div>
+              <div class="record-step-desc">Press <strong>FN + Home</strong> again to exit recording mode and save your custom pattern. The keyboard stores the layout in memory and it persists after power cycling.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <p><strong>Note:</strong> Custom RGB recording is only available on the full-RGB version of Great Writer 100. Single-color backlight models do not support custom recording.</p>
+        </div>
+      </section>
+
+      <!-- 08 Battery -->
+      <section class="section" id="battery">
+        <div class="section-label">
+          <span class="section-num">08</span>
+          <h2 class="section-title">Battery & Charging</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <table class="spec-table">
+          <tr>
+            <td>Battery</td>
+            <td>4000 mAh</td>
+          </tr>
+          <tr>
+            <td>Input</td>
+            <td>5V / 1A via USB-C. Do not exceed rated voltage — overvoltage voids warranty.</td>
+          </tr>
+          <tr>
+            <td>Charging</td>
+            <td>Set switch to <strong>U</strong>, connect USB-C cable. FN key LED turns red and syncs with backlight during charging.</td>
+          </tr>
+          <tr>
+            <td>Caution</td>
+            <td>Do not leave the keyboard in direct sunlight. Store at room temperature. Avoid prolonged exposure to heat sources.</td>
+          </tr>
+          <tr>
+            <td>Factory Reset</td>
+            <td>Hold <strong>FN + Del</strong> for 3 seconds. All Bluetooth pairing data and custom settings will be cleared.</td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- 09 Specs -->
+      <section class="section" id="specs">
+        <div class="section-label">
+          <span class="section-num">09</span>
+          <h2 class="section-title">Specifications</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <table class="spec-table">
+          <tr><td>Model</td><td>GW-100</td></tr>
+          <tr><td>Layout</td><td>100% Full-size</td></tr>
+          <tr><td>Connection</td><td>USB TYPE-C</td></tr>
+          <tr><td>Connectivity</td><td>Bluetooth BT3.0 / BT5.0 (3 devices) · 2.4G Wireless · USB-C Wired</td></tr>
+          <tr><td>Bluetooth Names</td><td>GW-100 BT3.0 / GW-100 BT5.0</td></tr>
+          <tr><td>OS Support</td><td>Windows / macOS / iOS / Android</td></tr>
+          <tr><td>RGB</td><td>Full-colour RGB / Single-colour (depending on version)</td></tr>
+          <tr><td>Battery</td><td>4000 mAh</td></tr>
+          <tr><td>Input</td><td>5V ≡ 1A</td></tr>
+          <tr><td>Dimensions</td><td>36.9 × 12.1 × 4.3 cm</td></tr>
+          <tr><td>In the Box</td><td>Keyboard · USB-C cable · 2.4G receiver · User manual</td></tr>
+        </table>
+      </section>
+
+      <!-- 10 Support -->
+      <section class="section" id="support-contact">
+        <div class="section-label">
+          <span class="section-num">10</span>
+          <h2 class="section-title">Contact & Support</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <table class="spec-table">
+          <tr><td>Email</td><td><a href="mailto:odditystore@yeah.net" style="color:var(--accent)">odditystore@yeah.net</a></td></tr>
+          <tr><td>Instagram</td><td>@724odditystore</td></tr>
+          <tr><td>Discord</td><td>discord.gg/Qa9PJWBm</td></tr>
+          <tr><td>小红书</td><td>724odditystore</td></tr>
+          <tr><td>Warranty</td><td>12 months from date of purchase. Covers manufacturing defects. Does not cover physical damage, liquid damage, or unauthorized modification.</td></tr>
+        </table>
+
+        <div class="info-box" style="margin-top:24px;">
+          <div class="info-box-title">Pair with Keycaps</div>
+          <p>Complete your setup with Oddity Store keycap sets — all compatible with Great Writer 100. <a href="../keycaps/" style="color:var(--accent);font-weight:700;">Browse Keycaps →</a></p>
+        </div>
+      </section>
+
+      <div class="manual-footer">
+        <div class="manual-footer-brand">ODDITY STORE<br><span style="font:400 11px/1 var(--mono);color:var(--muted);letter-spacing:0.1em;">不现实商店</span></div>
+        <div class="manual-footer-meta">
+          Great Writer 100 · User Manual<br>
+          DOC-GW100-EN-001 · Rev. 1.0<br>
+          © 2025 Oddity Store. All rights reserved.
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+</body>
+</html>

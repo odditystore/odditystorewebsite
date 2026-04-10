@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Great Writer 75 — User Manual — Oddity Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #e8e4df;
+      --paper-soft: #edeae6;
+      --paper-deep: #d5d0ca;
+      --ink: #1a1a1a;
+      --muted: #6b6560;
+      --line: rgba(26,26,26,0.14);
+      --line-strong: rgba(26,26,26,0.3);
+      --accent: #c0392b;
+      --mark: #f5e642;
+      --mono: "Courier Prime", "Courier New", monospace;
+      --serif: "Special Elite", "Courier Prime", monospace;
+      --shadow: 0 24px 58px rgba(20,20,20,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      color: var(--ink);
+      font-family: var(--mono);
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.8), transparent 34%),
+        linear-gradient(180deg, #e8e4df 0%, #ddd9d3 100%);
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      background:
+        repeating-linear-gradient(0deg, rgba(23,17,13,0.025) 0 1px, transparent 1px 126px),
+        repeating-linear-gradient(90deg, rgba(23,17,13,0.018) 0 1px, transparent 1px 132px);
+      mix-blend-mode: multiply;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Shell ── */
+    .shell {
+      width: min(1200px, calc(100vw - 28px));
+      margin: 14px auto 60px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0)),
+        var(--paper-soft);
+      border: 1px solid var(--line-strong);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    /* ── Notice Bar ── */
+    .notice {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 26px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.18);
+      font: 11px/1 var(--mono);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .notice a { color: var(--muted); transition: color 0.2s; }
+    .notice a:hover { color: var(--ink); }
+
+    /* ── Top Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 26px;
+      height: 54px;
+      border-bottom: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.12);
+    }
+    .logo {
+      font: 700 15px/1 var(--serif);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      font: 11px/1 var(--mono);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+
+    /* ── Manual Layout ── */
+    .manual-wrap {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: 80vh;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      border-right: 1px solid var(--line-strong);
+      padding: 36px 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar-title {
+      padding: 0 22px 16px;
+      font: 700 10px/1 var(--mono);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 16px;
+    }
+    .sidebar-product {
+      padding: 0 22px 24px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 8px;
+    }
+    .sidebar-product-name {
+      font: 700 13px/1.3 var(--serif);
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+    .sidebar-product-sub {
+      font: 11px/1 var(--mono);
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .sidebar-nav { list-style: none; }
+    .sidebar-nav li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 22px;
+      font: 11px/1 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: all 0.2s;
+      border-left: 2px solid transparent;
+    }
+    .sidebar-nav li a:hover {
+      color: var(--ink);
+      background: rgba(0,0,0,0.04);
+      border-left-color: var(--ink);
+    }
+    .sidebar-nav li a.active {
+      color: var(--ink);
+      font-weight: 700;
+      border-left-color: var(--accent);
+    }
+    .sidebar-nav li a span.num {
+      color: var(--accent);
+      font-weight: 700;
+      min-width: 16px;
+    }
+
+    .sidebar-other {
+      padding: 20px 22px 0;
+      border-top: 1px solid var(--line);
+      margin-top: 12px;
+    }
+    .sidebar-other-label {
+      font: 10px/1 var(--mono);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .sidebar-other a {
+      display: block;
+      padding: 7px 0;
+      font: 11px/1.3 var(--mono);
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--line);
+      transition: color 0.2s;
+    }
+    .sidebar-other a:hover { color: var(--ink); }
+
+    /* ── Content ── */
+    .content {
+      padding: 48px 60px 80px;
+      max-width: 860px;
+    }
+
+    /* ── Manual Header ── */
+    .manual-header {
+      margin-bottom: 52px;
+      padding-bottom: 32px;
+      border-bottom: 2px solid var(--ink);
+    }
+    .manual-doc-label {
+      font: 11px/1 var(--mono);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .manual-title {
+      font: 700 38px/1.1 var(--serif);
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+    .manual-subtitle {
+      font: 18px/1.4 var(--mono);
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+    .manual-meta {
+      display: flex;
+      gap: 36px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+    .manual-meta-item { font: 11px/1.5 var(--mono); color: var(--muted); letter-spacing: 0.1em; }
+    .manual-meta-item strong { display: block; color: var(--ink); font-weight: 700; }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 64px;
+      scroll-margin-top: 24px;
+    }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .section-num {
+      font: 700 11px/1 var(--mono);
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    .section-title {
+      font: 700 22px/1.2 var(--serif);
+      letter-spacing: 0.04em;
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--line-strong);
+    }
+
+    p {
+      font: 14px/1.9 var(--mono);
+      color: var(--muted);
+      margin-bottom: 16px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Keyboard Layout ── */
+    .layout-box {
+      background: rgba(255,255,255,0.5);
+      border: 1px solid var(--line-strong);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .layout-box img {
+      width: 100%;
+      display: block;
+    }
+    .layout-placeholder {
+      width: 100%;
+      background: var(--paper-deep);
+      border: 1px dashed var(--line-strong);
+      padding: 40px 20px;
+      text-align: center;
+      font: 12px/1.6 var(--mono);
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Key Layout SVG ── */
+    .kbd-layout {
+      font-family: var(--mono);
+      font-size: 9px;
+    }
+    .key-cap {
+      fill: var(--paper);
+      stroke: var(--line-strong);
+      stroke-width: 1;
+      rx: 3;
+    }
+    .key-label { fill: var(--ink); font-size: 8px; }
+    .key-fn { fill: var(--accent); font-size: 7px; }
+
+    /* ── Connection Steps ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .step-card {
+      border: 1px solid var(--line-strong);
+      padding: 20px 18px;
+      background: rgba(255,255,255,0.4);
+    }
+    .step-num {
+      font: 700 28px/1 var(--serif);
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .step-title {
+      font: 700 12px/1.3 var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font: 12px/1.7 var(--mono);
+      color: var(--muted);
+    }
+    .step-key {
+      display: inline-block;
+      background: var(--ink);
+      color: var(--paper);
+      font: 700 10px/1 var(--mono);
+      padding: 3px 8px;
+      letter-spacing: 0.1em;
+      margin: 2px 2px 2px 0;
+    }
+
+    /* ── FN Table ── */
+    .fn-table-wrap {
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    .fn-table {
+      width: 100%;
+      border-collapse: collapse;
+      font: 13px/1 var(--mono);
+    }
+    .fn-table th {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 12px 16px;
+      text-align: center;
+      font: 700 10px/1 var(--mono);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .fn-table th:first-child { text-align: left; width: 100px; }
+    .fn-table td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+      text-align: center;
+      font: 13px/1.4 var(--mono);
+      color: var(--muted);
+    }
+    .fn-table td:first-child {
+      text-align: left;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .fn-table tr:hover td { background: rgba(255,255,255,0.5); }
+    .fn-table .group-header td {
+      background: rgba(0,0,0,0.05);
+      font: 700 10px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 8px 16px;
+    }
+
+    .key-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: var(--paper-deep);
+      border: 1px solid var(--line-strong);
+      padding: 3px 8px 3px 6px;
+      font: 700 11px/1 var(--mono);
+      color: var(--ink);
+      letter-spacing: 0.06em;
+    }
+    .key-badge-fn {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      font-size: 9px;
+      padding: 2px 6px;
+    }
+    .fn-combo { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+
+    .no-fn { color: var(--line-strong); font-size: 18px; }
+
+    /* ── Info Box ── */
+    .info-box {
+      border-left: 3px solid var(--accent);
+      background: rgba(192,57,43,0.06);
+      padding: 14px 18px;
+      margin: 16px 0;
+    }
+    .info-box p { color: var(--ink); margin: 0; font-size: 13px; }
+    .info-box-title {
+      font: 700 10px/1 var(--mono);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .note-box {
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.45);
+      padding: 14px 18px;
+      margin: 16px 0;
+    }
+    .note-box p { margin: 0; font-size: 13px; }
+
+    /* ── RGB Mode List ── */
+    .rgb-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .rgb-item {
+      border: 1px solid var(--line);
+      padding: 12px 14px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.3);
+    }
+    .rgb-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+    .rgb-item-title { font: 700 12px/1.2 var(--mono); margin-bottom: 3px; }
+    .rgb-item-desc { font: 11px/1.6 var(--mono); color: var(--muted); }
+
+    /* ── Spec Table ── */
+    .spec-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .spec-table td {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      font: 13px/1.5 var(--mono);
+      vertical-align: top;
+    }
+    .spec-table td:first-child {
+      width: 180px;
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 11px;
+      padding-top: 12px;
+    }
+
+    /* ── Footer ── */
+    .manual-footer {
+      margin-top: 72px;
+      padding-top: 24px;
+      border-top: 2px solid var(--line-strong);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .manual-footer-brand { font: 700 14px/1.4 var(--serif); letter-spacing: 0.1em; }
+    .manual-footer-meta { font: 11px/1.8 var(--mono); color: var(--muted); text-align: right; }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .manual-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .content { padding: 32px 24px 60px; }
+      .steps { grid-template-columns: 1fr; }
+      .rgb-grid { grid-template-columns: 1fr; }
+      .manual-title { font-size: 28px; }
+      .manual-meta { flex-wrap: wrap; gap: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Notice Bar -->
+<div style="width:min(1200px,calc(100vw - 28px));margin:14px auto 0;background:rgba(255,255,255,0.18);border:1px solid rgba(26,26,26,0.3);border-bottom:none;padding:9px 26px;display:flex;justify-content:space-between;font:11px/1 'Courier Prime',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#6b6560;">
+  <span>Free shipping on orders over $149 · Global delivery 7–14 days</span>
+  <span><a href="../support/great-writer-75-cn.html" style="color:#6b6560;text-decoration:none;">中文版 →</a></span>
+</div>
+
+<div class="shell">
+  <!-- Nav -->
+  <nav>
+    <a href="../" class="logo">Oddity Store</a>
+    <div class="nav-links">
+      <a href="../keycaps/">Keycaps</a>
+      <a href="../keyboards/" class="active">Keyboards</a>
+      <a href="../deskmats/">Desk Mats</a>
+      <a href="../cups/">Cups</a>
+      <a href="./index.html" class="active">Support</a>
+      <a href="../about/">About</a>
+    </div>
+  </nav>
+
+  <div class="manual-wrap">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-title">User Manual</div>
+      <div class="sidebar-product">
+        <div class="sidebar-product-name">Great Writer 75</div>
+        <div class="sidebar-product-sub">Wireless Keyboard Kit</div>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="#overview" class="active"><span class="num">01</span>Overview</a></li>
+        <li><a href="#layout"><span class="num">02</span>Key Layout</a></li>
+        <li><a href="#connection"><span class="num">03</span>Connection</a></li>
+        <li><a href="#fn-keys"><span class="num">04</span>FN Key Guide</a></li>
+        <li><a href="#rgb"><span class="num">05</span>RGB Controls</a></li>
+        <li><a href="#battery"><span class="num">06</span>Battery</a></li>
+        <li><a href="#specs"><span class="num">07</span>Specifications</a></li>
+        <li><a href="#support"><span class="num">08</span>Support</a></li>
+      </ul>
+
+      <div class="sidebar-other">
+        <div class="sidebar-other-label">Other Manuals</div>
+        <a href="./great-writer-100.html">Great Writer 100 →</a>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <!-- Manual Header -->
+      <header class="manual-header" id="overview">
+        <div class="manual-doc-label">User Manual · DOC-GW75-EN-001</div>
+        <h1 class="manual-title">Great Writer 75</h1>
+        <p class="manual-subtitle">75% Wireless Mechanical Keyboard Kit</p>
+        <div class="manual-meta">
+          <div class="manual-meta-item"><strong>Model</strong>GW-75</div>
+          <div class="manual-meta-item"><strong>Layout</strong>75% (84 Keys)</div>
+          <div class="manual-meta-item"><strong>Connectivity</strong>BT 1/2/3 · 2.4G · USB-C</div>
+          <div class="manual-meta-item"><strong>Battery</strong>6000 mAh</div>
+          <div class="manual-meta-item"><strong>Version</strong>Rev. 1.0 · 2025</div>
+        </div>
+      </header>
+
+      <p>Welcome to the Great Writer 75. This manual covers connection setup, key functions, RGB control, and battery management. Keep this document for future reference.</p>
+
+      <!-- 02 Key Layout -->
+      <section class="section" id="layout">
+        <div class="section-label">
+          <span class="section-num">02</span>
+          <h2 class="section-title">Key Layout</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="layout-box">
+          <!-- Replace src with actual keyboard layout photo when available -->
+          <div class="layout-placeholder">
+            [ Keyboard Layout Image — Great Writer 75 · 75% · 84 Keys ]<br>
+            <span style="font-size:11px;opacity:0.6;">Upload layout photo to assets/keyboards/gw75-layout.jpg</span>
+          </div>
+        </div>
+
+        <p>The Great Writer 75 features a compact 75% layout with 84 keys, retaining the function row and arrow cluster while reducing overall footprint. Compatible with standard MX-mount keycap sets.</p>
+      </section>
+
+      <!-- 03 Connection -->
+      <section class="section" id="connection">
+        <div class="section-label">
+          <span class="section-num">03</span>
+          <h2 class="section-title">Connection Guide</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <p>Great Writer 75 supports three wireless modes and wired USB-C. Use <span class="key-badge"><span class="key-badge-fn">FN</span>Q/W/E</span> to switch Bluetooth channels, <span class="key-badge"><span class="key-badge-fn">FN</span>R</span> for 2.4G, and <span class="key-badge"><span class="key-badge-fn">FN</span>T</span> for USB.</p>
+
+        <div class="steps">
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <div class="step-title">Bluetooth</div>
+            <div class="step-desc">
+              Press <span class="step-key">FN+Q</span><span class="step-key">FN+W</span> or <span class="step-key">FN+E</span> to enter pairing mode on channel 1, 2, or 3.<br><br>
+              Hold 3 seconds until LED blinks rapidly. Select "Great Writer 75" on your device.
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <div class="step-title">2.4G Wireless</div>
+            <div class="step-desc">
+              Insert the USB dongle. Press <span class="step-key">FN+R</span> to activate.<br><br>
+              The keyboard auto-pairs with the included receiver. No additional setup required.
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <div class="step-title">USB-C Wired</div>
+            <div class="step-desc">
+              Connect via USB-C cable. Press <span class="step-key">FN+T</span> to switch to wired mode.<br><br>
+              Wired mode also charges the battery simultaneously.
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-box-title">WIN / MAC Mode</div>
+          <p>Press <strong>FN+M</strong> to toggle between Windows and Mac key mapping. On Mac, the Win key functions as Command and Alt as Option. RGB indicator briefly flashes to confirm the switch.</p>
+        </div>
+
+        <div class="note-box">
+          <p><strong>NKRO:</strong> Press <strong>FN+N</strong> to toggle full N-key rollover. Recommended for gaming or fast typing. Note: NKRO is only available in USB-C mode.</p>
+        </div>
+      </section>
+
+      <!-- 04 FN Keys -->
+      <section class="section" id="fn-keys">
+        <div class="section-label">
+          <span class="section-num">04</span>
+          <h2 class="section-title">FN Key Reference</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <p>Hold <span class="key-badge"><span class="key-badge-fn">FN</span></span> and press the corresponding key to activate the secondary function.</p>
+
+        <div class="fn-table-wrap">
+          <table class="fn-table">
+            <thead>
+              <tr>
+                <th>FN +</th>
+                <th>Windows Function</th>
+                <th>Mac Function</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="group-header"><td colspan="3">— F-Row Media Controls —</td></tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">F1</span></div></td>
+                <td>Mute</td>
+                <td>Screen Brightness – (OS)</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">F2</span></div></td>
+                <td>Volume –</td>
+                <td>Screen Brightness + (OS)</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">F3</span></div></td>
+                <td>Volume +</td>
+                <td>Mission Control (OS)</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">F4</span></div></td>
+                <td>Switch Display Output</td>
+                <td>Launchpad (OS)</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">F5</span></div></td>
+                <td>Media: Previous Track</td>
+                <td><span class="no-fn">—</span></td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">F6</span></div></td>
+                <td>Media: Play / Pause</td>
+                <td><span class="no-fn">—</span></td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">F7</span></div></td>
+                <td>Media: Next Track</td>
+                <td>Previous Track (OS)</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">F8</span></div></td>
+                <td>Task View / Switch Desktop</td>
+                <td>Play / Pause (OS)</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">F9</span></div></td>
+                <td>Open File Explorer</td>
+                <td>Next Track (OS)</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">F10</span></div></td>
+                <td>Open Calculator</td>
+                <td>Mute (OS)</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">F11</span></div></td>
+                <td>Open Mail App</td>
+                <td>Volume – (OS)</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">F12</span></div></td>
+                <td>Show Desktop</td>
+                <td>Volume + (OS)</td>
+              </tr>
+
+              <tr class="group-header"><td colspan="3">— Connectivity —</td></tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">Q</span><span style="font-size:11px;color:var(--muted)">/</span><span class="key-badge">W</span><span style="font-size:11px;color:var(--muted)">/</span><span class="key-badge">E</span></div></td>
+                <td>Switch Bluetooth 1 / 2 / 3</td>
+                <td>Switch Bluetooth 1 / 2 / 3</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">R</span></div></td>
+                <td>Switch to 2.4G</td>
+                <td>Switch to 2.4G</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">T</span></div></td>
+                <td>Switch to USB-C</td>
+                <td>Switch to USB-C</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">N</span></div></td>
+                <td>Toggle NKRO</td>
+                <td>Toggle NKRO</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">M</span></div></td>
+                <td>Switch WIN / MAC Mode</td>
+                <td>Switch WIN / MAC Mode</td>
+              </tr>
+
+              <tr class="group-header"><td colspan="3">— System —</td></tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">Space</span></div></td>
+                <td>Battery Level Query</td>
+                <td>Battery Level Query</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">Win-L</span></div></td>
+                <td>Lock Windows</td>
+                <td>No Lock (Mac)</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">Enter</span></div></td>
+                <td>Toggle RGB On / Off</td>
+                <td>Toggle RGB On / Off</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">↑ Shift</span><span class="key-badge">Backspace</span></div><div style="font-size:10px;color:var(--muted);margin-top:4px;letter-spacing:0.08em;">Hold 3 seconds</div></td>
+                <td>Factory Reset</td>
+                <td>Factory Reset</td>
+              </tr>
+
+              <tr class="group-header"><td colspan="3">— RGB Controls —</td></tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">↑</span></div></td>
+                <td>RGB Brightness +</td>
+                <td>RGB Brightness +</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">↓</span></div></td>
+                <td>RGB Brightness –</td>
+                <td>RGB Brightness –</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">←</span></div></td>
+                <td>RGB Mode –</td>
+                <td>RGB Mode –</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">→</span></div></td>
+                <td>RGB Mode +</td>
+                <td>RGB Mode +</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">A</span></div></td>
+                <td>RGB Hue –</td>
+                <td>RGB Hue –</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">S</span></div></td>
+                <td>RGB Hue +</td>
+                <td>RGB Hue +</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">D</span></div></td>
+                <td>RGB Saturation –</td>
+                <td>RGB Saturation –</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">F</span></div></td>
+                <td>RGB Saturation +</td>
+                <td>RGB Saturation +</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">G</span></div></td>
+                <td>RGB Speed –</td>
+                <td>RGB Speed –</td>
+              </tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">H</span></div></td>
+                <td>RGB Speed +</td>
+                <td>RGB Speed +</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 05 RGB -->
+      <section class="section" id="rgb">
+        <div class="section-label">
+          <span class="section-num">05</span>
+          <h2 class="section-title">RGB Lighting</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <p>Use FN + Arrow keys to cycle modes and adjust brightness. FN + A/S/D/F/G/H for fine-tune control of hue, saturation, and animation speed.</p>
+
+        <div class="rgb-grid">
+          <div class="rgb-item">
+            <div class="rgb-dot" style="background: linear-gradient(135deg,#f00,#0f0,#00f);"></div>
+            <div>
+              <div class="rgb-item-title">Cycle Mode</div>
+              <div class="rgb-item-desc">FN + ← / → to switch between lighting modes</div>
+            </div>
+          </div>
+          <div class="rgb-item">
+            <div class="rgb-dot" style="background: linear-gradient(135deg,#fff,#000);"></div>
+            <div>
+              <div class="rgb-item-title">Brightness</div>
+              <div class="rgb-item-desc">FN + ↑ / ↓ to increase or decrease brightness</div>
+            </div>
+          </div>
+          <div class="rgb-item">
+            <div class="rgb-dot" style="background: conic-gradient(red,yellow,green,cyan,blue,magenta,red);"></div>
+            <div>
+              <div class="rgb-item-title">Hue</div>
+              <div class="rgb-item-desc">FN + A (decrease) / S (increase) to shift color</div>
+            </div>
+          </div>
+          <div class="rgb-item">
+            <div class="rgb-dot" style="background: linear-gradient(135deg,#aaa,#f00);"></div>
+            <div>
+              <div class="rgb-item-title">Saturation</div>
+              <div class="rgb-item-desc">FN + D (decrease) / F (increase) for color intensity</div>
+            </div>
+          </div>
+          <div class="rgb-item">
+            <div class="rgb-dot" style="background: linear-gradient(135deg,#6af,#f6a);animation: none;"></div>
+            <div>
+              <div class="rgb-item-title">Animation Speed</div>
+              <div class="rgb-item-desc">FN + G (slower) / H (faster) for effect speed</div>
+            </div>
+          </div>
+          <div class="rgb-item">
+            <div class="rgb-dot" style="background: #222;border: 1px solid #aaa;"></div>
+            <div>
+              <div class="rgb-item-title">Toggle On / Off</div>
+              <div class="rgb-item-desc">FN + Enter to enable or disable RGB entirely</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <p><strong>Note:</strong> RGB settings are saved automatically. Your preferred mode and brightness persist after power cycling.</p>
+        </div>
+      </section>
+
+      <!-- 06 Battery -->
+      <section class="section" id="battery">
+        <div class="section-label">
+          <span class="section-num">06</span>
+          <h2 class="section-title">Battery & Power</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <table class="spec-table">
+          <tr>
+            <td>Battery Indicator</td>
+            <td>Press <strong>FN + Space</strong> — RGB briefly flashes to indicate charge level:<br>
+              <span style="color:#2ecc71">●</span> Green = above 60% &nbsp;
+              <span style="color:#f39c12">●</span> Yellow = 20–60% &nbsp;
+              <span style="color:#e74c3c">●</span> Red = below 20%
+            </td>
+          </tr>
+          <tr>
+            <td>Charging</td>
+            <td>Connect USB-C cable. Keyboard continues to function while charging. Charge indicator light turns off when fully charged.</td>
+          </tr>
+          <tr>
+            <td>Power Saving</td>
+            <td>Keyboard enters sleep mode after ~3 minutes of inactivity. Press any key to wake.</td>
+          </tr>
+          <tr>
+            <td>Reset</td>
+            <td>Hold <strong>FN + Left Shift + Backspace</strong> for 3 seconds to restore factory defaults. All Bluetooth pairing data will be cleared.</td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- 07 Specs -->
+      <section class="section" id="specs">
+        <div class="section-label">
+          <span class="section-num">07</span>
+          <h2 class="section-title">Specifications</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <table class="spec-table">
+          <tr><td>Battery</td><td>6000 mAh</td></tr>
+          <tr><td>Input</td><td>5V / 1A via USB-C</td></tr>
+          <tr><td>Layout</td><td>75% — 84 Keys</td></tr>
+          <tr><td>Case Material</td><td>CNC Aluminium</td></tr>
+          <tr><td>Connectivity</td><td>Bluetooth 5.0 (3 devices) · 2.4G Wireless · USB-C Wired</td></tr>
+          <tr><td>Switch Mount</td><td>MX-compatible, hot-swap</td></tr>
+          <tr><td>Keycap Compat.</td><td>Standard MX 75% layouts, Cherry-profile & SA-profile compatible</td></tr>
+          <tr><td>RGB</td><td>South-facing per-key RGB LED</td></tr>
+          <tr><td>OS Support</td><td>Windows / macOS / iOS / Android</td></tr>
+          <tr><td>Cable</td><td>USB-C to USB-A braided cable (included)</td></tr>
+          <tr><td>In the Box</td><td>Keyboard · USB-C cable · 2.4G dongle · Keycap & switch puller · User manual</td></tr>
+        </table>
+      </section>
+
+      <!-- 08 Support -->
+      <section class="section" id="support">
+        <div class="section-label">
+          <span class="section-num">08</span>
+          <h2 class="section-title">Contact & Support</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <p>For questions, troubleshooting, or warranty claims:</p>
+
+        <table class="spec-table">
+          <tr><td>Email</td><td><a href="mailto:odditystore@yeah.net" style="color:var(--accent)">odditystore@yeah.net</a></td></tr>
+          <tr><td>Instagram</td><td>@724odditystore</td></tr>
+          <tr><td>Discord</td><td>discord.gg/Qa9PJWBm</td></tr>
+          <tr><td>小红书</td><td>724odditystore</td></tr>
+          <tr><td>Warranty</td><td>12 months from date of purchase. Covers manufacturing defects. Does not cover physical damage or unauthorized modification.</td></tr>
+        </table>
+
+        <div class="info-box" style="margin-top:24px;">
+          <div class="info-box-title">Looking for Keycaps?</div>
+          <p>The Great Writer 75 pairs with all Oddity Store keycap sets. <a href="../keycaps/" style="color:var(--accent);font-weight:700;">Browse Keycaps →</a></p>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <div class="manual-footer">
+        <div class="manual-footer-brand">ODDITY STORE<br><span style="font:400 11px/1 var(--mono);color:var(--muted);letter-spacing:0.1em;">不现实商店</span></div>
+        <div class="manual-footer-meta">
+          Great Writer 75 · User Manual<br>
+          DOC-GW75-EN-001 · Rev. 1.0<br>
+          © 2025 Oddity Store. All rights reserved.
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+</body>
+</html>

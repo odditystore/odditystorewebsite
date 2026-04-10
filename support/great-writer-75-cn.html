@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大文豪 75 使用说明 — 不现实商店</title>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root{--paper:#e8e4df;--paper-soft:#edeae6;--paper-deep:#d5d0ca;--ink:#1a1a1a;--muted:#6b6560;--line:rgba(26,26,26,0.14);--line-strong:rgba(26,26,26,0.3);--accent:#c0392b;--mark:#f5e642;--mono:"Courier Prime","Courier New",monospace;--serif:"Special Elite","Courier Prime",monospace;--shadow:0 24px 58px rgba(20,20,20,0.08);}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{color:var(--ink);font-family:var(--mono);background:radial-gradient(circle at top,rgba(255,255,255,0.8),transparent 34%),linear-gradient(180deg,#e8e4df 0%,#ddd9d3 100%);min-height:100vh;}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:0.22;background:repeating-linear-gradient(0deg,rgba(23,17,13,0.025) 0 1px,transparent 1px 126px),repeating-linear-gradient(90deg,rgba(23,17,13,0.018) 0 1px,transparent 1px 132px);mix-blend-mode:multiply;}
+    a{color:inherit;text-decoration:none;}
+    .shell{width:min(1200px,calc(100vw - 28px));margin:14px auto 60px;background:linear-gradient(180deg,rgba(255,255,255,0.24),rgba(255,255,255,0)),var(--paper-soft);border:1px solid var(--line-strong);box-shadow:var(--shadow);overflow:hidden;}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:0 26px;height:54px;border-bottom:1px solid var(--line-strong);background:rgba(255,255,255,0.12);}
+    .logo{font:700 15px/1 var(--serif);letter-spacing:0.12em;text-transform:uppercase;}
+    .nav-links{display:flex;gap:28px;}
+    .nav-links a{font:11px/1 var(--mono);letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);transition:color 0.2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--ink);}
+    .manual-wrap{display:grid;grid-template-columns:220px 1fr;min-height:80vh;}
+    .sidebar{border-right:1px solid var(--line-strong);padding:36px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+    .sidebar-title{padding:0 22px 16px;font:700 10px/1 var(--mono);letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);margin-bottom:16px;}
+    .sidebar-product{padding:0 22px 24px;border-bottom:1px solid var(--line);margin-bottom:8px;}
+    .sidebar-product-name{font:700 13px/1.3 var(--serif);letter-spacing:0.06em;margin-bottom:4px;}
+    .sidebar-product-sub{font:11px/1 var(--mono);color:var(--muted);letter-spacing:0.08em;}
+    .sidebar-nav{list-style:none;}
+    .sidebar-nav li a{display:flex;align-items:center;gap:10px;padding:9px 22px;font:11px/1 var(--mono);letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);transition:all 0.2s;border-left:2px solid transparent;}
+    .sidebar-nav li a:hover{color:var(--ink);background:rgba(0,0,0,0.04);border-left-color:var(--ink);}
+    .sidebar-nav li a.active{color:var(--ink);font-weight:700;border-left-color:var(--accent);}
+    .sidebar-nav li a span.num{color:var(--accent);font-weight:700;min-width:16px;}
+    .sidebar-other{padding:20px 22px 0;border-top:1px solid var(--line);margin-top:12px;}
+    .sidebar-other-label{font:10px/1 var(--mono);letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+    .sidebar-other a{display:block;padding:7px 0;font:11px/1.3 var(--mono);color:var(--muted);letter-spacing:0.06em;border-bottom:1px solid var(--line);transition:color 0.2s;}
+    .sidebar-other a:hover{color:var(--ink);}
+    .content{padding:48px 60px 80px;max-width:860px;}
+    .manual-header{margin-bottom:52px;padding-bottom:32px;border-bottom:2px solid var(--ink);}
+    .manual-doc-label{font:11px/1 var(--mono);letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+    .manual-title{font:700 38px/1.1 var(--serif);letter-spacing:0.04em;margin-bottom:8px;}
+    .manual-subtitle{font:18px/1.4 var(--mono);color:var(--muted);letter-spacing:0.06em;}
+    .manual-meta{display:flex;gap:36px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line);flex-wrap:wrap;}
+    .manual-meta-item{font:11px/1.5 var(--mono);color:var(--muted);letter-spacing:0.1em;}
+    .manual-meta-item strong{display:block;color:var(--ink);font-weight:700;}
+    .section{margin-bottom:64px;scroll-margin-top:24px;}
+    .section-label{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+    .section-num{font:700 11px/1 var(--mono);letter-spacing:0.18em;color:var(--accent);text-transform:uppercase;}
+    .section-title{font:700 22px/1.2 var(--serif);letter-spacing:0.04em;}
+    .section-line{flex:1;height:1px;background:var(--line-strong);}
+    p{font:14px/1.9 var(--mono);color:var(--muted);margin-bottom:16px;letter-spacing:0.04em;}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0;}
+    .step-card{border:1px solid var(--line-strong);padding:20px 18px;background:rgba(255,255,255,0.4);}
+    .step-num{font:700 28px/1 var(--serif);color:var(--accent);margin-bottom:10px;}
+    .step-title{font:700 12px/1.3 var(--mono);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+    .step-desc{font:12px/1.7 var(--mono);color:var(--muted);}
+    .step-key{display:inline-block;background:var(--ink);color:var(--paper);font:700 10px/1 var(--mono);padding:3px 8px;letter-spacing:0.1em;margin:2px 2px 2px 0;}
+    .fn-table-wrap{overflow-x:auto;margin:20px 0;}
+    .fn-table{width:100%;border-collapse:collapse;font:13px/1 var(--mono);}
+    .fn-table th{background:var(--ink);color:var(--paper);padding:12px 16px;text-align:center;font:700 10px/1 var(--mono);letter-spacing:0.2em;text-transform:uppercase;}
+    .fn-table th:first-child{text-align:left;}
+    .fn-table td{padding:10px 16px;border-bottom:1px solid var(--line);vertical-align:middle;text-align:center;font:13px/1.4 var(--mono);color:var(--muted);}
+    .fn-table td:first-child{text-align:left;font-weight:700;color:var(--ink);}
+    .fn-table tr:hover td{background:rgba(255,255,255,0.5);}
+    .fn-table .group-header td{background:rgba(0,0,0,0.05);font:700 10px/1 var(--mono);letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);padding:8px 16px;}
+    .key-badge{display:inline-flex;align-items:center;gap:3px;background:var(--paper-deep);border:1px solid var(--line-strong);padding:3px 8px 3px 6px;font:700 11px/1 var(--mono);color:var(--ink);letter-spacing:0.06em;}
+    .key-badge-fn{background:var(--accent);color:white;border-color:var(--accent);font-size:9px;padding:2px 6px;}
+    .fn-combo{display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
+    .no-fn{color:var(--line-strong);font-size:18px;}
+    .rgb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0;}
+    .rgb-item{border:1px solid var(--line);padding:12px 14px;display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.3);}
+    .rgb-dot{width:10px;height:10px;border-radius:50%;margin-top:3px;flex-shrink:0;}
+    .rgb-item-title{font:700 12px/1.2 var(--mono);margin-bottom:3px;}
+    .rgb-item-desc{font:11px/1.6 var(--mono);color:var(--muted);}
+    .spec-table{width:100%;border-collapse:collapse;margin:16px 0;}
+    .spec-table td{padding:10px 0;border-bottom:1px solid var(--line);font:13px/1.5 var(--mono);vertical-align:top;}
+    .spec-table td:first-child{width:160px;color:var(--muted);font-weight:700;letter-spacing:0.06em;text-transform:uppercase;font-size:11px;padding-top:12px;}
+    .info-box{border-left:3px solid var(--accent);background:rgba(192,57,43,0.06);padding:14px 18px;margin:16px 0;}
+    .info-box p{color:var(--ink);margin:0;font-size:13px;}
+    .info-box-title{font:700 10px/1 var(--mono);letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+    .note-box{border:1px solid var(--line-strong);background:rgba(255,255,255,0.45);padding:14px 18px;margin:16px 0;}
+    .note-box p{margin:0;font-size:13px;}
+    .manual-footer{margin-top:72px;padding-top:24px;border-top:2px solid var(--line-strong);display:flex;justify-content:space-between;align-items:flex-end;}
+    .manual-footer-brand{font:700 14px/1.4 var(--serif);letter-spacing:0.1em;}
+    .manual-footer-meta{font:11px/1.8 var(--mono);color:var(--muted);text-align:right;}
+    @media(max-width:860px){.manual-wrap{grid-template-columns:1fr;}.sidebar{display:none;}.content{padding:32px 24px 60px;}.steps{grid-template-columns:1fr;}.rgb-grid{grid-template-columns:1fr;}.manual-title{font-size:28px;}}
+  </style>
+</head>
+<body>
+<div style="width:min(1200px,calc(100vw - 28px));margin:14px auto 0;background:rgba(255,255,255,0.18);border:1px solid rgba(26,26,26,0.3);border-bottom:none;padding:9px 26px;display:flex;justify-content:space-between;font:11px/1 'Courier Prime',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#6b6560;">
+  <span>顺丰/DHL全球配送 · 满$149包邮</span>
+  <span><a href="./great-writer-75.html" style="color:#6b6560;">English →</a></span>
+</div>
+<div class="shell">
+  <nav>
+    <a href="../cn/" class="logo">不现实商店</a>
+    <div class="nav-links">
+      <a href="../keycaps/cn.html">键帽</a>
+      <a href="../keyboards/cn.html">键盘</a>
+      <a href="../deskmats/cn.html">桌垫</a>
+      <a href="../cups/cn.html">杯子</a>
+      <a href="./index-cn.html" class="active">支持</a>
+      <a href="../about/cn.html">关于</a>
+    </div>
+  </nav>
+
+  <div class="manual-wrap">
+    <aside class="sidebar">
+      <div class="sidebar-title">使用说明</div>
+      <div class="sidebar-product">
+        <div class="sidebar-product-name">大文豪 75</div>
+        <div class="sidebar-product-sub">75% 无线机械键盘套件</div>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="#overview" class="active"><span class="num">01</span>概览</a></li>
+        <li><a href="#layout"><span class="num">02</span>键位图</a></li>
+        <li><a href="#connection"><span class="num">03</span>连接方式</a></li>
+        <li><a href="#fn-keys"><span class="num">04</span>FN 快捷键</a></li>
+        <li><a href="#rgb"><span class="num">05</span>RGB 背光</a></li>
+        <li><a href="#battery"><span class="num">06</span>电池与电源</a></li>
+        <li><a href="#specs"><span class="num">07</span>规格参数</a></li>
+        <li><a href="#support"><span class="num">08</span>售后支持</a></li>
+      </ul>
+      <div class="sidebar-other">
+        <div class="sidebar-other-label">其他说明书</div>
+        <a href="./great-writer-100-cn.html">大文豪 100 →</a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="manual-header" id="overview">
+        <div class="manual-doc-label">使用说明 · DOC-GW75-CN-001</div>
+        <h1 class="manual-title">大文豪 75</h1>
+        <p class="manual-subtitle">75% 三模无线机械键盘套件</p>
+        <div class="manual-meta">
+          <div class="manual-meta-item"><strong>型号</strong>GW-75</div>
+          <div class="manual-meta-item"><strong>配列</strong>75%（84键）</div>
+          <div class="manual-meta-item"><strong>连接方式</strong>蓝牙1/2/3 · 2.4G · USB-C</div>
+          <div class="manual-meta-item"><strong>版本</strong>Rev. 1.0 · 2025</div>
+        </div>
+      </header>
+
+      <p>欢迎使用大文豪75。本说明书涵盖连接设置、按键功能、RGB控制及电池管理，请妥善保存备用。</p>
+
+      <!-- 02 键位图 -->
+      <section class="section" id="layout">
+        <div class="section-label"><span class="section-num">02</span><h2 class="section-title">键位图</h2><div class="section-line"></div></div>
+        <div style="background:rgba(255,255,255,0.5);border:1px solid var(--line-strong);padding:28px;margin-bottom:24px;">
+          <div style="width:100%;background:var(--paper-deep);border:1px dashed var(--line-strong);padding:40px 20px;text-align:center;font:12px/1.6 var(--mono);color:var(--muted);letter-spacing:0.1em;">
+            [ 键位布局示意图 — 大文豪75 · 75% · 84键 ]<br>
+            <span style="font-size:11px;opacity:0.6;">键位图请上传至 assets/keyboards/gw75-layout.jpg</span>
+          </div>
+        </div>
+        <p>大文豪75采用紧凑型75%配列，保留完整F键行和方向键区，共84键。兼容标准MX轴座键帽套件。</p>
+      </section>
+
+      <!-- 03 连接方式 -->
+      <section class="section" id="connection">
+        <div class="section-label"><span class="section-num">03</span><h2 class="section-title">连接方式</h2><div class="section-line"></div></div>
+        <p>大文豪75支持蓝牙三设备、2.4G无线和USB-C有线三种模式。使用 <span class="key-badge"><span class="key-badge-fn">FN</span>Q/W/E</span> 切换蓝牙频道，<span class="key-badge"><span class="key-badge-fn">FN</span>R</span> 切换2.4G，<span class="key-badge"><span class="key-badge-fn">FN</span>T</span> 切换USB有线。</p>
+        <div class="steps">
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <div class="step-title">蓝牙连接</div>
+            <div class="step-desc">
+              按 <span class="step-key">FN+Q</span>、<span class="step-key">FN+W</span> 或 <span class="step-key">FN+E</span> 分别进入蓝牙1、2、3配对模式。<br><br>
+              长按约3秒，指示灯快速闪烁后，在设备端搜索"大文豪75"并连接。
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <div class="step-title">2.4G 无线</div>
+            <div class="step-desc">
+              插入随附USB接收器后，按 <span class="step-key">FN+R</span> 切换到2.4G模式。<br><br>
+              键盘与接收器自动配对，无需额外操作。
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <div class="step-title">USB-C 有线</div>
+            <div class="step-desc">
+              连接USB-C数据线后，按 <span class="step-key">FN+T</span> 切换到有线模式。<br><br>
+              有线模式同步为电池充电。
+            </div>
+          </div>
+        </div>
+        <div class="info-box">
+          <div class="info-box-title">WIN / MAC 模式切换</div>
+          <p>按 <strong>FN+M</strong> 切换Windows和Mac键位映射。Mac模式下Win键映射为Command、Alt映射为Option，切换时RGB指示灯短暂闪烁确认。</p>
+        </div>
+        <div class="note-box">
+          <p><strong>全键无冲（NKRO）：</strong>按 <strong>FN+N</strong> 开关NKRO功能。建议游戏或快速输入时开启。注意：NKRO仅在USB-C有线模式下可用。</p>
+        </div>
+      </section>
+
+      <!-- 04 FN快捷键 -->
+      <section class="section" id="fn-keys">
+        <div class="section-label"><span class="section-num">04</span><h2 class="section-title">FN 快捷键一览</h2><div class="section-line"></div></div>
+        <p>按住 <span class="key-badge"><span class="key-badge-fn">FN</span></span> 再按对应按键，即可触发以下功能。</p>
+        <div class="fn-table-wrap">
+          <table class="fn-table">
+            <thead>
+              <tr><th>FN +</th><th>Windows 功能</th><th>Mac 功能</th></tr>
+            </thead>
+            <tbody>
+              <tr class="group-header"><td colspan="3">— F键行 · 媒体与显示 —</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F1</span></div></td><td>静音</td><td>屏幕亮度 –（OS）</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F2</span></div></td><td>音量 –</td><td>屏幕亮度 +（OS）</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F3</span></div></td><td>音量 +</td><td>调度中心（OS）</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F4</span></div></td><td>切换输出屏幕</td><td>台前调度（OS）</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F5</span></div></td><td>媒体：上一首</td><td><span class="no-fn">—</span></td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F6</span></div></td><td>媒体：播放/暂停</td><td><span class="no-fn">—</span></td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F7</span></div></td><td>媒体：下一首</td><td>上一曲（OS）</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F8</span></div></td><td>任务视图/切换桌面</td><td>播放暂停（OS）</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F9</span></div></td><td>打开我的电脑</td><td>下一曲（OS）</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F10</span></div></td><td>打开计算器</td><td>静音（OS）</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F11</span></div></td><td>打开邮件</td><td>音量 –（OS）</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F12</span></div></td><td>回到桌面</td><td>音量 +（OS）</td></tr>
+              <tr class="group-header"><td colspan="3">— 连接切换 —</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">Q</span><span style="font-size:11px;color:var(--muted)">/</span><span class="key-badge">W</span><span style="font-size:11px;color:var(--muted)">/</span><span class="key-badge">E</span></div></td><td>切换蓝牙 1 / 2 / 3</td><td>切换蓝牙 1 / 2 / 3</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">R</span></div></td><td>切换 2.4G</td><td>切换 2.4G</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">T</span></div></td><td>切换 USB-C 有线</td><td>切换 USB-C 有线</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">N</span></div></td><td>全键无冲开关（NKRO）</td><td>全键无冲开关（NKRO）</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">M</span></div></td><td>切换 WIN / MAC 模式</td><td>切换 WIN / MAC 模式</td></tr>
+              <tr class="group-header"><td colspan="3">— 系统功能 —</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">Space</span></div></td><td>查询键盘电量</td><td>查询键盘电量</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">Win-L</span></div></td><td>锁定 Windows</td><td>无（Mac不适用）</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">Enter</span></div></td><td>RGB 开关</td><td>RGB 开关</td></tr>
+              <tr>
+                <td><div class="fn-combo"><span class="key-badge">左Shift</span><span class="key-badge">Backspace</span></div><div style="font-size:10px;color:var(--muted);margin-top:4px;letter-spacing:0.08em;">长按 3 秒</div></td>
+                <td>恢复出厂设置</td><td>恢复出厂设置</td>
+              </tr>
+              <tr class="group-header"><td colspan="3">— RGB 背光控制 —</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">↑</span></div></td><td>RGB 亮度 +</td><td>RGB 亮度 +</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">↓</span></div></td><td>RGB 亮度 –</td><td>RGB 亮度 –</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">←</span></div></td><td>RGB 模式 –</td><td>RGB 模式 –</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">→</span></div></td><td>RGB 模式 +</td><td>RGB 模式 +</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">A</span></div></td><td>RGB 色相 –</td><td>RGB 色相 –</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">S</span></div></td><td>RGB 色相 +</td><td>RGB 色相 +</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">D</span></div></td><td>RGB 饱和度 –</td><td>RGB 饱和度 –</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">F</span></div></td><td>RGB 饱和度 +</td><td>RGB 饱和度 +</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">G</span></div></td><td>RGB 速度 –</td><td>RGB 速度 –</td></tr>
+              <tr><td><div class="fn-combo"><span class="key-badge">H</span></div></td><td>RGB 速度 +</td><td>RGB 速度 +</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 05 RGB -->
+      <section class="section" id="rgb">
+        <div class="section-label"><span class="section-num">05</span><h2 class="section-title">RGB 背光</h2><div class="section-line"></div></div>
+        <p>用FN+方向键切换模式和亮度，FN+A/S/D/F/G/H精细调节色相、饱和度和动效速度。</p>
+        <div class="rgb-grid">
+          <div class="rgb-item"><div class="rgb-dot" style="background:linear-gradient(135deg,#f00,#0f0,#00f);"></div><div><div class="rgb-item-title">切换模式</div><div class="rgb-item-desc">FN + ← / → 切换灯光效果模式</div></div></div>
+          <div class="rgb-item"><div class="rgb-dot" style="background:linear-gradient(135deg,#fff,#000);"></div><div><div class="rgb-item-title">调节亮度</div><div class="rgb-item-desc">FN + ↑ / ↓ 增加或降低亮度</div></div></div>
+          <div class="rgb-item"><div class="rgb-dot" style="background:conic-gradient(red,yellow,green,cyan,blue,magenta,red);"></div><div><div class="rgb-item-title">调节色相</div><div class="rgb-item-desc">FN + A（减）/ S（加）偏移颜色</div></div></div>
+          <div class="rgb-item"><div class="rgb-dot" style="background:linear-gradient(135deg,#aaa,#f00);"></div><div><div class="rgb-item-title">调节饱和度</div><div class="rgb-item-desc">FN + D（减）/ F（加）调整色彩浓度</div></div></div>
+          <div class="rgb-item"><div class="rgb-dot" style="background:linear-gradient(135deg,#6af,#f6a);"></div><div><div class="rgb-item-title">调节动效速度</div><div class="rgb-item-desc">FN + G（慢）/ H（快）</div></div></div>
+          <div class="rgb-item"><div class="rgb-dot" style="background:#222;border:1px solid #aaa;"></div><div><div class="rgb-item-title">开关背光</div><div class="rgb-item-desc">FN + Enter 一键开启或关闭 RGB</div></div></div>
+        </div>
+        <div class="note-box"><p><strong>提示：</strong>RGB设置会自动保存，断电后灯光模式和亮度保持不变。</p></div>
+      </section>
+
+      <!-- 06 电池 -->
+      <section class="section" id="battery">
+        <div class="section-label"><span class="section-num">06</span><h2 class="section-title">电池与电源</h2><div class="section-line"></div></div>
+        <table class="spec-table">
+          <tr><td>查询电量</td><td>按 <strong>FN + Space</strong>，RGB指示灯短暂闪烁显示电量：<br><span style="color:#2ecc71">●</span> 绿色 = 60%以上 &nbsp;<span style="color:#f39c12">●</span> 黄色 = 20–60% &nbsp;<span style="color:#e74c3c">●</span> 红色 = 20%以下</td></tr>
+          <tr><td>充电</td><td>连接USB-C数据线即可充电，充电期间键盘正常使用。充满后充电指示灯熄灭。</td></tr>
+          <tr><td>省电模式</td><td>静置约3分钟后自动进入休眠，任意按键唤醒。</td></tr>
+          <tr><td>恢复出厂</td><td>长按 <strong>FN + 左Shift + Backspace</strong> 约3秒恢复出厂，所有蓝牙配对信息将被清除。</td></tr>
+        </table>
+      </section>
+
+      <!-- 07 规格 -->
+      <section class="section" id="specs">
+        <div class="section-label"><span class="section-num">07</span><h2 class="section-title">规格参数</h2><div class="section-line"></div></div>
+        <table class="spec-table">
+          <tr><td>配列</td><td>75%（84键）</td></tr>
+          <tr><td>外壳材质</td><td>CNC 铝合金</td></tr>
+          <tr><td>连接方式</td><td>蓝牙5.0（3台设备）· 2.4G无线 · USB-C有线</td></tr>
+          <tr><td>轴座</td><td>MX兼容热插拔轴座</td></tr>
+          <tr><td>键帽兼容</td><td>标准MX轴座，兼容Cherry、SA等高度键帽</td></tr>
+          <tr><td>背光</td><td>全键南向RGB</td></tr>
+          <tr><td>系统兼容</td><td>Windows / macOS / iOS / Android</td></tr>
+          <tr><td>数据线</td><td>USB-C转USB-A编织线（随附）</td></tr>
+          <tr><td>包装内容</td><td>键盘 · USB-C数据线 · 2.4G接收器 · 键帽轴体拔插工具 · 说明书</td></tr>
+        </table>
+      </section>
+
+      <!-- 08 售后 -->
+      <section class="section" id="support">
+        <div class="section-label"><span class="section-num">08</span><h2 class="section-title">联系售后</h2><div class="section-line"></div></div>
+        <table class="spec-table">
+          <tr><td>邮箱</td><td><a href="mailto:odditystore@yeah.net" style="color:var(--accent)">odditystore@yeah.net</a></td></tr>
+          <tr><td>Instagram</td><td>@724odditystore</td></tr>
+          <tr><td>Discord</td><td>discord.gg/Qa9PJWBm</td></tr>
+          <tr><td>小红书</td><td>724odditystore</td></tr>
+          <tr><td>质保</td><td>自购买之日起12个月，覆盖制造工艺问题。不包括人为损坏、进液或私自改装。</td></tr>
+        </table>
+        <div class="info-box" style="margin-top:24px;">
+          <div class="info-box-title">搭配键帽</div>
+          <p>大文豪75与所有不现实商店键帽完美兼容。<a href="../keycaps/cn.html" style="color:var(--accent);font-weight:700;">浏览键帽 →</a></p>
+        </div>
+      </section>
+
+      <div class="manual-footer">
+        <div class="manual-footer-brand">ODDITY STORE<br><span style="font:400 11px/1 var(--mono);color:var(--muted);letter-spacing:0.1em;">不现实商店</span></div>
+        <div class="manual-footer-meta">大文豪75 · 使用说明<br>DOC-GW75-CN-001 · Rev. 1.0<br>© 2025 不现实商店 版权所有</div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

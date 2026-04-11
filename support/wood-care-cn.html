@@ -7,10 +7,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --paper:#e8e4df;--paper-soft:#edeae6;--paper-deep:#d5d0ca;
-      --ink:#1a1a1a;--muted:#6b6560;--line:rgba(26,26,26,0.14);--line-strong:rgba(26,26,26,0.3);
-      --accent:#c0392b;--mark:#f5e642;--wood:#8b6914;--wood-light:#c4963a;
-      --mono:"Courier Prime","Courier New",monospace;--serif:"Special Elite","Courier Prime",monospace;
+      --paper:#e8e4df; --paper-soft:#edeae6; --paper-deep:#d5d0ca;
+      --ink:#1a1a1a; --muted:#6b6560; --line:rgba(26,26,26,0.14); --line-strong:rgba(26,26,26,0.3);
+      --accent:#c0392b; --mark:#f5e642; --wood:#8b6914; --wood-light:#c4963a;
+      --mono:"Courier Prime","Courier New",monospace; --serif:"Special Elite","Courier Prime",monospace;
       --shadow:0 24px 58px rgba(20,20,20,0.08);
     }
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -19,41 +19,33 @@
     body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:0.22;background:repeating-linear-gradient(0deg,rgba(23,17,13,0.025) 0 1px,transparent 1px 126px),repeating-linear-gradient(90deg,rgba(23,17,13,0.018) 0 1px,transparent 1px 132px);mix-blend-mode:multiply;}
     a{color:inherit;text-decoration:none;}
 
+    /* Shell */
     .shell{width:min(1200px,calc(100vw - 28px));margin:14px auto 60px;background:linear-gradient(180deg,rgba(255,255,255,0.24),rgba(255,255,255,0)),var(--paper-soft);border:1px solid var(--line-strong);box-shadow:var(--shadow);overflow:hidden;}
 
-    /* Nav (matches main site category pages) */
-    .site-header{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 26px;border-bottom:1px solid var(--line);background:rgba(237,234,230,0.92);backdrop-filter:blur(12px);}
-    .brand{display:inline-flex;align-items:center;gap:0;line-height:0;}
-    .brand img{width:118px;max-width:100%;object-fit:contain;}
-    .nav-wrap{display:flex;justify-content:center;min-width:0;}
-    .main-nav{display:flex;align-items:stretch;position:relative;white-space:nowrap;overflow:visible;}
-    .nav-item{position:relative;display:flex;align-items:stretch;}
-    .nav-item.has-dropdown{padding-bottom:16px;margin-bottom:-16px;}
-    .nav-link{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:14px 16px 12px;border:0;cursor:pointer;background:transparent;color:inherit;font:12px/1.2 var(--mono);letter-spacing:0.16em;text-transform:uppercase;transition:color 180ms ease,transform 220ms ease;}
-    .nav-link:hover,.nav-link.is-active{color:var(--accent);}
-    .nav-link:hover::after,.nav-link.is-active::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--mark);animation:navLineIn .32s ease forwards;}
-    .nav-link:hover{transform:translateY(-1px);}
-    .nav-trigger::before{content:"";width:6px;height:6px;margin-top:-2px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);transition:transform .2s ease;margin-left:6px;}
-    .nav-item.has-dropdown:hover .nav-trigger::before,.nav-item.has-dropdown:focus-within .nav-trigger::before{transform:rotate(225deg);margin-top:2px;}
-    .nav-panel{position:absolute;left:0;top:calc(100% + 10px);min-width:240px;padding:16px 18px 18px;border:1px solid var(--line-strong);background:linear-gradient(180deg,rgba(255,255,255,0.28),rgba(255,255,255,0)),rgba(237,234,230,0.97);box-shadow:0 18px 32px rgba(20,20,20,0.08);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .24s ease,transform .24s ease;z-index:25;}
-    .nav-panel::before{content:"";position:absolute;left:0;right:0;top:-12px;height:12px;}
-    .nav-item.has-dropdown:hover .nav-panel,.nav-item.has-dropdown:focus-within .nav-panel{opacity:1;transform:translateY(0);pointer-events:auto;}
-    .nav-panel-label{display:inline-flex;margin-bottom:10px;color:var(--muted);font:10px/1.2 var(--mono);letter-spacing:0.16em;text-transform:uppercase;}
-    .nav-panel-links{display:grid;gap:0;}
-    .nav-panel-link{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;min-height:46px;padding:11px 0;border-bottom:1px solid var(--line);font:13px/1.4 var(--mono);transition:color 180ms ease,transform 180ms ease;}
-    .nav-panel-link:last-child{border-bottom:0;}
-    .nav-panel-link::after{content:"";width:8px;height:8px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transform:rotate(45deg);opacity:0.45;}
-    .nav-panel-link:hover{color:var(--accent);transform:translateX(4px);}
-    .utility-group{display:flex;align-items:center;gap:14px;}
-    .lang-link{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:28px;padding:0 6px;font:11px/1.2 var(--mono);letter-spacing:0.16em;text-transform:uppercase;transition:color 180ms ease;}
-    .lang-link:hover{color:var(--accent);}
-    @keyframes navLineIn{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+    /* Manual Layout */
+    .manual-wrap{display:grid;grid-template-columns:220px 1fr;min-height:80vh;}
 
-    /* Page layout */
-    .page-content{padding:0 0 80px;}
+    /* Sidebar */
+    .sidebar{border-right:1px solid var(--line-strong);padding:36px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+    .sidebar-title{padding:0 22px 16px;font:700 10px/1 var(--mono);letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);margin-bottom:16px;}
+    .sidebar-product{padding:0 22px 24px;border-bottom:1px solid var(--line);margin-bottom:8px;}
+    .sidebar-product-name{font:700 13px/1.3 var(--serif);letter-spacing:0.06em;margin-bottom:4px;}
+    .sidebar-product-sub{font:11px/1 var(--mono);color:var(--muted);letter-spacing:0.08em;}
+    .sidebar-nav{list-style:none;}
+    .sidebar-nav li a{display:flex;align-items:center;gap:10px;padding:9px 22px;font:11px/1 var(--mono);letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);transition:all 0.2s;border-left:2px solid transparent;}
+    .sidebar-nav li a:hover{color:var(--ink);background:rgba(0,0,0,0.04);border-left-color:var(--ink);}
+    .sidebar-nav li a.active{color:var(--ink);font-weight:700;border-left-color:var(--accent);}
+    .sidebar-nav li a span.num{color:var(--accent);font-weight:700;min-width:16px;}
+    .sidebar-other{padding:20px 22px 0;border-top:1px solid var(--line);margin-top:12px;}
+    .sidebar-other-label{font:10px/1 var(--mono);letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+    .sidebar-other a{display:block;padding:7px 0;font:11px/1.3 var(--mono);color:var(--muted);letter-spacing:0.06em;border-bottom:1px solid var(--line);transition:color 0.2s;}
+    .sidebar-other a:hover{color:var(--ink);}
 
-    /* Manual-style header (unified with GW-75/100 manuals) */
-    .manual-header{padding:52px 60px 40px;border-bottom:2px solid var(--ink);margin-bottom:0;}
+    /* Content */
+    .content{padding:48px 60px 80px;max-width:860px;}
+
+    /* Manual Header */
+    .manual-header{margin-bottom:52px;padding-bottom:32px;border-bottom:2px solid var(--ink);}
     .manual-doc-label{font:11px/1 var(--mono);letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
     .manual-title{font:700 38px/1.1 var(--serif);letter-spacing:0.04em;margin-bottom:8px;}
     .manual-subtitle{font:18px/1.4 var(--mono);color:var(--muted);letter-spacing:0.06em;}
@@ -61,13 +53,12 @@
     .manual-meta-item{font:11px/1.5 var(--mono);color:var(--muted);letter-spacing:0.1em;}
     .manual-meta-item strong{display:block;color:var(--ink);font-weight:700;}
 
-    /* Content sections */
-    .section{padding:52px 60px;border-bottom:1px solid var(--line);}
-    .section:last-child{border-bottom:none;}
-    .section-header{display:flex;align-items:center;gap:14px;margin-bottom:32px;}
-    .section-num{font:700 11px/1 var(--mono);letter-spacing:0.2em;color:var(--accent);text-transform:uppercase;}
-    .section-title{font:700 24px/1.2 var(--serif);letter-spacing:0.04em;}
-    .section-rule{flex:1;height:1px;background:var(--line-strong);}
+    /* Sections */
+    .section{margin-bottom:64px;scroll-margin-top:24px;}
+    .section-label{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+    .section-num{font:700 11px/1 var(--mono);letter-spacing:0.18em;color:var(--accent);text-transform:uppercase;}
+    .section-title{font:700 22px/1.2 var(--serif);letter-spacing:0.04em;}
+    .section-line{flex:1;height:1px;background:var(--line-strong);}
 
     p{font:14px/1.9 var(--mono);color:var(--muted);margin-bottom:16px;}
 
@@ -78,20 +69,17 @@
     .char-card-img{width:100%;aspect-ratio:1;background:var(--paper-deep);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
     .wood-tex{width:100%;height:100%;}
     .char-card-label{font:700 11px/1.4 var(--mono);letter-spacing:0.12em;text-transform:uppercase;text-align:center;padding:10px 8px 12px;color:var(--ink);}
-
     .char-note{border:1px solid var(--line-strong);background:rgba(255,255,255,0.4);padding:16px 20px;font:13px/1.8 var(--mono);color:var(--muted);}
 
     /* Pre-purchase notice */
     .notice-box{border:2px solid var(--ink);padding:20px 24px;margin-bottom:28px;}
     .notice-box-title{font:700 13px/1.4 var(--mono);letter-spacing:0.08em;margin-bottom:8px;}
     .notice-box p{color:var(--ink);font-size:14px;margin:0;}
-
     .policy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:24px 0;}
-    .policy-card{border:1px solid var(--line-strong);padding:20px 20px;background:rgba(255,255,255,0.4);}
+    .policy-card{border:1px solid var(--line-strong);padding:20px;background:rgba(255,255,255,0.4);}
     .policy-card-title{font:700 13px/1.2 var(--mono);letter-spacing:0.1em;text-transform:uppercase;color:var(--ink);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
     .policy-card-title::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;}
     .policy-card p{font-size:13px;margin:0;}
-
     .power-box{border-left:3px solid var(--wood);background:rgba(139,105,20,0.06);padding:14px 18px;margin:16px 0;}
     .power-box-title{font:700 10px/1 var(--mono);letter-spacing:0.18em;text-transform:uppercase;color:var(--wood);margin-bottom:6px;}
     .power-box p{color:var(--ink);margin:0;font-size:13px;}
@@ -110,33 +98,105 @@
     .care-item-desc{font:12px/1.7 var(--mono);color:var(--muted);}
     .care-item-desc strong{color:var(--ink);}
 
-    /* Emergency tip */
+    /* Emergency */
     .emergency-box{border:2px solid var(--accent);background:rgba(192,57,43,0.05);padding:20px 24px;margin:24px 0;}
     .emergency-title{font:700 12px/1 var(--mono);letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
     .emergency-steps{list-style:none;padding:0;margin:0;display:flex;gap:12px;flex-wrap:wrap;}
     .emergency-step{display:flex;align-items:center;gap:8px;font:13px/1.4 var(--mono);}
     .emergency-step-num{width:22px;height:22px;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font:700 11px/1 var(--mono);flex-shrink:0;}
 
-    /* Footer */
-    .footer-bar{padding:24px 60px;border-top:2px solid var(--line-strong);display:flex;justify-content:space-between;align-items:center;}
-    .footer-bar-brand{font:700 13px/1.4 var(--serif);letter-spacing:0.1em;}
-    .footer-bar-links{display:flex;gap:24px;}
-    .footer-bar-links a{font:11px/1 var(--mono);letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);transition:color 0.2s;}
-    .footer-bar-links a:hover{color:var(--ink);}
+    /* Manual Footer */
+    .manual-footer{margin-top:72px;padding-top:24px;border-top:2px solid var(--line-strong);display:flex;justify-content:space-between;align-items:flex-end;}
+    .manual-footer-brand{font:700 14px/1.4 var(--serif);letter-spacing:0.1em;}
+    .manual-footer-meta{font:11px/1.8 var(--mono);color:var(--muted);text-align:right;}
 
+    /* Site Header */
+    .site-header{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 26px;border-bottom:1px solid var(--line);background:rgba(237,234,230,0.9);backdrop-filter:blur(12px);}
+    .brand{display:inline-flex;align-items:center;line-height:0;}
+    .brand img{width:118px;max-width:100%;object-fit:contain;}
+    .nav-wrap{display:flex;justify-content:center;min-width:0;}
+    .main-nav{display:flex;align-items:stretch;position:relative;min-width:0;overflow:visible;white-space:nowrap;}
+    .nav-item{position:relative;display:flex;align-items:stretch;}
+    .nav-item.has-dropdown{padding-bottom:16px;margin-bottom:-16px;}
+    .nav-link{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:14px 16px 12px;border:0;cursor:pointer;background:transparent;color:inherit;font:12px/1.2 var(--mono);letter-spacing:0.16em;text-transform:uppercase;transition:color 180ms ease,transform 220ms ease;}
+    .nav-link:hover,.nav-link.is-active{color:var(--accent);}
+    .nav-link:hover::after,.nav-link.is-active::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--mark);animation:navLineIn .32s ease forwards;}
+    .nav-link:hover{transform:translateY(-1px);}
+    .nav-trigger{gap:8px;}
+    .nav-trigger::before{content:"";width:6px;height:6px;margin-top:-2px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);transition:transform .2s ease;}
+    .nav-item.has-dropdown:hover .nav-trigger::before,.nav-item.has-dropdown:focus-within .nav-trigger::before{transform:rotate(225deg);margin-top:2px;}
+    .nav-panel{position:absolute;left:0;top:calc(100% + 10px);min-width:268px;padding:16px 18px 18px;border:1px solid var(--line-strong);background:linear-gradient(180deg,rgba(255,255,255,0.28),rgba(255,255,255,0)),rgba(237,234,230,0.97);box-shadow:0 18px 32px rgba(20,20,20,0.08);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .24s ease,transform .24s ease;z-index:25;}
+    .nav-panel::before{content:"";position:absolute;left:0;right:0;top:-12px;height:12px;}
+    .nav-item.has-dropdown:hover .nav-panel,.nav-item.has-dropdown:focus-within .nav-panel{opacity:1;transform:translateY(0);pointer-events:auto;}
+    .nav-panel-label{display:inline-flex;margin-bottom:10px;color:var(--muted);font:10px/1.2 var(--mono);letter-spacing:0.16em;text-transform:uppercase;}
+    .nav-panel-links{display:grid;gap:0;}
+    .nav-panel-link{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;min-height:46px;padding:11px 0;border-bottom:1px solid var(--line);font:13px/1.4 var(--mono);transition:color 180ms ease,transform 180ms ease;}
+    .nav-panel-link:last-child{border-bottom:0;}
+    .nav-panel-link::after{content:"";width:8px;height:8px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transform:rotate(45deg);opacity:0.45;}
+    .nav-panel-link:hover{color:var(--accent);transform:translateX(4px);}
+    .utility-group{display:flex;align-items:center;gap:14px;}
+    .lang-link{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:28px;padding:0 6px;font:11px/1.2 var(--mono);letter-spacing:0.16em;text-transform:uppercase;transition:color 180ms ease;}
+    .lang-link:hover{color:var(--accent);}
+    .utility-link{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;position:relative;cursor:pointer;transition:color 180ms ease,transform 180ms ease;}
+    .utility-link:hover{color:var(--accent);transform:translateY(-1px);}
+    .utility-link.search::before{content:"";width:16px;height:16px;border:2px solid currentColor;border-radius:50%;position:relative;top:-1px;left:-1px;}
+    .utility-link.search::after{content:"";position:absolute;width:2px;height:7px;background:currentColor;bottom:5px;right:7px;transform:rotate(-45deg);}
+    .utility-link.account::before{content:"";width:12px;height:12px;border:2px solid currentColor;border-radius:50%;position:absolute;top:4px;}
+    .utility-link.account::after{content:"";width:20px;height:8px;border:2px solid currentColor;border-top:0;border-radius:0 0 10px 10px;position:absolute;bottom:4px;}
+    .utility-link.cart::before{content:"";width:16px;height:14px;border:2px solid currentColor;border-radius:0 0 3px 3px;position:absolute;bottom:5px;}
+    .utility-link.cart::after{content:"";width:10px;height:6px;border:2px solid currentColor;border-bottom:0;border-radius:6px 6px 0 0;position:absolute;top:5px;}
+    .mobile-actions{display:none;align-items:center;justify-content:flex-end;gap:16px;}
+    .mobile-icon-button{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;position:relative;cursor:pointer;}
+    .mobile-icon-button.search::before{content:"";width:14px;height:14px;border:2px solid currentColor;border-radius:50%;position:relative;top:-1px;left:-1px;}
+    .mobile-icon-button.search::after{content:"";position:absolute;width:2px;height:6px;background:currentColor;bottom:6px;right:8px;transform:rotate(-45deg);}
+    .mobile-icon-button.cart::before{content:"";width:14px;height:12px;border:2px solid currentColor;border-radius:0 0 3px 3px;position:absolute;bottom:6px;}
+    .mobile-icon-button.cart::after{content:"";width:9px;height:5px;border:2px solid currentColor;border-bottom:0;border-radius:5px 5px 0 0;position:absolute;top:7px;}
+    .mobile-toggle,.mobile-link,.mobile-summary,.mobile-sublink{font:11px/1.2 var(--mono);letter-spacing:0.16em;text-transform:uppercase;transition:color 180ms ease,transform 180ms ease;}
+    .mobile-toggle{display:none;align-items:center;justify-content:center;width:42px;height:42px;padding:0;cursor:pointer;color:var(--ink);border:0;background:transparent;}
+    .toggle-bars{position:relative;display:block;width:22px;height:14px;}
+    .toggle-bars::before,.toggle-bars::after,.toggle-bars span{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--ink);transition:transform 180ms ease,opacity 180ms ease;}
+    .toggle-bars::before{top:0;}
+    .toggle-bars span{top:6px;}
+    .toggle-bars::after{top:12px;}
+    .mobile-toggle.is-open .toggle-bars::before{top:6px;transform:rotate(45deg);}
+    .mobile-toggle.is-open .toggle-bars span{opacity:0;}
+    .mobile-toggle.is-open .toggle-bars::after{top:6px;transform:rotate(-45deg);}
+    .mobile-menu{display:none;max-height:0;opacity:0;padding:0 18px 0;border-bottom:1px solid var(--line);background:rgba(237,234,230,0.92);backdrop-filter:blur(12px);overflow:hidden;pointer-events:none;transition:max-height .55s cubic-bezier(.075,.82,.165,1),opacity .28s ease,padding-bottom .28s ease;}
+    .mobile-menu-inner{display:grid;gap:12px;}
+    .mobile-nav{display:grid;gap:0;border-bottom:1px solid var(--line);padding-bottom:12px;}
+    .mobile-link{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);color:var(--muted);}
+    .mobile-link:last-child{border-bottom:none;}
+    .mobile-link:hover{color:var(--ink);}
+    .mobile-branch{border-bottom:1px solid var(--line);}
+    .mobile-summary{display:flex;align-items:center;justify-content:space-between;padding:12px 0;cursor:pointer;list-style:none;color:var(--muted);}
+    .mobile-summary:hover{color:var(--ink);}
+    .mobile-subnav{display:grid;gap:0;padding:0 0 8px 12px;}
+    .mobile-sublink{display:block;padding:8px 0;font:11px/1.2 var(--mono);letter-spacing:0.12em;color:var(--muted);border-bottom:1px solid var(--line);}
+    .mobile-sublink:last-child{border-bottom:none;}
+    .mobile-sublink:hover{color:var(--ink);}
+    .mobile-utility{display:flex;gap:16px;padding-top:8px;}
+    @keyframes navLineIn{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+
+    /* Responsive */
     @media(max-width:860px){
-      .wood-hero,.section{padding-left:24px;padding-right:24px;}
+      .manual-wrap{grid-template-columns:1fr;}
+      .sidebar{display:none;}
+      .content{padding:32px 24px 60px;}
       .char-grid{grid-template-columns:repeat(2,1fr);}
       .care-cols,.policy-grid{grid-template-columns:1fr;}
-      .page-title{font-size:28px;}
-      .site-header{grid-template-columns:auto auto;}
-      .nav-wrap{display:none;}
+      .manual-title{font-size:28px;}
+      .manual-meta{flex-wrap:wrap;gap:18px;}
+      .nav-wrap,.utility-group{display:none;}
+      .mobile-toggle{display:inline-flex;}
+      .mobile-actions{display:flex;}
+      .site-header{grid-template-columns:auto 1fr auto auto;}
+      .mobile-menu{display:block;}
+      .shell.nav-open .mobile-menu{max-height:620px;opacity:1;padding-bottom:18px;pointer-events:auto;}
     }
   </style>
 </head>
 <body>
 
-<!-- Notice -->
 <div style="width:min(1200px,calc(100vw - 28px));margin:14px auto 0;background:rgba(255,255,255,0.18);border:1px solid rgba(26,26,26,0.3);border-bottom:none;padding:9px 26px;display:flex;justify-content:space-between;font:11px/1 'Courier Prime',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#6b6560;">
   <span>满149元免运费 · 全球配送 7–14 天</span>
   <span><a href="./wood-care.html" style="color:#6b6560;">English →</a></span>
@@ -180,6 +240,9 @@
             <span class="nav-panel-label">桌垫系列</span>
             <div class="nav-panel-links">
               <a class="nav-panel-link" href="../deskmats/">全部桌垫</a>
+              <a class="nav-panel-link" href="../deskmats/">文学桌垫</a>
+              <a class="nav-panel-link" href="../deskmats/">魔法桌垫</a>
+              <a class="nav-panel-link" href="../deskmats/">世界之门桌垫</a>
             </div>
           </div>
         </div>
@@ -189,6 +252,9 @@
             <span class="nav-panel-label">杯具系列</span>
             <div class="nav-panel-links">
               <a class="nav-panel-link" href="../cups/">全部杯具</a>
+              <a class="nav-panel-link" href="../cups/">梵高卧室马克杯</a>
+              <a class="nav-panel-link" href="../cups/">魔法塔马克杯</a>
+              <a class="nav-panel-link" href="../cups/">中土世界马克杯</a>
             </div>
           </div>
         </div>
@@ -207,245 +273,350 @@
         <a class="nav-link" href="../about/">关于</a>
       </nav>
     </div>
+
     <div class="utility-group">
-      <a class="lang-link" href="./wood-care.html">EN</a>
+      <a class="lang-link" href="./wood-care.html" aria-label="切换至英文">EN</a>
+      <a class="utility-link search" href="#" aria-label="搜索"></a>
+      <a class="utility-link account" href="#" aria-label="登录"></a>
+      <a class="utility-link cart" href="#" aria-label="购物车"></a>
+    </div>
+
+    <button class="mobile-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="打开菜单">
+      <span class="toggle-bars"><span></span></span>
+    </button>
+
+    <div class="mobile-actions">
+      <a class="mobile-icon-button search" href="#" aria-label="搜索"></a>
+      <a class="mobile-icon-button cart" href="#" aria-label="购物车"></a>
     </div>
   </header>
 
-  <div class="page-content">
-
-    <!-- Header -->
-    <header class="manual-header">
-      <div class="manual-doc-label">保养指南 · DOC-WOOD-CN-001</div>
-      <h1 class="manual-title">木材保养指南</h1>
-      <p class="manual-subtitle">大文豪系列 · 北美黑胡桃实木</p>
-      <div class="manual-meta">
-        <div class="manual-meta-item"><strong>适用型号</strong>GW-75 / GW-100</div>
-        <div class="manual-meta-item"><strong>材质</strong>北美黑胡桃实木（FAS 级）</div>
-        <div class="manual-meta-item"><strong>工艺</strong>20 道严苛工序 · 7 次手工打磨</div>
-        <div class="manual-meta-item"><strong>版本</strong>Rev. 1.0 · 2025</div>
-      </div>
-    </header>
-
-    <!-- 01 天然木材特征 -->
-    <section class="section" id="characteristics">
-      <div class="section-header">
-        <span class="section-num">01</span>
-        <h2 class="section-title">天然木材特征</h2>
-        <div class="section-rule"></div>
-      </div>
-
-      <p class="char-intro">正如一位大文豪的手稿上有墨迹与批注，实木的"瑕疵"是它的自传。即使是FAS级北美黑胡桃，也无法避免这些大地的自然表达——以下所有特征均不属于质量问题。</p>
-
-      <div class="char-grid">
-        <div class="char-card">
-          <div class="char-card-img">
-            <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><path d="M10 30 Q30 25 50 35 Q70 45 90 30 Q110 20 120 28" stroke="#8b6914" stroke-width="1.5" fill="none" opacity="0.6"/><path d="M5 55 Q25 48 60 58 Q90 65 115 52" stroke="#6b4f10" stroke-width="2" fill="none" opacity="0.4"/><path d="M0 80 Q40 72 80 82 Q100 87 120 78" stroke="#8b6914" stroke-width="1" fill="none" opacity="0.5"/></svg>
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-inner">
+      <nav class="mobile-nav">
+        <a class="mobile-link" href="../"><span>首页</span></a>
+        <details class="mobile-branch">
+          <summary class="mobile-summary">键帽</summary>
+          <div class="mobile-subnav">
+            <a class="mobile-sublink" href="../keycaps/">全部键帽</a>
+            <a class="mobile-sublink" href="../keycaps/">魔法系列</a>
+            <a class="mobile-sublink" href="../keycaps/">大文豪系列</a>
+            <a class="mobile-sublink" href="../keycaps/">世界之门</a>
           </div>
-          <div class="char-card-label">矿物质线</div>
-        </div>
-        <div class="char-card">
-          <div class="char-card-img">
-            <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><circle cx="60" cy="60" r="18" stroke="#5a3c0a" stroke-width="2" fill="#a07828" opacity="0.7"/><circle cx="60" cy="60" r="10" stroke="#5a3c0a" stroke-width="1.5" fill="#8b6914" opacity="0.6"/><circle cx="60" cy="60" r="4" fill="#5a3c0a" opacity="0.7"/></svg>
+        </details>
+        <details class="mobile-branch">
+          <summary class="mobile-summary">键盘</summary>
+          <div class="mobile-subnav">
+            <a class="mobile-sublink" href="../keyboards/">全部键盘</a>
+            <a class="mobile-sublink" href="../products/great-writer-100.html">大文豪 100</a>
           </div>
-          <div class="char-card-label">小树结</div>
-        </div>
-        <div class="char-card">
-          <div class="char-card-img">
-            <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><rect x="0" y="0" width="55" height="120" fill="#a07828" opacity="0.6"/><rect x="60" y="0" width="60" height="120" fill="#d4b27a" opacity="0.4"/><line x1="57" y1="0" x2="57" y2="120" stroke="#8b6914" stroke-width="0.5"/></svg>
+        </details>
+        <details class="mobile-branch">
+          <summary class="mobile-summary">桌垫</summary>
+          <div class="mobile-subnav">
+            <a class="mobile-sublink" href="../deskmats/">全部桌垫</a>
+            <a class="mobile-sublink" href="../deskmats/">文学桌垫</a>
+            <a class="mobile-sublink" href="../deskmats/">魔法桌垫</a>
+            <a class="mobile-sublink" href="../deskmats/">世界之门桌垫</a>
           </div>
-          <div class="char-card-label">色差</div>
-        </div>
-        <div class="char-card">
-          <div class="char-card-img">
-            <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><path d="M0 20 Q20 15 40 25 Q60 35 80 20 Q100 8 120 18" stroke="#8b6914" stroke-width="1.5" fill="none"/><path d="M0 45 Q15 38 35 48 Q55 58 75 45 Q95 32 120 42" stroke="#6b4f10" stroke-width="2" fill="none" opacity="0.7"/><path d="M0 70 Q30 62 60 72 Q90 82 120 68" stroke="#8b6914" stroke-width="1" fill="none" opacity="0.6"/><path d="M0 95 Q25 88 55 98 Q85 108 120 94" stroke="#6b4f10" stroke-width="1.5" fill="none" opacity="0.5"/></svg>
+        </details>
+        <details class="mobile-branch">
+          <summary class="mobile-summary">杯具</summary>
+          <div class="mobile-subnav">
+            <a class="mobile-sublink" href="../cups/">全部杯具</a>
+            <a class="mobile-sublink" href="../cups/">梵高卧室马克杯</a>
+            <a class="mobile-sublink" href="../cups/">魔法塔马克杯</a>
+            <a class="mobile-sublink" href="../cups/">中土世界马克杯</a>
           </div>
-          <div class="char-card-label">特殊木纹</div>
-        </div>
-        <div class="char-card">
-          <div class="char-card-img">
-            <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><path d="M35 0 Q38 30 36 60 Q34 90 37 120" stroke="#5a3c0a" stroke-width="2.5" fill="none" opacity="0.8"/><path d="M70 0 Q72 40 68 80 Q65 100 71 120" stroke="#6b4f10" stroke-width="1.5" fill="none" opacity="0.6"/></svg>
+        </details>
+        <details class="mobile-branch" open>
+          <summary class="mobile-summary">支持</summary>
+          <div class="mobile-subnav">
+            <a class="mobile-sublink" href="../support/index-cn.html">支持中心</a>
+            <a class="mobile-sublink" href="../support/great-writer-75-cn.html">GW-75 使用手册</a>
+            <a class="mobile-sublink" href="../support/great-writer-100-cn.html">GW-100 使用手册</a>
+            <a class="mobile-sublink" href="../support/wood-care-cn.html">木材保养指南</a>
           </div>
-          <div class="char-card-label">裂纹</div>
-        </div>
-        <div class="char-card">
-          <div class="char-card-img">
-            <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><ellipse cx="60" cy="60" rx="30" ry="24" fill="#3a2508" opacity="0.6"/><ellipse cx="55" cy="58" rx="18" ry="14" fill="#1a0f02" opacity="0.7"/><path d="M45 48 Q60 40 75 50 Q80 60 70 70 Q55 78 40 68 Q35 55 45 48Z" fill="#2a1a08" opacity="0.5"/></svg>
-          </div>
-          <div class="char-card-label">疤结</div>
-        </div>
-        <div class="char-card">
-          <div class="char-card-img">
-            <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><ellipse cx="45" cy="45" rx="18" ry="12" fill="#e8dcc0" opacity="0.8"/><ellipse cx="80" cy="75" rx="12" ry="8" fill="#f0e8d0" opacity="0.7"/></svg>
-          </div>
-          <div class="char-card-label">白斑</div>
-        </div>
-        <div class="char-card">
-          <div class="char-card-img">
-            <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><circle cx="40" cy="50" r="6" fill="#a07828" stroke="#6b4f10" stroke-width="1" opacity="0.7"/><circle cx="75" cy="35" r="4" fill="#a07828" stroke="#6b4f10" stroke-width="1" opacity="0.6"/><circle cx="55" cy="80" r="5" fill="#a07828" stroke="#6b4f10" stroke-width="1" opacity="0.65"/><circle cx="85" cy="68" r="3" fill="#a07828" stroke="#6b4f10" stroke-width="1" opacity="0.5"/></svg>
-          </div>
-          <div class="char-card-label">微小凹点</div>
-        </div>
-      </div>
-
-      <div class="char-note">
-        <strong>说明：</strong>矿物质线、树结、色差均属胡桃实木的天然特征，不影响使用性能与耐久度。每台键盘出厂前均经过人工检验，视觉瑕疵明显的产品不予发货。<strong>若您对木纹一致性有较高要求，请在下单前谨慎考虑。</strong>
-      </div>
-    </section>
-
-    <!-- 02 购买前须知 -->
-    <section class="section" id="before-purchase">
-      <div class="section-header">
-        <span class="section-num">02</span>
-        <h2 class="section-title">购买前须知</h2>
-        <div class="section-rule"></div>
-      </div>
-
-      <div class="notice-box">
-        <div class="notice-box-title">重要 — 特殊产品政策</div>
-        <p>大文豪系列为定制化实木产品。<strong>一旦拆除外层封膜，即不适用七天无理由退货政策。</strong>请在下单前确认您的选择与需求。</p>
-      </div>
-
-      <div class="policy-grid">
-        <div class="policy-card">
-          <div class="policy-card-title">七天退货</div>
-          <p>七天内质量问题可申请退货——前提是外层封膜未拆除，产品保持原始状态。</p>
-        </div>
-        <div class="policy-card">
-          <div class="policy-card-title">十五天换货</div>
-          <p>十五天内质量问题可申请换货——前提是外层封膜未拆除，需完整退回原包装、全部配件及赠品，键盘本体无明显损伤。</p>
-        </div>
-        <div class="policy-card">
-          <div class="policy-card-title">六个月质保</div>
-          <p>覆盖制造工艺缺陷。<strong>不涵盖：</strong>木体受潮损伤、因湿度或高温导致的开裂、漆面磨损、天然划痕或碰撞造成的物理损伤。</p>
-        </div>
-        <div class="policy-card">
-          <div class="policy-card-title">关于木纹差异</div>
-          <p>不同批次产品在木纹走向、树结分布、色调深浅上均会有所不同，这是实木的正常现象。产品图与实物之间可能因拍摄光线而存在轻微色差，属正常范围。</p>
-        </div>
-      </div>
-
-      <div class="power-box">
-        <div class="power-box-title">⚡ 充电注意事项</div>
-        <p>请勿使用大功率充电设备——包括直接插墙充电器和充电宝。高功率充电可能导致电路过载，损坏内部元件。<br><strong>建议：仅通过电脑USB接口充电。</strong></p>
-      </div>
-
-      <div class="power-box" style="border-color:var(--ink);background:rgba(0,0,0,0.04);">
-        <div class="power-box-title" style="color:var(--ink);">📱 开箱视频要求</div>
-        <p>收到产品后请在拆除外层封膜前录制完整开箱视频。如遇任何问题，开箱视频为售后处理的必要凭证。<strong>无视频记录可能导致无法进行售后评估。</strong></p>
-      </div>
-    </section>
-
-    <!-- 03 木材保养指南 -->
-    <section class="section" id="care">
-      <div class="section-header">
-        <span class="section-num">03</span>
-        <h2 class="section-title">木材保养指南</h2>
-        <div class="section-rule"></div>
-      </div>
-
-      <p>实木是有生命的材料。坚持几个简单习惯，就能让您的大文豪历久弥新。</p>
-
-      <div class="care-cols">
-        <div class="care-panel">
-          <div class="care-panel-header">
-            <div class="care-panel-title">冬季防裂三要素</div>
-            <div class="care-panel-sub">3 Essential Habits</div>
-          </div>
-          <ul class="care-list">
-            <li class="care-item">
-              <div class="care-item-icon">🔥</div>
-              <div>
-                <div class="care-item-title">远离热源</div>
-                <div class="care-item-desc">键盘应远离暖气片、空调出风口和暖手宝。<strong>持续干热 = 开裂风险。</strong></div>
-              </div>
-            </li>
-            <li class="care-item">
-              <div class="care-item-icon">🪵</div>
-              <div>
-                <div class="care-item-title">每周涂抹木蜡油</div>
-                <div class="care-item-desc">使用木蜡油或核桃油——薄薄涂抹于木体，等待5分钟后擦拭干净。<strong>切勿让油脂接触轴体或键帽。</strong></div>
-              </div>
-            </li>
-            <li class="care-item">
-              <div class="care-item-icon">🌡️</div>
-              <div>
-                <div class="care-item-title">入室前静置适应</div>
-                <div class="care-item-desc">从寒冷户外带入温暖室内后，<strong>请静置10分钟</strong>再使用，避免温差骤变导致开裂。</div>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        <div class="care-panel">
-          <div class="care-panel-header">
-            <div class="care-panel-title">日常养护五原则</div>
-            <div class="care-panel-sub">5 Things to Remember</div>
-          </div>
-          <ul class="care-list">
-            <li class="care-item">
-              <div class="care-item-icon">📦</div>
-              <div>
-                <div class="care-item-title">妥善收纳</div>
-                <div class="care-item-desc">不使用时，请将键盘放入绒布内袋或防尘盒中，防止木材因长时间裸露而干燥失水。</div>
-              </div>
-            </li>
-            <li class="care-item">
-              <div class="care-item-icon">🧽</div>
-              <div>
-                <div class="care-item-title">温和清洁</div>
-                <div class="care-item-desc">用<strong>微微湿润</strong>的软布顺木纹方向擦拭，随即自然晾干。<strong>禁用酒精、湿纸巾或直接用水冲洗。</strong></div>
-              </div>
-            </li>
-            <li class="care-item">
-              <div class="care-item-icon">💧</div>
-              <div>
-                <div class="care-item-title">维持室内湿度</div>
-                <div class="care-item-desc">室内湿度建议保持在<strong>40–60%。</strong>北方供暖季节尤需注意，可使用小型加湿器辅助调节。</div>
-              </div>
-            </li>
-            <li class="care-item">
-              <div class="care-item-icon">🛡️</div>
-              <div>
-                <div class="care-item-title">避免碰撞</div>
-                <div class="care-item-desc">避免跌落和重压。木质边角抗冲击能力有限——请始终轻拿轻放，从底部托起键盘。</div>
-              </div>
-            </li>
-            <li class="care-item">
-              <div class="care-item-icon">⚡</div>
-              <div>
-                <div class="care-item-title">裂纹急救</div>
-                <div class="care-item-desc">若发现细微裂纹，<strong>立即涂抹木蜡油，间隔12小时再涂一次。</strong>越早处理效果越好。</div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="emergency-box">
-        <div class="emergency-title">🚨 裂纹紧急处理流程</div>
-        <div class="emergency-steps">
-          <div class="emergency-step"><div class="emergency-step-num">1</div> 发现细微裂纹</div>
-          <div class="emergency-step"><div class="emergency-step-num">2</div> 立即涂抹木蜡油</div>
-          <div class="emergency-step"><div class="emergency-step-num">3</div> 等待12小时</div>
-          <div class="emergency-step"><div class="emergency-step-num">4</div> 再次涂抹木蜡油</div>
-          <div class="emergency-step"><div class="emergency-step-num">5</div> 远离热源，维持湿度</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <div class="footer-bar">
-      <div class="footer-bar-brand">不现实商店 · ODDITY STORE</div>
-      <div class="footer-bar-links">
-        <a href="../support/index-cn.html">支持中心</a>
-        <a href="../support/great-writer-100-cn.html">GW-100 手册</a>
-        <a href="../policies/returns.html">退换货政策</a>
-        <a href="mailto:odditystore@yeah.net">联系我们</a>
+        </details>
+        <a class="mobile-link" href="../about/"><span>关于</span></a>
+      </nav>
+      <div class="mobile-utility">
+        <a class="mobile-link" href="./wood-care.html"><span>English</span></a>
+        <a class="mobile-link" href="#"><span>搜索</span></a>
+        <a class="mobile-link" href="#"><span>登录</span></a>
+        <a class="mobile-link" href="#"><span>购物车</span></a>
       </div>
     </div>
+  </div>
 
-  </div><!-- end page-content -->
-</div><!-- end shell -->
+  <div class="manual-wrap">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-title">保养指南</div>
+      <div class="sidebar-product">
+        <div class="sidebar-product-name">木材保养指南</div>
+        <div class="sidebar-product-sub">大文豪系列</div>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="#overview" class="active"><span class="num">01</span>概述</a></li>
+        <li><a href="#characteristics"><span class="num">02</span>木材特征</a></li>
+        <li><a href="#before-purchase"><span class="num">03</span>购买须知</a></li>
+        <li><a href="#care"><span class="num">04</span>保养指南</a></li>
+      </ul>
+
+      <div class="sidebar-other">
+        <div class="sidebar-other-label">相关手册</div>
+        <a href="./great-writer-75-cn.html">大文豪 75 →</a>
+        <a href="./great-writer-100-cn.html">大文豪 100 →</a>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+
+      <!-- Header -->
+      <header class="manual-header" id="overview">
+        <div class="manual-doc-label">保养指南 · DOC-WOOD-CN-001</div>
+        <h1 class="manual-title">木材保养指南</h1>
+        <p class="manual-subtitle">大文豪系列 · 北美黑胡桃实木</p>
+        <div class="manual-meta">
+          <div class="manual-meta-item"><strong>适用型号</strong>GW-75 / GW-100</div>
+          <div class="manual-meta-item"><strong>材质</strong>北美黑胡桃实木（FAS 级）</div>
+          <div class="manual-meta-item"><strong>工艺</strong>20 道严苛工序 · 7 次手工打磨</div>
+          <div class="manual-meta-item"><strong>版本</strong>Rev. 1.0 · 2025</div>
+        </div>
+      </header>
+
+      <!-- 02 天然木材特征 -->
+      <section class="section" id="characteristics">
+        <div class="section-label">
+          <span class="section-num">02</span>
+          <h2 class="section-title">天然木材特征</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <p class="char-intro">正如一位大文豪的手稿上有墨迹与批注，实木的"瑕疵"是它的自传。即使是FAS级北美黑胡桃，也无法避免这些大地的自然表达——以下所有特征均不属于质量问题。</p>
+
+        <div class="char-grid">
+          <div class="char-card">
+            <div class="char-card-img">
+              <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><path d="M10 30 Q30 25 50 35 Q70 45 90 30 Q110 20 120 28" stroke="#8b6914" stroke-width="1.5" fill="none" opacity="0.6"/><path d="M5 55 Q25 48 60 58 Q90 65 115 52" stroke="#6b4f10" stroke-width="2" fill="none" opacity="0.4"/><path d="M0 80 Q40 72 80 82 Q100 87 120 78" stroke="#8b6914" stroke-width="1" fill="none" opacity="0.5"/></svg>
+            </div>
+            <div class="char-card-label">矿物质线</div>
+          </div>
+          <div class="char-card">
+            <div class="char-card-img">
+              <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><circle cx="60" cy="60" r="18" stroke="#5a3c0a" stroke-width="2" fill="#a07828" opacity="0.7"/><circle cx="60" cy="60" r="10" stroke="#5a3c0a" stroke-width="1.5" fill="#8b6914" opacity="0.6"/><circle cx="60" cy="60" r="4" fill="#5a3c0a" opacity="0.7"/></svg>
+            </div>
+            <div class="char-card-label">小树结</div>
+          </div>
+          <div class="char-card">
+            <div class="char-card-img">
+              <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><rect x="0" y="0" width="55" height="120" fill="#a07828" opacity="0.6"/><rect x="60" y="0" width="60" height="120" fill="#d4b27a" opacity="0.4"/><line x1="57" y1="0" x2="57" y2="120" stroke="#8b6914" stroke-width="0.5"/></svg>
+            </div>
+            <div class="char-card-label">色差</div>
+          </div>
+          <div class="char-card">
+            <div class="char-card-img">
+              <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><path d="M0 20 Q20 15 40 25 Q60 35 80 20 Q100 8 120 18" stroke="#8b6914" stroke-width="1.5" fill="none"/><path d="M0 45 Q15 38 35 48 Q55 58 75 45 Q95 32 120 42" stroke="#6b4f10" stroke-width="2" fill="none" opacity="0.7"/><path d="M0 70 Q30 62 60 72 Q90 82 120 68" stroke="#8b6914" stroke-width="1" fill="none" opacity="0.6"/><path d="M0 95 Q25 88 55 98 Q85 108 120 94" stroke="#6b4f10" stroke-width="1.5" fill="none" opacity="0.5"/></svg>
+            </div>
+            <div class="char-card-label">特殊木纹</div>
+          </div>
+          <div class="char-card">
+            <div class="char-card-img">
+              <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><path d="M35 0 Q38 30 36 60 Q34 90 37 120" stroke="#5a3c0a" stroke-width="2.5" fill="none" opacity="0.8"/><path d="M70 0 Q72 40 68 80 Q65 100 71 120" stroke="#6b4f10" stroke-width="1.5" fill="none" opacity="0.6"/></svg>
+            </div>
+            <div class="char-card-label">裂纹</div>
+          </div>
+          <div class="char-card">
+            <div class="char-card-img">
+              <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><ellipse cx="60" cy="60" rx="30" ry="24" fill="#3a2508" opacity="0.6"/><ellipse cx="55" cy="58" rx="18" ry="14" fill="#1a0f02" opacity="0.7"/><path d="M45 48 Q60 40 75 50 Q80 60 70 70 Q55 78 40 68 Q35 55 45 48Z" fill="#2a1a08" opacity="0.5"/></svg>
+            </div>
+            <div class="char-card-label">疤结</div>
+          </div>
+          <div class="char-card">
+            <div class="char-card-img">
+              <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><ellipse cx="45" cy="45" rx="18" ry="12" fill="#e8dcc0" opacity="0.8"/><ellipse cx="80" cy="75" rx="12" ry="8" fill="#f0e8d0" opacity="0.7"/></svg>
+            </div>
+            <div class="char-card-label">白斑</div>
+          </div>
+          <div class="char-card">
+            <div class="char-card-img">
+              <svg viewBox="0 0 120 120" class="wood-tex"><rect width="120" height="120" fill="#c8a96e"/><circle cx="40" cy="50" r="6" fill="#a07828" stroke="#6b4f10" stroke-width="1" opacity="0.7"/><circle cx="75" cy="35" r="4" fill="#a07828" stroke="#6b4f10" stroke-width="1" opacity="0.6"/><circle cx="55" cy="80" r="5" fill="#a07828" stroke="#6b4f10" stroke-width="1" opacity="0.65"/><circle cx="85" cy="68" r="3" fill="#a07828" stroke="#6b4f10" stroke-width="1" opacity="0.5"/></svg>
+            </div>
+            <div class="char-card-label">微小凹点</div>
+          </div>
+        </div>
+
+        <div class="char-note">
+          <strong>说明：</strong>矿物质线、树结、色差均属胡桃实木的天然特征，不影响使用性能与耐久度。每台键盘出厂前均经过人工检验，视觉瑕疵明显的产品不予发货。<strong>若您对木纹一致性有较高要求，请在下单前谨慎考虑。</strong>
+        </div>
+      </section>
+
+      <!-- 03 购买前须知 -->
+      <section class="section" id="before-purchase">
+        <div class="section-label">
+          <span class="section-num">03</span>
+          <h2 class="section-title">购买前须知</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="notice-box">
+          <div class="notice-box-title">重要 — 特殊产品政策</div>
+          <p>大文豪系列为定制化实木产品。<strong>一旦拆除外层封膜，即不适用七天无理由退货政策。</strong>请在下单前确认您的选择与需求。</p>
+        </div>
+
+        <div class="policy-grid">
+          <div class="policy-card">
+            <div class="policy-card-title">七天退货</div>
+            <p>七天内质量问题可申请退货——前提是外层封膜未拆除，产品保持原始状态。</p>
+          </div>
+          <div class="policy-card">
+            <div class="policy-card-title">十五天换货</div>
+            <p>十五天内质量问题可申请换货——前提是外层封膜未拆除，需完整退回原包装、全部配件及赠品，键盘本体无明显损伤。</p>
+          </div>
+          <div class="policy-card">
+            <div class="policy-card-title">六个月质保</div>
+            <p>覆盖制造工艺缺陷。<strong>不涵盖：</strong>木体受潮损伤、因湿度或高温导致的开裂、漆面磨损、天然划痕或碰撞造成的物理损伤。</p>
+          </div>
+          <div class="policy-card">
+            <div class="policy-card-title">关于木纹差异</div>
+            <p>不同批次产品在木纹走向、树结分布、色调深浅上均会有所不同，这是实木的正常现象。产品图与实物之间可能因拍摄光线而存在轻微色差，属正常范围。</p>
+          </div>
+        </div>
+
+        <div class="power-box">
+          <div class="power-box-title">⚡ 充电注意事项</div>
+          <p>请勿使用大功率充电设备——包括直接插墙充电器和充电宝。高功率充电可能导致电路过载，损坏内部元件。<br><strong>建议：仅通过电脑USB接口充电。</strong></p>
+        </div>
+
+        <div class="power-box" style="border-color:var(--ink);background:rgba(0,0,0,0.04);">
+          <div class="power-box-title" style="color:var(--ink);">📱 开箱视频要求</div>
+          <p>收到产品后请在拆除外层封膜前录制完整开箱视频。如遇任何问题，开箱视频为售后处理的必要凭证。<strong>无视频记录可能导致无法进行售后评估。</strong></p>
+        </div>
+      </section>
+
+      <!-- 04 木材保养指南 -->
+      <section class="section" id="care">
+        <div class="section-label">
+          <span class="section-num">04</span>
+          <h2 class="section-title">木材保养指南</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <p>实木是有生命的材料。坚持几个简单习惯，就能让您的大文豪历久弥新。</p>
+
+        <div class="care-cols">
+          <div class="care-panel">
+            <div class="care-panel-header">
+              <div class="care-panel-title">冬季防裂三要素</div>
+              <div class="care-panel-sub">3 Essential Habits</div>
+            </div>
+            <ul class="care-list">
+              <li class="care-item">
+                <div class="care-item-icon">🔥</div>
+                <div>
+                  <div class="care-item-title">远离热源</div>
+                  <div class="care-item-desc">键盘应远离暖气片、空调出风口和暖手宝。<strong>持续干热 = 开裂风险。</strong></div>
+                </div>
+              </li>
+              <li class="care-item">
+                <div class="care-item-icon">🪵</div>
+                <div>
+                  <div class="care-item-title">每周涂抹木蜡油</div>
+                  <div class="care-item-desc">使用木蜡油或核桃油——薄薄涂抹于木体，等待5分钟后擦拭干净。<strong>切勿让油脂接触轴体或键帽。</strong></div>
+                </div>
+              </li>
+              <li class="care-item">
+                <div class="care-item-icon">🌡️</div>
+                <div>
+                  <div class="care-item-title">入室前静置适应</div>
+                  <div class="care-item-desc">从寒冷户外带入温暖室内后，<strong>请静置10分钟</strong>再使用，避免温差骤变导致开裂。</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="care-panel">
+            <div class="care-panel-header">
+              <div class="care-panel-title">日常养护五原则</div>
+              <div class="care-panel-sub">5 Things to Remember</div>
+            </div>
+            <ul class="care-list">
+              <li class="care-item">
+                <div class="care-item-icon">📦</div>
+                <div>
+                  <div class="care-item-title">妥善收纳</div>
+                  <div class="care-item-desc">不使用时，请将键盘放入绒布内袋或防尘盒中，防止木材因长时间裸露而干燥失水。</div>
+                </div>
+              </li>
+              <li class="care-item">
+                <div class="care-item-icon">🧽</div>
+                <div>
+                  <div class="care-item-title">温和清洁</div>
+                  <div class="care-item-desc">用<strong>微微湿润</strong>的软布顺木纹方向擦拭，随即自然晾干。<strong>禁用酒精、湿纸巾或直接用水冲洗。</strong></div>
+                </div>
+              </li>
+              <li class="care-item">
+                <div class="care-item-icon">💧</div>
+                <div>
+                  <div class="care-item-title">维持室内湿度</div>
+                  <div class="care-item-desc">室内湿度建议保持在<strong>40–60%。</strong>北方供暖季节尤需注意，可使用小型加湿器辅助调节。</div>
+                </div>
+              </li>
+              <li class="care-item">
+                <div class="care-item-icon">🛡️</div>
+                <div>
+                  <div class="care-item-title">避免碰撞</div>
+                  <div class="care-item-desc">避免跌落和重压。木质边角抗冲击能力有限——请始终轻拿轻放，从底部托起键盘。</div>
+                </div>
+              </li>
+              <li class="care-item">
+                <div class="care-item-icon">⚡</div>
+                <div>
+                  <div class="care-item-title">裂纹急救</div>
+                  <div class="care-item-desc">若发现细微裂纹，<strong>立即涂抹木蜡油，间隔12小时再涂一次。</strong>越早处理效果越好。</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="emergency-box">
+          <div class="emergency-title">🚨 裂纹紧急处理流程</div>
+          <div class="emergency-steps">
+            <div class="emergency-step"><div class="emergency-step-num">1</div> 发现细微裂纹</div>
+            <div class="emergency-step"><div class="emergency-step-num">2</div> 立即涂抹木蜡油</div>
+            <div class="emergency-step"><div class="emergency-step-num">3</div> 等待12小时</div>
+            <div class="emergency-step"><div class="emergency-step-num">4</div> 再次涂抹木蜡油</div>
+            <div class="emergency-step"><div class="emergency-step-num">5</div> 远离热源，维持湿度</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="manual-footer">
+        <div class="manual-footer-brand">ODDITY STORE<br><span style="font:400 11px/1 var(--mono);color:var(--muted);letter-spacing:0.1em;">不现实商店</span></div>
+        <div class="manual-footer-meta">
+          木材保养指南 · 大文豪系列<br>
+          DOC-WOOD-CN-001 · Rev. 1.0<br>
+          © 2025 不现实商店 版权所有
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+  const toggle = document.querySelector('.mobile-toggle');
+  const shell = document.querySelector('.shell');
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('is-open');
+      shell.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded', toggle.classList.contains('is-open'));
+    });
+  }
+</script>
 </body>
 </html>

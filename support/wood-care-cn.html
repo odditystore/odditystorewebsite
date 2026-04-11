@@ -52,12 +52,14 @@
     /* Page layout */
     .page-content{padding:0 0 80px;}
 
-    /* Hero */
-    .wood-hero{padding:56px 60px 48px;border-bottom:1px solid var(--line-strong);position:relative;overflow:hidden;}
-    .wood-hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(139,105,20,0.03) 40px,rgba(139,105,20,0.03) 41px);pointer-events:none;}
-    .doc-label{font:11px/1 var(--mono);letter-spacing:0.22em;text-transform:uppercase;color:var(--wood);margin-bottom:14px;}
-    .page-title{font:700 40px/1.1 var(--serif);letter-spacing:0.04em;margin-bottom:10px;}
-    .page-subtitle{font:16px/1.7 var(--mono);color:var(--muted);max-width:640px;}
+    /* Manual-style header (unified with GW-75/100 manuals) */
+    .manual-header{padding:52px 60px 40px;border-bottom:2px solid var(--ink);margin-bottom:0;}
+    .manual-doc-label{font:11px/1 var(--mono);letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+    .manual-title{font:700 38px/1.1 var(--serif);letter-spacing:0.04em;margin-bottom:8px;}
+    .manual-subtitle{font:18px/1.4 var(--mono);color:var(--muted);letter-spacing:0.06em;}
+    .manual-meta{display:flex;gap:36px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line);flex-wrap:wrap;}
+    .manual-meta-item{font:11px/1.5 var(--mono);color:var(--muted);letter-spacing:0.1em;}
+    .manual-meta-item strong{display:block;color:var(--ink);font-weight:700;}
 
     /* Content sections */
     .section{padding:52px 60px;border-bottom:1px solid var(--line);}
@@ -212,12 +214,18 @@
 
   <div class="page-content">
 
-    <!-- Hero -->
-    <div class="wood-hero">
-      <div class="doc-label">大文豪系列 · 保养指南</div>
-      <h1 class="page-title">木材保养指南</h1>
-      <p class="page-subtitle">大文豪键盘采用北美黑胡桃实木打造——这是一种有生命的材料，有它自己的性格。遵循这份指南，让它与你的写作岁月一同优雅地老去。</p>
-    </div>
+    <!-- Header -->
+    <header class="manual-header">
+      <div class="manual-doc-label">保养指南 · DOC-WOOD-CN-001</div>
+      <h1 class="manual-title">木材保养指南</h1>
+      <p class="manual-subtitle">大文豪系列 · 北美黑胡桃实木</p>
+      <div class="manual-meta">
+        <div class="manual-meta-item"><strong>适用型号</strong>GW-75 / GW-100</div>
+        <div class="manual-meta-item"><strong>材质</strong>北美黑胡桃实木（FAS 级）</div>
+        <div class="manual-meta-item"><strong>工艺</strong>20 道严苛工序 · 7 次手工打磨</div>
+        <div class="manual-meta-item"><strong>版本</strong>Rev. 1.0 · 2025</div>
+      </div>
+    </header>
 
     <!-- 01 天然木材特征 -->
     <section class="section" id="characteristics">

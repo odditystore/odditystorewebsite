@@ -39,8 +39,8 @@
   <rect x="606" y="12" width="43" height="42" rx="3" ry="3" fill="#dedad4" stroke="#9e9a96" stroke-width="1.2"/>
   <text x="610" y="20" font-size="5.5" fill="#c0392b" font-family="Courier Prime,monospace" font-weight="700">desk</text>
   <text x="627" y="48" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">F12</text>
-  <rect x="649" y="12" width="53" height="42" rx="3" ry="3" fill="#cdc8c2" stroke="#6b6560" stroke-width="1.2"/>
-  <text x="675" y="36" font-size="7.5" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Del</text>
+  <rect x="659" y="12" width="43" height="42" rx="3" ry="3" fill="#cdc8c2" stroke="#6b6560" stroke-width="1.2"/>
+  <text x="680" y="36" font-size="7" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="700" text-anchor="middle">Del</text>
   <rect x="12" y="58" width="43" height="42" rx="3" ry="3" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>
   <text x="33" y="82" font-size="8" fill="#1a1a1a" font-family="Courier Prime,monospace" font-weight="normal" text-anchor="middle">`</text>
   <rect x="58" y="58" width="43" height="42" rx="3" ry="3" fill="#f0ede8" stroke="#9e9a96" stroke-width="1.2"/>

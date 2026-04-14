@@ -8,6 +8,7 @@ create_english_pages.py
 
 # Build tools
 .claude/
+.wrangler/
 
 # Large source assets (not for deployment)
 网站内容整理/

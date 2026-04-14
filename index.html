@@ -1999,6 +1999,16 @@
     .blogger-card-v2:hover .blogger-cover-v2 img {
       transform: scale(1.05);
     }
+    .blogger-cover-v2 video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease;
+    }
+    .blogger-card-v2:hover .blogger-cover-v2 video {
+      transform: scale(1.05);
+    }
     .blogger-hover-overlay {
       position: absolute;
       inset: 0;
@@ -2157,7 +2167,7 @@
 
     @media (max-width: 1180px) {
       .review-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .blogger-grid-v2 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .blogger-grid-v2 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .featured-scroll-track { grid-auto-columns: calc((100% - 18px) / 2); }
     }
 
@@ -2862,7 +2872,9 @@
           <div class="blogger-grid-v2">
             <article class="blogger-card-v2">
               <div class="blogger-cover-v2">
-                <img src="./assets/community/blogger-01.jpg" alt="Magic Daily Keycaps unboxing">
+                <video src="./assets/community/video-covers/budapest.mp4"
+                       poster="./assets/community/video-covers/budapest.jpg"
+                       muted loop playsinline preload="none"></video>
                 <span class="blogger-platform">
                   <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#FF2442"/><path d="M15.5 8.5l-1.5 7h-4l-1.5-7h2.5l.5 4 .5-4h3z" fill="#fff"/></svg>
                   Xiaohongshu
@@ -2870,17 +2882,19 @@
                 <div class="blogger-hover-overlay">
                   <span class="blogger-play-lg">&#9654;</span>
                 </div>
-                <a href="./products/magic-daily.html" class="blogger-buy-btn">Shop This Look &rarr;</a>
+                <a href="./keycaps/" class="blogger-buy-btn">Shop This Look &rarr;</a>
               </div>
               <div class="blogger-info">
-                <span class="blogger-name">@UnboxReviewer</span>
-                <span class="blogger-product">Magic Daily Keycaps</span>
+                <span class="blogger-name">@grand.hotel.keys</span>
+                <span class="blogger-product">Budapest Keycaps</span>
               </div>
             </article>
 
             <article class="blogger-card-v2">
               <div class="blogger-cover-v2">
-                <img src="./assets/keyboards/great-writer-100/photo-01.jpg" alt="Great Writer 100 Keyboard">
+                <video src="./assets/community/video-covers/mystery-queen.mp4"
+                       poster="./assets/community/video-covers/mystery-queen.jpg"
+                       muted loop playsinline preload="none"></video>
                 <span class="blogger-platform">
                   <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#FF2442"/><path d="M15.5 8.5l-1.5 7h-4l-1.5-7h2.5l.5 4 .5-4h3z" fill="#fff"/></svg>
                   Xiaohongshu
@@ -2888,17 +2902,19 @@
                 <div class="blogger-hover-overlay">
                   <span class="blogger-play-lg">&#9654;</span>
                 </div>
-                <a href="./products/great-writer-100.html" class="blogger-buy-btn">Shop This Look &rarr;</a>
+                <a href="./keycaps/" class="blogger-buy-btn">Shop This Look &rarr;</a>
               </div>
               <div class="blogger-info">
-                <span class="blogger-name">@DeskSetupPro</span>
-                <span class="blogger-product">Great Writer 100 Keyboard</span>
+                <span class="blogger-name">@mystery.typewriter</span>
+                <span class="blogger-product">Mystery Queen Keycaps</span>
               </div>
             </article>
 
             <article class="blogger-card-v2">
               <div class="blogger-cover-v2">
-                <img src="./assets/cups/van-gogh-bedroom/photo-dsc03416.jpg" alt="Van Gogh Bedroom Cup">
+                <video src="./assets/community/video-covers/dickinson.mp4"
+                       poster="./assets/community/video-covers/dickinson.jpg"
+                       muted loop playsinline preload="none"></video>
                 <span class="blogger-platform">
                   <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#FF2442"/><path d="M15.5 8.5l-1.5 7h-4l-1.5-7h2.5l.5 4 .5-4h3z" fill="#fff"/></svg>
                   Xiaohongshu
@@ -2906,17 +2922,19 @@
                 <div class="blogger-hover-overlay">
                   <span class="blogger-play-lg">&#9654;</span>
                 </div>
-                <a href="./products/cup-van-gogh-bedroom.html" class="blogger-buy-btn">Shop This Look &rarr;</a>
+                <a href="./keycaps/" class="blogger-buy-btn">Shop This Look &rarr;</a>
               </div>
               <div class="blogger-info">
-                <span class="blogger-name">@CupCollector</span>
-                <span class="blogger-product">Van Gogh Bedroom Cup</span>
+                <span class="blogger-name">@belle.of.amherst</span>
+                <span class="blogger-product">Dickinson Keycaps</span>
               </div>
             </article>
 
             <article class="blogger-card-v2">
               <div class="blogger-cover-v2">
-                <img src="./assets/keycaps/magic-daily/photo-dsc06109.jpg" alt="Magic Daily Keycaps detail">
+                <video src="./assets/community/video-covers/baker-street-221b.mp4"
+                       poster="./assets/community/video-covers/baker-street-221b.jpg"
+                       muted loop playsinline preload="none"></video>
                 <span class="blogger-platform">
                   <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#FF2442"/><path d="M15.5 8.5l-1.5 7h-4l-1.5-7h2.5l.5 4 .5-4h3z" fill="#fff"/></svg>
                   Xiaohongshu
@@ -2924,11 +2942,65 @@
                 <div class="blogger-hover-overlay">
                   <span class="blogger-play-lg">&#9654;</span>
                 </div>
-                <a href="./products/magic-daily.html" class="blogger-buy-btn">Shop This Look &rarr;</a>
+                <a href="./keycaps/" class="blogger-buy-btn">Shop This Look &rarr;</a>
               </div>
               <div class="blogger-info">
-                <span class="blogger-name">@DesignFinds</span>
-                <span class="blogger-product">Magic Daily Keycaps</span>
+                <span class="blogger-name">@221b.desk</span>
+                <span class="blogger-product">221B Baker Street Keycaps</span>
+              </div>
+            </article>
+
+            <article class="blogger-card-v2">
+              <div class="blogger-cover-v2">
+                <img src="./assets/community/video-covers/magic-potions.jpg" alt="Magic Potions Keycaps">
+                <span class="blogger-platform">
+                  <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#FF2442"/><path d="M15.5 8.5l-1.5 7h-4l-1.5-7h2.5l.5 4 .5-4h3z" fill="#fff"/></svg>
+                  Xiaohongshu
+                </span>
+                <div class="blogger-hover-overlay">
+                  <span class="blogger-play-lg">&#9654;</span>
+                </div>
+                <a href="./keycaps/" class="blogger-buy-btn">Shop This Look &rarr;</a>
+              </div>
+              <div class="blogger-info">
+                <span class="blogger-name">@brew.and.type</span>
+                <span class="blogger-product">Magic Potions Keycaps</span>
+              </div>
+            </article>
+
+            <article class="blogger-card-v2">
+              <div class="blogger-cover-v2">
+                <img src="./assets/community/video-covers/gatsby.jpg" alt="Gatsby Desk Mat">
+                <span class="blogger-platform">
+                  <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#FF2442"/><path d="M15.5 8.5l-1.5 7h-4l-1.5-7h2.5l.5 4 .5-4h3z" fill="#fff"/></svg>
+                  Xiaohongshu
+                </span>
+                <div class="blogger-hover-overlay">
+                  <span class="blogger-play-lg">&#9654;</span>
+                </div>
+                <a href="./deskmats/" class="blogger-buy-btn">Shop This Look &rarr;</a>
+              </div>
+              <div class="blogger-info">
+                <span class="blogger-name">@gatsby.deskscape</span>
+                <span class="blogger-product">Gatsby Desk Mat</span>
+              </div>
+            </article>
+
+            <article class="blogger-card-v2">
+              <div class="blogger-cover-v2">
+                <img src="./assets/community/video-covers/herbology.jpg" alt="Herbology Keycaps">
+                <span class="blogger-platform">
+                  <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#FF2442"/><path d="M15.5 8.5l-1.5 7h-4l-1.5-7h2.5l.5 4 .5-4h3z" fill="#fff"/></svg>
+                  Xiaohongshu
+                </span>
+                <div class="blogger-hover-overlay">
+                  <span class="blogger-play-lg">&#9654;</span>
+                </div>
+                <a href="./keycaps/" class="blogger-buy-btn">Shop This Look &rarr;</a>
+              </div>
+              <div class="blogger-info">
+                <span class="blogger-name">@botanical.keys</span>
+                <span class="blogger-product">Herbology Keycaps</span>
               </div>
             </article>
           </div>
@@ -3122,6 +3194,14 @@
 
     revealNodes.forEach((node) => observer.observe(node));
     startAutoplay();
+
+    // Video hover autoplay for blogger cards
+    document.querySelectorAll('.blogger-card-v2').forEach(function(card) {
+      var video = card.querySelector('video');
+      if (!video) return;
+      card.addEventListener('mouseenter', function() { video.play(); });
+      card.addEventListener('mouseleave', function() { video.pause(); video.currentTime = 0; });
+    });
   </script>
 </body>
 </html>

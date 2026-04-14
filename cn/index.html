@@ -1964,10 +1964,20 @@
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-flow: column;
+      grid-auto-columns: calc((100% - 48px) / 4);
       gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      overscroll-behavior-x: contain;
     }
+    .blogger-grid-v2::-webkit-scrollbar { display: none; }
     .blogger-card-v2 {
+      min-width: 0;
+      scroll-snap-align: start;
       display: flex;
       flex-direction: column;
       border: 1px solid var(--line);
@@ -2020,6 +2030,9 @@
     }
     .blogger-card-v2:hover .blogger-hover-overlay {
       opacity: 1;
+    }
+    .blogger-card-v2:has(video):hover .blogger-hover-overlay {
+      opacity: 0;
     }
     .blogger-play-lg {
       width: 56px;
@@ -2164,19 +2177,17 @@
 
     @media (max-width: 1180px) {
       .review-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .blogger-grid-v2 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .featured-scroll-track { grid-auto-columns: calc((100% - 18px) / 2); }
     }
 
     @media (max-width: 1040px) {
       .section-hd-right { align-items: flex-start; }
-      .blogger-grid-v2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .featured-scroll-track { grid-auto-columns: clamp(240px, 78vw, 320px); }
     }
 
     @media (max-width: 760px) {
       .review-grid { grid-template-columns: 1fr; }
-      .blogger-grid-v2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .blogger-grid-v2 { grid-auto-columns: clamp(220px, 74vw, 300px); gap: 10px; }
       .social-follow-buttons { flex-wrap: wrap; }
     }
   </style>
@@ -2866,7 +2877,8 @@
             </div>
           </div>
 
-          <div class="blogger-grid-v2">
+          <div class="featured-scroll-shell">
+          <div class="blogger-grid-v2" id="blogger-track" data-collection-track>
             <article class="blogger-card-v2">
               <div class="blogger-cover-v2">
                 <video src="../assets/community/video-covers/budapest.mp4"
@@ -3000,6 +3012,11 @@
                 <span class="blogger-product">草药学键帽</span>
               </div>
             </article>
+          </div>
+          <div class="collection-controls" aria-label="博主展示翻页控制">
+            <button class="collection-nav is-prev" type="button" data-collection-nav="prev" data-target="blogger-track" aria-label="上一组"></button>
+            <button class="collection-nav" type="button" data-collection-nav="next" data-target="blogger-track" aria-label="下一组"></button>
+          </div>
           </div>
         </div>
       </section>

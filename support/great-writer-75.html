@@ -49,7 +49,7 @@
 
     /* ── Shell ── */
     .shell {
-      width: min(1200px, calc(100vw - 28px));
+      width: min(1520px, calc(100vw - 28px));
       margin: 14px auto 60px;
       background:
         linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0)),
@@ -58,6 +58,19 @@
       box-shadow: var(--shadow);
       overflow: hidden;
     }
+    .notice {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      padding: 12px 26px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.18);
+      font: 12px/1.5 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .notice strong { font-weight: 400; text-transform: none; letter-spacing: 0.04em; margin-left: 8px; }
+    .notice-meta { display: flex; gap: 14px; flex-wrap: wrap; color: var(--muted); align-items: center; }
 
     /* ── Manual Layout ── */
     .manual-wrap {
@@ -542,8 +555,8 @@
 
   <!-- Notice Bar -->
   <div class="notice">
-    <span>Seriously Impractical — Take the ideas people dismiss too quickly, and build them seriously</span>
-    <a href="./great-writer-75-cn.html" style="color:var(--muted);">中文版 →</a>
+    <div>Seriously Impractical <strong>Take the ideas people dismiss too quickly, and build them seriously.</strong></div>
+    <div class="notice-meta"><a href="./great-writer-75-cn.html" style="color:var(--muted)">中文版 →</a></div>
   </div>
 
   <!-- Site Header -->

@@ -20,7 +20,20 @@
     a{color:inherit;text-decoration:none;}
 
     /* Shell */
-    .shell{width:min(1200px,calc(100vw - 28px));margin:14px auto 60px;background:linear-gradient(180deg,rgba(255,255,255,0.24),rgba(255,255,255,0)),var(--paper-soft);border:1px solid var(--line-strong);box-shadow:var(--shadow);overflow:hidden;}
+    .shell{width:min(1520px,calc(100vw - 28px));margin:14px auto 60px;background:linear-gradient(180deg,rgba(255,255,255,0.24),rgba(255,255,255,0)),var(--paper-soft);border:1px solid var(--line-strong);box-shadow:var(--shadow);overflow:hidden;}
+    .notice {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      padding: 12px 26px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.18);
+      font: 12px/1.5 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .notice strong { font-weight: 400; text-transform: none; letter-spacing: 0.04em; margin-left: 8px; }
+    .notice-meta { display: flex; gap: 14px; flex-wrap: wrap; color: var(--muted); align-items: center; }
 
     /* Manual Layout */
     .manual-wrap{display:grid;grid-template-columns:220px 1fr;min-height:80vh;}
@@ -197,12 +210,11 @@
 </head>
 <body>
 
-<div style="width:min(1200px,calc(100vw - 28px));margin:14px auto 0;background:rgba(255,255,255,0.18);border:1px solid rgba(26,26,26,0.3);border-bottom:none;padding:9px 26px;display:flex;justify-content:space-between;font:11px/1 'Courier Prime',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#6b6560;">
-  <span>认真不现实 — 把那些被轻易否定的想法，认认真真地做一次</span>
-  <span><a href="./wood-care.html" style="color:#6b6560;">English →</a></span>
-</div>
-
 <div class="shell">
+  <div class="notice">
+    <div>认真不现实 <strong>把那些被轻易否定的想法，认认真真地做一次</strong></div>
+    <div class="notice-meta"><a href="./wood-care.html" style="color:var(--muted)">English →</a></div>
+  </div>
 
   <!-- Site Header -->
   <header class="site-header">

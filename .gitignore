@@ -29,3 +29,4 @@ __pycache__/
 # Root-level markdown (duplicates of docs/)
 /oddity-*.md
 video/
+/.cloudflare-token

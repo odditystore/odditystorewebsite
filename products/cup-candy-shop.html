@@ -1214,7 +1214,52 @@
           </div>
         </div>
 
-        <button class="btn-cart">Add to Cart</button>
+        <div id='product-component-cup-candy-shop'></div>
+        <script type="text/javascript">
+        /*<![CDATA[*/
+        (function () {
+          var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+          if (window.ShopifyBuy) { if (window.ShopifyBuy.UI) { ShopifyBuyInit(); } else { loadScript(); } } else { loadScript(); }
+          function loadScript() {
+            var script = document.createElement('script');
+            script.async = true; script.src = scriptURL;
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+            script.onload = ShopifyBuyInit;
+          }
+          function ShopifyBuyInit() {
+            var client = ShopifyBuy.buildClient({ domain: 'cgktmr-6j.myshopify.com', storefrontAccessToken: '82abeb3655159ec1eb7c16d8c2214d8f' });
+            ShopifyBuy.UI.onReady(client).then(function (ui) {
+              ui.createComponent('product', {
+                id: '7949601603632',
+                node: document.getElementById('product-component-cup-candy-shop'),
+                moneyFormat: '%24%7B%7Bamount%7D%7D',
+                options: {
+                  "product": {
+                    "contents": { "img": false, "title": false, "price": false },
+                    "text": { "button": "Add to Cart" },
+                    "styles": {
+                      "button": {
+                        "font-family": "'Special Elite', 'Courier Prime', monospace",
+                        "font-size": "13px",
+                        "letter-spacing": "0.14em",
+                        "text-transform": "uppercase",
+                        "padding": "14px 32px",
+                        "background-color": "#1a1a1a",
+                        "color": "#e8e4df",
+                        ":hover": { "background-color": "#c0392b" },
+                        ":focus": { "background-color": "#c0392b" },
+                        "border-radius": "0px"
+                      }
+                    }
+                  },
+                  "cart": { "text": { "total": "Subtotal", "button": "Checkout" } }
+                }
+              });
+            });
+          }
+        })();
+        /*]]>*/
+        </script>
         <div class="shipping-note">
           Ships within 3-5 business days | Domestic and international shipping
         </div>

@@ -6,8 +6,10 @@ _*.py
 _*.json
 create_english_pages.py
 
-# Build tools
-.claude/
+# Build tools (keep .claude/skills/ for AZ content review skill)
+.claude/*
+!.claude/skills
+!.claude/skills/**
 
 # Large source assets (not for deployment)
 网站内容整理/
